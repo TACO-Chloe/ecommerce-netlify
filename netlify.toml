@@ -15,6 +15,6 @@
   # use Netlify Build settings to set it as GITHUB_TOKEN
   package = "netlify-plugin-github-dispatch"
   [plugins.inputs]
-    owner = "bahmutov"
+    owner = "TACO-Chloe"
     repo = "ecommerce-netlify"
     workflow = ".github/workflows/e2e.yml"
