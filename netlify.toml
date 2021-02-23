@@ -1,2 +1,20 @@
 [build]
+  command = "yarn generate"
   functions = "functions"
+  publish = "dist"
+[build.environment]
+  # skip installing Cypress during the build step
+  # because we will run Cypress tests in the GitHub workflow
+  CYPRESS_INSTALL_BINARY = "0"
+
+[[plugins]]
+  # make sure to set personal GitHub token
+  # to be able to create a new workflow with "repo" permissions
+  # https://github.com/settings/tokens/new
+  # ⚠️ keep the token secret!
+  # use Netlify Build settings to set it as GITHUB_TOKEN
+  package = "netlify-plugin-github-dispatch"
+  [plugins.inputs]
+    owner = "bahmutov"
+    repo = "ecommerce-netlify"
+    workflow = ".github/workflows/e2e.yml"

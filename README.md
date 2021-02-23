@@ -1,30 +1,21 @@
-# 🛍 Ecommerce Store with Netlify Functions and Stripe
+# 🛍 A Tested E-Commerce Site with Stripe payment
+> Netlify deploy -> GitHub Actions running Cypress E2E tests
 
-> A serverless function to process stripe payments with Nuxt, Netlify, and Lambda
+[![Netlify Status](https://api.netlify.com/api/v1/badges/878725d8-fb6c-44bd-8842-18266ec5c18a/deploy-status)](https://app.netlify.com/sites/tested-ecommerce-store/deploys) [![ecommerce-netlify](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/nz8crj/main&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/nz8crj/runs)
 
-Demo site is here: [E-Commerce Store](https://ecommerce-netlify.netlify.com/)
+![Cypress E2E test](./images/purchase-test.gif)
 
-![screenshot of site](https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/ecommerce-screenshot.jpg "E-Commerce Netlify Site")
+Demo site is here: [E-Commerce Store](https://tested-ecommerce-store.netlify.app/)
 
-There are two articles explaining how this site is set up:
-* Explanation of Netlify Functions and Stripe: [Let's Build a JAMstack E-Commerce Store with Netlify Functions](https://css-tricks.com/lets-build-a-jamstack-e-commerce-store-with-netlify-functions/)
-* Explanation of dynamic routing in Nuxt for the individual product pages: [Creating Dynamic Routes in Nuxt Application](https://css-tricks.com/creating-dynamic-routes-in-a-nuxt-application/)
+Forked from [sdras/ecommerce-netlify](https://github.com/sdras/ecommerce-netlify) that shows how to build an ecommerce site using Nuxt, Netlify, Stripe, and Netlify Functions.
 
-## Build Setup
+Deploy and testing setup described in the blog post [Deploy E-Commerce Site to Netlify and Test Using GitHub Actions](https://glebbahmutov.com/blog/tested-ecommerce/)
 
-``` bash
-# install dependencies
-$ yarn install or npm run install
+## Local
 
-# serve with hot reload at localhost:3000
-$ yarn dev or npm run dev
+Use Yarn to install NPM dependencies
 
-# build for production and launch server
-$ yarn build or npm run build
-$ yarn start or npm run start
-
-# generate static project
-$ yarn generate or npm run generate
+```shell
+yarn
+yarn dev
 ```
-
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
