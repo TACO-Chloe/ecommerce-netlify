@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import AppTextlockup from "~/components/AppTextlockup.vue";
+//import AppTextlockup from "~/components/AppTextlockup.vue";
 import AppSalesBoxes from "~/components/AppSalesBoxes.vue";
 import AppFeaturedProducts from "~/components/AppFeaturedProducts.vue";
 
