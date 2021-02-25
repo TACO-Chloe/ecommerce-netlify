@@ -13,11 +13,13 @@
 <script>
 import AppFooter from "~/components/AppFooter.vue";
 import AppNav from "~/components/AppNav.vue";
+import AppSidebar from "~/components/AppSidebar.vue";
 
 export default {
   components: {
     AppFooter,
-    AppNav
+    AppNav,
+    AppSidebar
   }
 };
 </script>
