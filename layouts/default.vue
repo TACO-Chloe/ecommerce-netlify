@@ -1,10 +1,11 @@
 <template>
   <div>
-    <app-nav />
+
     <main>
       <nuxt />
     </main>
     <app-footer />
+    <app-nav />
   </div>
 </template>
 
