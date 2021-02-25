@@ -1,5 +1,6 @@
 <template>
   <div>
+    <AppSidebar />
     <app-nav />
     <main>
       <nuxt />
