@@ -10,12 +10,12 @@
 
 <script>
 //import AppFooter from "~/components/AppFooter.vue";
-import AppNav from "~/components/AppNav.vue";
+//import AppNav from "~/components/AppNav.vue";
 
 export default {
   components: {
     //AppFooter,
-    AppNav
+    //AppNav
   }
 };
 </script>
