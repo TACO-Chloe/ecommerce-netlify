@@ -1,6 +1,6 @@
 <template>
   <div>
-    //<AppSidebar />
+    <!-- <AppSidebar /> -->
     <app-nav />
     <main>
       <nuxt />
