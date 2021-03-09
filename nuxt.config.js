@@ -6,7 +6,8 @@ let dynamicRoutes = () => {
 }
 
 export default {
-  mode: 'universal',
+  // mode: 'universal',
+  ssr: false,
   /*
    ** Headers of the page
    */
@@ -46,7 +47,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [`~/plugins/currency-filter.js`],
+  plugins: ['~/plugins/currency-filter.js',  '~/plugins/graphcms.js'],
   /*
    ** Nuxt.js modules
    */

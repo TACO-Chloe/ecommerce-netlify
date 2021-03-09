@@ -1,4 +1,5 @@
 <template>
+<div>
   <div>
     <app-textlockup />
     <app-sales-boxes />
@@ -13,6 +14,23 @@
     </app-textlockup>
     <app-featured-products />
   </div>
+  <div class="container mx-auto text-center">
+    <div class="pt-4">
+      <h2 class="text-xl">Nuxt with GraphCMS</h2>
+      <div class="flex justify-center -mx-4 my-4">
+        <router-link
+          v-for="product in products"
+          :to="{ name: 'product-slug', params: { slug: product.slug } }"
+          :key="product.slug"
+        >
+          <article class="border rounded-md p-6 mx-2">
+            <h1 class="fopnt-bold text-xl">{{ product.name }}</h1>
+          </article>
+        </router-link>
+      </div>
+    </div>
+  </div>
+</div>  
 </template>
 
 <script>
@@ -20,7 +38,23 @@ import AppTextlockup from "~/components/AppTextlockup.vue";
 import AppSalesBoxes from "~/components/AppSalesBoxes.vue";
 import AppFeaturedProducts from "~/components/AppFeaturedProducts.vue";
 
+import { gql } from 'graphql-request';
+
 export default {
+  async asyncData({ $graphcms }) {
+    const { products } = await $graphcms.request(
+      gql`
+        {
+          products {
+            name
+            slug
+          }
+        }
+      `
+    );
+
+    return { products };
+  },
   components: {
     AppTextlockup,
     AppSalesBoxes,
@@ -38,3 +72,4 @@ main {
   width: 75vw;
 }
 </style>
+
