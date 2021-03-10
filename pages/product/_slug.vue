@@ -20,23 +20,24 @@ import { gql } from 'graphql-request';
 
 export default {
   async asyncData({ $graphcms, params }) {
-    const { slug } = params;
+    const { id } = params;
 
     const { product } = await $graphcms.request(
       gql`
-        query GetProduct($slug: String) {
-          product(where: { slug: $slug }) {
+        query GetProduct($id: ID) {
+          product(where: { id: $id }) {
             name
-            description
+            description {markdown}
             price
           }
         }
       `,
       {
-        slug,
+        id,
       }
     );
-
+	console.log("params:"+JSON.stringify(params));
+	console.log("id:"+{ id });
     return { product };
   },
   head() {
