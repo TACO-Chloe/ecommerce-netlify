@@ -20,8 +20,8 @@
       <div class="flex justify-center -mx-4 my-4">
         <router-link
           v-for="product in products"
-          :to="{ name: 'product-slug', params: { slug: product.slug } }"
-          :key="product.slug"
+          :to="{ name: 'product-slug', params: { id: product.id } }"
+          :key="product.id"
         >
           <article class="border rounded-md p-6 mx-2">
             <h1 class="fopnt-bold text-xl">{{ product.name }}</h1>
@@ -47,7 +47,7 @@ export default {
         {
           products {
             name
-            slug
+            id
           }
         }
       `
