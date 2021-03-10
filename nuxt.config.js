@@ -7,6 +7,7 @@ let dynamicRoutes = () => {
 
 export default {
   // mode: 'universal',
+  target: 'static',
   ssr: false,
   /*
    ** Headers of the page
