@@ -5,12 +5,14 @@ const { GraphQLClient } = require('graphql-request');
 //console.log("process.env.GRAPHCMS_ENDPOINT:"+process.env.GRAPHCMS_ENDPOINT);
 
 //console.log("process.env.GRAPHCMS_TOKEN:"+process.env.GRAPHCMS_TOKEN);
+const endpoint = process.env.GRAPHCMS_ENDPOINT
+const token = process.env.GRAPHCMS_TOKEN
 
 
 exports.handler = async (event, context) => {
   try {	
-	  const endpoint = process.env.GRAPHCMS_ENDPOINT
-	  const token = process.env.GRAPHCMS_TOKEN
+	  //const endpoint = process.env.GRAPHCMS_ENDPOINT
+	  //const token = process.env.GRAPHCMS_TOKEN
 
 	  const graphQLClient = new GraphQLClient(endpoint, {
 		headers: {
