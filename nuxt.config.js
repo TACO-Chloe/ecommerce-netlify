@@ -52,7 +52,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: ['@nuxtjs/pwa'],
   /*
    ** Build configuration
    */
@@ -61,5 +61,33 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  pwa: {
+	  icon: {
+		// Icon options
+	  },
+	  manifest: {
+		lang: 'en',
+		name: "adsf",
+		short_name: "adsf",
+	  },
+	  workbox: {
+		// Workbox options
+		runtimeCaching: [
+		 {
+		   urlPattern: 'https://my-cdn.com/posts/.*',
+		   strategyOptions: {
+			 cacheName: 'our-cache',
+		   },
+		   strategyPlugins: [{
+			  use: 'Expiration',
+			  config: {
+				maxEntries: 10,
+				maxAgeSeconds: 300
+			  }
+			}]
+		 }
+	    ]
+	  }
   }
 }
