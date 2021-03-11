@@ -12,7 +12,7 @@ async function main() {
     },
   })
 
-  const query = gql`
+  const query = GraphQLClient`
     {
       {
           products {
