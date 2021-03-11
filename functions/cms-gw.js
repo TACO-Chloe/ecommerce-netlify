@@ -1,6 +1,6 @@
-import { GraphQLClient, gql } from 'graphql-request'
-
 require("dotenv").config();
+
+const { GraphQLClient } = require('graphql-request');
 
 async function main() {
   const endpoint = process.env.GRAPHCMS_ENDPOINT
