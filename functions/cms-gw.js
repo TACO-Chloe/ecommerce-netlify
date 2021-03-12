@@ -13,7 +13,7 @@ global.Headers = global.Headers || Headers;
 
 exports.handler = async (event, context) => {
 
-	console.log("EVENT: \n" + JSON.stringify(event, null, 2))
+	// console.log("EVENT: \n" + JSON.stringify(event, null, 2))
 
 	const endpoint = process.env.GRAPHCMS_ENDPOINT;
 	const token = process.env.GRAPHCMS_TOKEN;
@@ -23,7 +23,9 @@ exports.handler = async (event, context) => {
 
 	const graphQLClient = new GraphQLClient(endpoint, { headers });
 	
-	const strGql = require('./graphql/queries/products.gql')
+	const strGql = require('./graphql/queries/products.gql');
+	console.log("strGql:"+strGql);
+	
 	const query = gql`
 		${strGql}
 	`
@@ -36,9 +38,10 @@ exports.handler = async (event, context) => {
 // 		  }
 // 	  }
 // 	`
-	
+	console.log("info:1");
 	const data = await graphQLClient.request(query);
 	console.log(JSON.stringify(data, undefined, 2));
+	console.log("info:2");
 
 	return {
 	  statusCode: 200,
