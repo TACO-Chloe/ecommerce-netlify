@@ -2,6 +2,10 @@ require("dotenv").config();
 
 const { GraphQLClient, gql } = require('graphql-request');
 
+const { Headers } = require('cross-fetch');
+
+global.Headers = global.Headers || Headers;
+
 //console.log("process.env.GRAPHCMS_ENDPOINT:"+process.env.GRAPHCMS_ENDPOINT);
 
 //console.log("process.env.GRAPHCMS_TOKEN:"+process.env.GRAPHCMS_TOKEN);
@@ -14,8 +18,8 @@ exports.handler = async (event, context) => {
 	const endpoint = process.env.GRAPHCMS_ENDPOINT;
 	const token = process.env.GRAPHCMS_TOKEN;
 	console.log("token:"+token);
-	//const headers = { authorization: `Bearer ${token}` };
-	const headers = { authorization: 'Bearer 1234' };
+	const headers = { authorization: `Bearer ${token}` };
+	//const headers = { authorization: 'Bearer 1234' };
 	console.log("headers:"+headers);
 
 	const graphQLClient = new GraphQLClient(endpoint, { headers });
