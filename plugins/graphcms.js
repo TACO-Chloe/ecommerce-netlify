@@ -20,6 +20,13 @@ const graphcmsClient = new GraphQLClient(graphcmsEndpoint, { headers });
   // 'https://api-ap-northeast-1.graphcms.com/v2/ckm1b1lzcbj5801xu6yqlfh53/master'
 // );
 
+declare module '*.graphql' {
+    import {DocumentNode} from 'graphql';
+
+    const value: DocumentNode;
+    export default value;
+}
+
 export default (_, inject) => {
   inject('graphcms', graphcmsClient);
 };
