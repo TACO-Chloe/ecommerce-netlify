@@ -17,10 +17,9 @@ exports.handler = async (event, context) => {
 
 	const endpoint = process.env.GRAPHCMS_ENDPOINT;
 	const token = process.env.GRAPHCMS_TOKEN;
-	console.log("token:"+token);
+	// console.log("token:"+token);
 	const headers = { authorization: `Bearer ${token}` };
-	//const headers = { authorization: 'Bearer 1234' };
-	console.log("headers:"+headers);
+	//console.log("headers:"+headers);
 
 	const graphQLClient = new GraphQLClient(endpoint, { headers });
 
@@ -34,12 +33,10 @@ exports.handler = async (event, context) => {
 	`
 	
 	const data = await graphQLClient.request(query);
-	//console.log(JSON.stringify(data, undefined, 2));
+	console.log(JSON.stringify(data, undefined, 2));
 
 	return {
 	  statusCode: 200,
-	  //headers,
-	  body: 'test'
-	  //body: JSON.stringify(data, undefined, 2)
+	  body: JSON.stringify(data, undefined, 2)
 	};
 };
