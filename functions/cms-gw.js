@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const { GraphQLClient } = require('graphql-request');
+const { GraphQLClient, gql } = require('graphql-request');
 
 //console.log("process.env.GRAPHCMS_ENDPOINT:"+process.env.GRAPHCMS_ENDPOINT);
 
@@ -14,7 +14,7 @@ headers: {
 },
 });
 
-const query = GraphQLClient`
+const query = gql`
 {
   {
 	  products {
@@ -30,8 +30,8 @@ exports.handler = async (event, context) => {
 
   console.log("EVENT: \n" + JSON.stringify(event, null, 2))
 	
-  //const data = await graphQLClient.request(query);
-  //console.log(JSON.stringify(data, undefined, 2));
+  const data = await graphQLClient.request(query);
+  console.log(JSON.stringify(data, undefined, 2));
 
   return {
 	  statusCode: 200,
