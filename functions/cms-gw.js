@@ -13,7 +13,10 @@ exports.handler = async (event, context) => {
 
 	const endpoint = process.env.GRAPHCMS_ENDPOINT;
 	const token = process.env.GRAPHCMS_TOKEN;
-	const headers = { authorization: `Bearer ${token}` };
+	console.log("token:"+token);
+	//const headers = { authorization: `Bearer ${token}` };
+	const headers = { authorization: 'Bearer 1234' };
+	console.log("headers:"+headers);
 
 	const graphQLClient = new GraphQLClient(endpoint, { headers });
 
