@@ -38,20 +38,12 @@ import AppTextlockup from "~/components/AppTextlockup.vue";
 import AppSalesBoxes from "~/components/AppSalesBoxes.vue";
 import AppFeaturedProducts from "~/components/AppFeaturedProducts.vue";
 
-import { gql } from 'graphql-request';
+import axios from 'axios';
 
 export default {
   async asyncData({ $graphcms }) {
-    const { products } = await $graphcms.request(
-      gql`
-        {
-          products {
-            name
-            id
-          }
-        }
-      `
-    );
+    const { products } = await axios.get("https://admiring-hopper-bcb70e.netlify.app/.netlify/functions/cms-gw", { useCache: true });
+
 
     return { products };
   },
