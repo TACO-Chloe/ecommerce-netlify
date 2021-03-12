@@ -25,14 +25,12 @@ exports.handler = async (event, context) => {
 	const graphQLClient = new GraphQLClient(endpoint, { headers });
 
 	const query = gql`
-	{
 	  {
 		  products {
 			name
 			id
 		  }
 	  }
-	}
 	`
 	
 	const data = await graphQLClient.request(query);
