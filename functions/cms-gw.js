@@ -22,15 +22,20 @@ exports.handler = async (event, context) => {
 	//console.log("headers:"+headers);
 
 	const graphQLClient = new GraphQLClient(endpoint, { headers });
-
+	
+	const strGql = require('./graphql/queries/products.gql')
 	const query = gql`
-	  {
-		  products {
-			name
-			id
-		  }
-	  }
+		${strGql}
 	`
+
+// 	const query = gql`
+// 	  {
+// 		  products {
+// 			name
+// 			id
+// 		  }
+// 	  }
+// 	`
 	
 	const data = await graphQLClient.request(query);
 	console.log(JSON.stringify(data, undefined, 2));
