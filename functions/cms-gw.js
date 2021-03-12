@@ -31,12 +31,13 @@ exports.handler = async (event, context) => {
 	}
   `
 
-  const data = await graphQLClient.request(query);
-  console.log(JSON.stringify(data, undefined, 2));
+  //const data = await graphQLClient.request(query);
+  //console.log(JSON.stringify(data, undefined, 2));
 
   return {
 	  statusCode: 200,
 	  headers,
-	  body: JSON.stringify(data, undefined, 2)
+	  body: 'test'
+	  //body: JSON.stringify(data, undefined, 2)
   };
 };
