@@ -36,7 +36,7 @@ exports.handler = async (event, context) => {
 	`
 	
 	const data = await graphQLClient.request(query);
-	console.log(JSON.stringify(data, undefined, 2));
+	//console.log(JSON.stringify(data, undefined, 2));
 
 	return {
 	  statusCode: 200,
