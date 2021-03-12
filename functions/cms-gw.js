@@ -14,26 +14,22 @@ headers: {
 },
 });
 
+const query = GraphQLClient`
+{
+  {
+	  products {
+		name
+		id
+	  }
+  }
+}
+`
+const data = await graphQLClient.request(query);
+console.log(JSON.stringify(data, undefined, 2));
 
 exports.handler = async (event, context) => {
 
   console.log("EVENT: \n" + JSON.stringify(event, null, 2))
-
-
-
-//   const query = GraphQLClient`
-// 	{
-// 	  {
-// 		  products {
-// 			name
-// 			id
-// 		  }
-// 	  }
-// 	}
-//   `
-
-  //const data = await graphQLClient.request(query);
-  //console.log(JSON.stringify(data, undefined, 2));
 
   return {
 	  statusCode: 200,
