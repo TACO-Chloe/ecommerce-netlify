@@ -14,22 +14,22 @@ exports.handler = async (event, context) => {
   //const token = process.env.GRAPHCMS_TOKEN
   console.log("EVENT: \n" + JSON.stringify(event, null, 2))
 
-  const graphQLClient = new GraphQLClient(endpoint, {
-	headers: {
-	  authorization: `Bearer ${token}`,
-	},
-  });
+//   const graphQLClient = new GraphQLClient(endpoint, {
+// 	headers: {
+// 	  authorization: `Bearer ${token}`,
+// 	},
+//   });
 
-  const query = GraphQLClient`
-	{
-	  {
-		  products {
-			name
-			id
-		  }
-	  }
-	}
-  `
+//   const query = GraphQLClient`
+// 	{
+// 	  {
+// 		  products {
+// 			name
+// 			id
+// 		  }
+// 	  }
+// 	}
+//   `
 
   //const data = await graphQLClient.request(query);
   //console.log(JSON.stringify(data, undefined, 2));
