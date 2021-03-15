@@ -1,7 +1,7 @@
 //import gql from "graphql-tag";
 const { gql } = require('graphql-tag');
 
-exports.ProductList = gql`
+const ProductList = gql`
   query ProductList {
 	{
 	  products {
@@ -11,3 +11,7 @@ exports.ProductList = gql`
 	}
   }
 `;
+
+module.exports = {
+  ProductList
+}
