@@ -33,7 +33,7 @@ exports.handler = async (event, context) => {
 
 	const graphQLClient = new GraphQLClient(endpoint, { headers });
 	
-	const {ProductList} = require('./graphql/queries/queries.js');
+	const {ProductDetail} = require('./graphql/queries/queries.js');
 	console.log("ProductDetail:"+ ProductDetail);
 	
 	const query = ProductDetail
