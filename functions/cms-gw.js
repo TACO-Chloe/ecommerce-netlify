@@ -24,9 +24,9 @@ exports.handler = async (event, context) => {
 	const graphQLClient = new GraphQLClient(endpoint, { headers });
 	
 	const {ProductList} = require('./graphql/queries/products.js');
-	console.log("strGql:"+{ProductList});
+	console.log("strGql:"+ ProductList);
 	
-	const query = {ProductList}
+	const query = ProductList
 
 // 	const query = gql`
 // 	  {
