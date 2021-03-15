@@ -42,10 +42,10 @@ import axios from 'axios';
 
 export default {
   async asyncData({ $graphcms }) {
-    const { products } = await axios.get("https://admiring-hopper-bcb70e.netlify.app/.netlify/functions/cms-gw", { useCache: true });
+    const products = await axios.get("https://admiring-hopper-bcb70e.netlify.app/.netlify/functions/cms-gw", { useCache: true });
+	  console.log(JSON.stringify(products))
 
-
-    return { products };
+    return products.data;
   },
   components: {
     AppTextlockup,
