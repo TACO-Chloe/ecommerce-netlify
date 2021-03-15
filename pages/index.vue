@@ -43,8 +43,7 @@ import axios from 'axios';
 export default {
   async asyncData() {
     const products = await axios.get("https://admiring-hopper-bcb70e.netlify.app/.netlify/functions/cms-gw", { useCache: true });
-	  console.log(JSON.stringify(products))
-
+    console.log(JSON.stringify(products));
     return products.data;
   },
   components: {
