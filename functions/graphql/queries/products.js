@@ -1,4 +1,5 @@
-import gql from "graphql-tag";
+//import gql from "graphql-tag";
+const { gql } = require('graphql-tag');
 
 
 export const ProductList = gql`
