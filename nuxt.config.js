@@ -73,21 +73,21 @@ export default {
 	  },
 	  workbox: {
 		// Workbox options
-		runtimeCaching: [
-		 {
-		   urlPattern: 'https://my-cdn.com/posts/.*',
-		   strategyOptions: {
-			 cacheName: 'our-cache',
-		   },
-		   strategyPlugins: [{
-			  use: 'Expiration',
-			  config: {
-				maxEntries: 10,
-				maxAgeSeconds: 300
-			  }
-			}]
-		 }
-	    ]
+// 		runtimeCaching: [
+// 		 {
+// 		   urlPattern: 'https://my-cdn.com/posts/.*',
+// 		   strategyOptions: {
+// 			 cacheName: 'our-cache',
+// 		   },
+// 		   strategyPlugins: [{
+// 			  use: 'Expiration',
+// 			  config: {
+// 				maxEntries: 10,
+// 				maxAgeSeconds: 300
+// 			  }
+// 			}]
+// 		 }
+// 	    ]
 	  }
   }
 }
