@@ -24,10 +24,3 @@ const graphcmsClient = new GraphQLClient(graphcmsEndpoint, { headers });
 export default (_, inject) => {
   inject('graphcms', graphcmsClient);
 };
-
-declare module '*.graphql' {
-    import {DocumentNode} from 'graphql';
-
-    const value: DocumentNode;
-    export default value;
-}
