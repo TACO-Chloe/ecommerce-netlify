@@ -41,7 +41,7 @@ import AppFeaturedProducts from "~/components/AppFeaturedProducts.vue";
 import axios from 'axios';
 
 export default {
-  async asyncData({ $graphcms }) {
+  async asyncData() {
     const products = await axios.get("https://admiring-hopper-bcb70e.netlify.app/.netlify/functions/cms-gw", { useCache: true });
 	  console.log(JSON.stringify(products))
 
