@@ -2,7 +2,7 @@
 const { gql } = require('graphql-tag');
 
 
-export const ProductList = gql`
+exports ProductList = gql`
   query ProductList {
 	{
 	  products {
