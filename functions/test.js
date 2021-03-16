@@ -59,7 +59,7 @@ exports.handler = async (event, context) => {
 		console.log("info:1");
 		console.log("EVEN.BODY:" + event.body);
 		console.log({id});
-		console.log("ID:"+JSON.parse(id));
+		console.log("ID:"+id);
 		const data = await graphQLClient.request(query,id);
 		console.log(JSON.stringify(data, undefined, 2));
 		console.log("info:2");
