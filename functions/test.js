@@ -48,6 +48,7 @@ exports.handler = async (event, context) => {
 // 	`
 	const {id} = 'ckdu44mn40gxh010405uwgbtw'
 	console.log("info:1");
+	console.log(JSON.stringify({id}, undefined, 2));
 	const data = await graphQLClient.request(query,{id});
 	console.log(JSON.stringify(data, undefined, 2));
 	console.log("info:2");
