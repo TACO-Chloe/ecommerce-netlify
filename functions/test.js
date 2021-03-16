@@ -29,12 +29,12 @@ headers = {
 
 exports.handler = async (event, context) => {
 	
-	if (event.httpMethod === "OPTIONS") {
-		return {
-			statusCode: 200,
-			headers
-		};
-	}
+// 	if (event.httpMethod === "OPTIONS") {
+// 		return {
+// 			statusCode: 200,
+// 			headers
+// 		};
+// 	}
 
 	const postdata = JSON.parse(event.body);
 	console.log("Data:"+postdata);
@@ -70,7 +70,12 @@ exports.handler = async (event, context) => {
 		return {
 		  statusCode: 200,
 		  body: JSON.stringify(data, undefined, 2),
-		  headers
+		  headers:{
+			"Access-Control-Allow-Origin": "*",
+			"Access-Control-Allow-Headers": "Content-Type",
+			"Access-Control-Allow-Methods": "GET, POST, OPTION",
+			"Content-Type": "application/json; charset=utf-8"
+		  }
 		};
 	//};
 };
