@@ -23,7 +23,10 @@ global.Headers = global.Headers || Headers;
 
 exports.handler = async (event, context) => {
 
-	// console.log("EVENT: \n" + JSON.stringify(event, null, 2))
+	console.log("EVENT: \n" + JSON.stringify(event, null, 2))
+	console.log("CONTEXT: \n" + JSON.stringify(context, null, 2))
+	console.log("HTTP-METHOD: \n" + JSON.stringify(event.httpMethod, null, 2))
+	
 
 	const endpoint = process.env.GRAPHCMS_ENDPOINT;
 	const token = process.env.GRAPHCMS_TOKEN;
@@ -38,14 +41,6 @@ exports.handler = async (event, context) => {
 	
 	const query = ProductDetail
 
-// 	const query = gql`
-// 	  {
-// 		  products {
-// 			name
-// 			id
-// 		  }
-// 	  }
-// 	`
 	const {id} = {'id':'ckdu44mn40gxh010405uwgbtw'}
 	console.log("info:1");
 	console.log(JSON.stringify({id}, undefined, 2));
@@ -60,7 +55,7 @@ exports.handler = async (event, context) => {
         	"Access-Control-Allow-Origin": "*",
         	"Access-Control-Allow-Headers": "Content-Type",
         	"Access-Control-Allow-Methods": "GET, POST, OPTION",
-		      "Content-Type": "application/json; charset=utf-8"
+		"Content-Type": "application/json; charset=utf-8"
       	  }
 	};
 };
