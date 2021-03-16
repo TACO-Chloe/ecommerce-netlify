@@ -20,7 +20,7 @@ global.Headers = global.Headers || Headers;
 
 //console.log("process.env.GRAPHCMS_TOKEN:"+process.env.GRAPHCMS_TOKEN);
 
-const headers = {
+headers = {
 	"Access-Control-Allow-Origin": "*",
 	"Access-Control-Allow-Headers": "Content-Type",
 	"Access-Control-Allow-Methods": "GET, POST, OPTION",
