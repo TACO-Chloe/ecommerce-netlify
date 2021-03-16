@@ -16,29 +16,22 @@
 </template>
 
 <script>
-import { gql } from 'graphql-request';
+// import { gql } from 'graphql-request';
+import axios from 'axios';
 
 export default {
-  async asyncData({ $graphcms, params }) {
-    const { id } = params;
+  async asyncData({params}) {
+  
+    const { slug } = params;
+    //const products = await axios.post("https://admiring-hopper-bcb70e.netlify.app/.netlify/functions/test", {'id':'ckdu44mn40gxh010405uwgbtw'}, { useCache: true });
+	const products = await axios.post("https://admiring-hopper-bcb70e.netlify.app/.netlify/functions/test", {'id':slug}, { useCache: true });
+	console.log(products)
 
-    const { product } = await $graphcms.request(
-      gql`
-        query GetProduct($id: ID) {
-          product(where: { id: $id }) {
-            name
-            description {markdown}
-            price
-          }
-        }
-      `,
-      {
-        id,
-      }
-    );
-	console.log("params:"+JSON.stringify(params));
-	console.log("id:"+{ id });
-    return { product };
+
+	console.log("params:"+ JSON.stringify(params));
+	console.log("id:"+ slug );
+	//console.log("products:"+ JSON.stringify(products));
+    return products.data;
   },
   head() {
     return {
