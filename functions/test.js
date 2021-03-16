@@ -36,8 +36,8 @@ exports.handler = async (event, context) => {
 		};
 	}
 
-	const data = JSON.parse(event.body);
-	console.log("Data:"+data);
+	const postdata = JSON.parse(event.body);
+	console.log("Data:"+postdata);
 
 	console.log("EVENT: \n" + JSON.stringify(event, null, 2));
 	console.log("CONTEXT: \n" + JSON.stringify(context, null, 2));
@@ -58,7 +58,7 @@ exports.handler = async (event, context) => {
 
 		const query = ProductDetail;
 
-		const id = data ;
+		const id = postdata ;
 		console.log("info:1");
 		console.log("EVEN.BODY:" + event.body);
 		console.log({id});
