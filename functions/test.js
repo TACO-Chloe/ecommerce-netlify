@@ -23,8 +23,6 @@ global.Headers = global.Headers || Headers;
 headers = {
 	"Access-Control-Allow-Origin": "*",
 	"Access-Control-Allow-Headers": "Content-Type",
-	"Access-Control-Allow-Methods": "GET, POST, OPTION",
-	"Content-Type": "application/json; charset=utf-8"
 };
 
 exports.handler = async (event, context) => {
@@ -32,7 +30,7 @@ exports.handler = async (event, context) => {
 	if (event.httpMethod === "OPTIONS") {
 		return {
 			statusCode: 200,
-			//headers
+			headers
 		};
 	}
 
