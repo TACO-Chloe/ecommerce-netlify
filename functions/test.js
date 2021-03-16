@@ -29,12 +29,12 @@ headers = {
 
 exports.handler = async (event, context) => {
 	
-// 	if (event.httpMethod === "OPTIONS") {
-// 		return {
-// 			statusCode: 200,
-// 			headers
-// 		};
-// 	}
+	if (event.httpMethod === "OPTIONS") {
+		return {
+			statusCode: 200,
+			//headers
+		};
+	}
 
 	const postdata = JSON.parse(event.body);
 	console.log("Data:"+postdata);
