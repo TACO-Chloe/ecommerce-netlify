@@ -27,7 +27,7 @@ exports.handler = async (event, context) => {
 	console.log("CONTEXT: \n" + JSON.stringify(context, null, 2));
 	console.log("HTTP-METHOD: \n" + JSON.stringify(event.httpMethod, null, 2));
 	
-	if (event.httpMethod === "POST") {
+	//if (event.httpMethod === "POST") {
 
 		const endpoint = process.env.GRAPHCMS_ENDPOINT;
 		const token = process.env.GRAPHCMS_TOKEN;
@@ -59,5 +59,5 @@ exports.handler = async (event, context) => {
 			"Content-Type": "application/json; charset=utf-8"
 		  }
 		};
-	};
+	//};
 };
