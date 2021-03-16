@@ -37,13 +37,13 @@ exports.handler = async (event, context) => {
 	}
 
 	const data = JSON.parse(event.body);
-	console.log(data);
+	console.log("Data:"+data);
 
 	console.log("EVENT: \n" + JSON.stringify(event, null, 2));
 	console.log("CONTEXT: \n" + JSON.stringify(context, null, 2));
 	console.log("HTTP-METHOD: \n" + JSON.stringify(event.httpMethod, null, 2));
 	
-	if (event.httpMethod === "POST") {
+	//if (event.httpMethod === "POST") {
 
 		const endpoint = process.env.GRAPHCMS_ENDPOINT;
 		const token = process.env.GRAPHCMS_TOKEN;
@@ -72,5 +72,5 @@ exports.handler = async (event, context) => {
 		  body: JSON.stringify(data, undefined, 2),
 		  headers: headers
 		};
-	};
+	//};
 };
