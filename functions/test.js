@@ -34,14 +34,13 @@ exports.handler = async (event, context) => {
 		};
 	}
 
-	const postdata = JSON.parse(event.body);
-	console.log("Data:"+postdata);
-
 	console.log("EVENT: \n" + JSON.stringify(event, null, 2));
 	console.log("CONTEXT: \n" + JSON.stringify(context, null, 2));
 	console.log("HTTP-METHOD: \n" + JSON.stringify(event.httpMethod, null, 2));
 	
-	//if (event.httpMethod === "POST") {
+	if (event.httpMethod === "POST") {
+		const postdata = JSON.parse(event.body);
+		console.log("Data:"+postdata);
 
 		const endpoint = process.env.GRAPHCMS_ENDPOINT;
 		const token = process.env.GRAPHCMS_TOKEN;
@@ -75,5 +74,5 @@ exports.handler = async (event, context) => {
 			"Content-Type": "application/json; charset=utf-8"
 		  }
 		};
-	//};
+	};
 };
