@@ -22,12 +22,22 @@ global.Headers = global.Headers || Headers;
 
 
 exports.handler = async (event, context) => {
+	
+	if (event.httpMethod === "OPTIONS") {
+		return {
+			statusCode: 200,
+			headers
+		};
+	}
+
+	const data = JSON.parse(event.body);
+	console.log(data);
 
 	console.log("EVENT: \n" + JSON.stringify(event, null, 2));
 	console.log("CONTEXT: \n" + JSON.stringify(context, null, 2));
 	console.log("HTTP-METHOD: \n" + JSON.stringify(event.httpMethod, null, 2));
 	
-	//if (event.httpMethod === "POST") {
+	if (event.httpMethod === "POST") {
 
 		const endpoint = process.env.GRAPHCMS_ENDPOINT;
 		const token = process.env.GRAPHCMS_TOKEN;
@@ -42,12 +52,12 @@ exports.handler = async (event, context) => {
 
 		const query = ProductDetail;
 
-		const id = event.body;
+		const id = data ;
 		console.log("info:1");
 		console.log("EVEN.BODY:" + event.body);
 		console.log({id});
 		console.log("ID:"+JSON.parse(id));
-		const data = await graphQLClient.request(query,JSON.parse(id));
+		const data = await graphQLClient.request(query,id);
 		console.log(JSON.stringify(data, undefined, 2));
 		console.log("info:2");
 
@@ -61,5 +71,5 @@ exports.handler = async (event, context) => {
 			"Content-Type": "application/json; charset=utf-8"
 		  }
 		};
-	//};
+	};
 };
