@@ -79,12 +79,10 @@ async function graphqlRequest(GLQuery, postData) {
 
 	const graphQLClient = new GraphQLClient(endPoint, { headers });
 	
-	const query = GLQuery ;
+	query = GLQuery ;
 	console.log("info:1");
 	console.log({postData});
 	console.log("postData:"+postData);
-	
-	const data = '';
 	
 	if (postData) { 
 		data = await graphQLClient.request(query,postData);
