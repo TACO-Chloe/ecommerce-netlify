@@ -37,7 +37,7 @@ exports.handler = async (event, context) => {
 	console.log("EVENT: \n" + JSON.stringify(event, null, 2));
 	console.log("CONTEXT: \n" + JSON.stringify(context, null, 2));
 	console.log("HTTP-METHOD: \n" + JSON.stringify(event.httpMethod, null, 2));
-	
+	console.log("EVEN.BODY:" + event.body);
 	
 	if (event.httpMethod === "GET") {
 		const { GLQuery } = require('./graphql/queries/products.js');
@@ -81,9 +81,8 @@ async function graphqlRequest(GLQuery, postData) {
 	
 	const query = GLQuery ;
 	console.log("info:1");
-	console.log("EVEN.BODY:" + event.body);
 	console.log({postData});
-	console.log("ID:"+postData);
+	console.log("postData:"+postData);
 	
 	if (postData) { 
 		const data = await graphQLClient.request(query,postData);
