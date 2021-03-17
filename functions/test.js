@@ -88,12 +88,12 @@ async function graphqlRequest(GLQuery, postData) {
 	
 	if (postData) { 
 		data = await graphQLClient.request(query,postData);
-		console.log("Data:"+data);
+		console.log("Data:"+JSON.stringify(data, undefined, 2));
 		console.log("info:2");
 	} 
 	else {
 		data = await graphQLClient.request(query);
-		console.log("Data:"+data);
+		console.log("Data:"+JSON.stringify(data, undefined, 2));
 		console.log("info:3");
 	}
 	
