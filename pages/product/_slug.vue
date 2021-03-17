@@ -24,7 +24,7 @@ export default {
   
     const { slug } = params;
     //const products = await axios.post("https://admiring-hopper-bcb70e.netlify.app/.netlify/functions/test", {'id':'ckdu44mn40gxh010405uwgbtw'}, { useCache: true });
-	const products = await axios.post("https://admiring-hopper-bcb70e.netlify.app/.netlify/functions/test", {'id':slug}, { useCache: true });
+	const products = await axios.post("https://admiring-hopper-bcb70e.netlify.app/.netlify/functions/cms-gw", {'id':slug}, { useCache: true });
 	console.log(products)
 
 
