@@ -38,41 +38,62 @@ exports.handler = async (event, context) => {
 	console.log("CONTEXT: \n" + JSON.stringify(context, null, 2));
 	console.log("HTTP-METHOD: \n" + JSON.stringify(event.httpMethod, null, 2));
 	
+	
+	if (event.httpMethod === "GET") {
+		const { GLQuery } = require('./graphql/queries/products.js');
+		console.log("GLQuery:"+ GLQuery);
+		
+		myData = graphqlRequest(GLQuery,'');
+	}
+	
 	if (event.httpMethod === "POST") {
-		const postdata = JSON.parse(event.body);
-		console.log("Data:"+postdata);
+		const { GLQuery } = require('./graphql/queries/queries.js');
+		console.log("GLQuery:"+ GLQuery);
+		
+		const postData = JSON.parse(event.body);
+		console.log("Data:"+postData);
+		
+		myData = graphqlRequest(GLQuery,postData);
+	};
 
-		const endpoint = process.env.GRAPHCMS_ENDPOINT;
-		const token = process.env.GRAPHCMS_TOKEN;
-		// console.log("token:"+token);
-		const headers = { authorization: `Bearer ${token}` };
-		//console.log("headers:"+headers);
 
-		const graphQLClient = new GraphQLClient(endpoint, { headers });
 
-		const {ProductDetail} = require('./graphql/queries/queries.js');
-		console.log("ProductDetail:"+ ProductDetail);
-
-		const query = ProductDetail;
-
-		const id = postdata ;
-		console.log("info:1");
-		console.log("EVEN.BODY:" + event.body);
-		console.log({id});
-		console.log("ID:"+id);
-		const data = await graphQLClient.request(query,id);
-		console.log(JSON.stringify(data, undefined, 2));
-		console.log("info:2");
-
-		return {
-		  statusCode: 200,
-		  body: JSON.stringify(data, undefined, 2),
-		  headers:{
-			"Access-Control-Allow-Origin": "*",
-			"Access-Control-Allow-Headers": "Content-Type",
-			"Access-Control-Allow-Methods": "GET, POST, OPTION",
-			"Content-Type": "application/json; charset=utf-8"
-		  }
-		};
+	return {
+	  statusCode: 200,
+	  body: myData,
+	  headers:{
+		"Access-Control-Allow-Origin": "*",
+		"Access-Control-Allow-Headers": "Content-Type",
+		"Access-Control-Allow-Methods": "GET, POST, OPTION",
+		"Content-Type": "application/json; charset=utf-8"
+	  }
 	};
 };
+
+function graphqlRequest(GLQuery, postData) {
+	const endPoint = process.env.GRAPHCMS_ENDPOINT;
+	const token = process.env.GRAPHCMS_TOKEN;
+	// console.log("token:"+token);
+	const headers = { authorization: `Bearer ${token}` };
+	//console.log("headers:"+headers);
+
+	const graphQLClient = new GraphQLClient(endPoint, { headers });
+	
+	const query = GLQuery ;
+	console.log("info:1");
+	console.log("EVEN.BODY:" + event.body);
+	console.log({postData});
+	console.log("ID:"+postData);
+	
+	if (postData) { 
+		const data = await graphQLClient.request(query,postData);
+	} 
+	else {
+		const data = await graphQLClient.request(query);
+	}
+	
+	console.log(JSON.stringify(data, undefined, 2));
+	console.log("info:2");
+	
+	return JSON.stringify(data, undefined, 2)
+}
