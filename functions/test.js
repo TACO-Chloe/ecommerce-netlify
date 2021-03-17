@@ -40,14 +40,14 @@ exports.handler = async (event, context) => {
 	console.log("EVEN.BODY:" + event.body);
 	
 	if (event.httpMethod === "GET") {
-// 		const { ProductList } = require('./graphql/queries/products.js');
+// 		const { ProductList } = require('./graphql/queriesGet.js');
 // 		console.log("ProductList:"+ JSON.stringify(ProductList));
 // 		console.log("{ProductList}:"+ {ProductList});
 // 		console.log("String-{ProductList}:"+ JSON.stringify({ProductList}));
 		
 // 		myData = await graphqlRequest(ProductList,'');
 		
-		const GLQuery = require('./graphql/queries/products.js');
+		const GLQuery = require('./graphql/queriesGet.js');
 		console.log("GLQuery:"+ GLQuery);
 		console.log("GLQuery:"+ JSON.stringify(GLQuery.ProductList));
 		
@@ -58,7 +58,7 @@ exports.handler = async (event, context) => {
 // 		const {ProductDetail} = require('./graphql/queries/queries.js');
 // 		console.log("ProductDetail:"+ ProductDetail);
 		
-		const GLQuery = require('./graphql/queries/queries.js');
+		const GLQuery = require('./graphql/queriesPost.js');
 		console.log("GLQuery:"+ JSON.stringify(GLQuery));
 		
 		const postData = JSON.parse(event.body);
