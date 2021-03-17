@@ -84,16 +84,20 @@ async function graphqlRequest(GLQuery, postData) {
 	console.log({postData});
 	console.log("postData:"+postData);
 	
+	const data = '';
+	
 	if (postData) { 
-		const data = await graphQLClient.request(query,postData);
+		data = await graphQLClient.request(query,postData);
+		console.log("Data:"+data);
 		console.log("info:2");
 	} 
 	else {
-		const data = await graphQLClient.request(query);
+		data = await graphQLClient.request(query);
+		console.log("Data:"+data);
 		console.log("info:3");
 	}
 	
-	console.log(JSON.stringify(data, undefined, 2));
+	//console.log(JSON.stringify(data, undefined, 2));
 	console.log("info:4");
 	
 	return data
