@@ -1,5 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
-require("dotenv").config();
+//require("dotenv").config();
 
 const graphcmsEndpoint = process.env.GRAPHCMS_ENDPOINT;
 const graphcmsToken = process.env.GRAPHCMS_TOKEN;
