@@ -7,6 +7,12 @@ const ProductDetail = gql`
       name
       description {markdown}
       price
+      images {
+            id
+            url
+            height
+            width
+          }
     }
   }
 `
