@@ -43,7 +43,7 @@ exports.handler = async (event, context) => {
 		const { ProductList } = require('./graphql/queries/products.js');
 		console.log("GLQuery:"+ ProductList);
 		
-		myData = graphqlRequest(ProductList,'');
+		myData = await graphqlRequest(ProductList,'');
 	}
 	
 	if (event.httpMethod === "POST") {
@@ -53,14 +53,14 @@ exports.handler = async (event, context) => {
 		const postData = JSON.parse(event.body);
 		console.log("Data:"+postData);
 		
-		myData = graphqlRequest(ProductDetail,postData);
+		myData = await graphqlRequest(ProductDetail,postData);
 	};
 
 
 
 	return {
 	  statusCode: 200,
-	  body: myData,
+	  body: JSON.stringify(myData, undefined, 2),
 	  headers:{
 		"Access-Control-Allow-Origin": "*",
 		"Access-Control-Allow-Headers": "Content-Type",
@@ -86,13 +86,15 @@ async function graphqlRequest(GLQuery, postData) {
 	
 	if (postData) { 
 		const data = await graphQLClient.request(query,postData);
+		console.log("info:2");
 	} 
 	else {
 		const data = await graphQLClient.request(query);
+		console.log("info:3");
 	}
 	
 	console.log(JSON.stringify(data, undefined, 2));
-	console.log("info:2");
+	console.log("info:4");
 	
-	return JSON.stringify(data, undefined, 2)
+	return data
 }
