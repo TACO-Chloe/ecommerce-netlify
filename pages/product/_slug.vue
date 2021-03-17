@@ -21,17 +21,13 @@ import axios from 'axios';
 
 export default {
   async asyncData({params}) {
-  
-    const { slug } = params;
-    //const products = await axios.post("https://admiring-hopper-bcb70e.netlify.app/.netlify/functions/test", {'id':'ckdu44mn40gxh010405uwgbtw'}, { useCache: true });
-	const products = await axios.post("https://admiring-hopper-bcb70e.netlify.app/.netlify/functions/cms-gw", {'id':slug}, { useCache: true });
+    	const { slug } = params;
+    	const products = await axios.post("https://admiring-hopper-bcb70e.netlify.app/.netlify/functions/cms-gw", {'id':slug}, { useCache: true });
 	console.log(products)
-
-
 	console.log("params:"+ JSON.stringify(params));
 	console.log("id:"+ slug );
 	//console.log("products:"+ JSON.stringify(products));
-    return products.data;
+    	return products.data;
   },
   head() {
     return {
