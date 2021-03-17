@@ -41,9 +41,9 @@ exports.handler = async (event, context) => {
 	
 	if (event.httpMethod === "GET") {
 		const { ProductList } = require('./graphql/queries/products.js');
-		console.log("ProductList:"+ String(ProductList));
+		console.log("ProductList:"+ JSON.stringify(ProductList));
 		console.log("{ProductList}:"+ {ProductList});
-		console.log("String-{ProductList}:"+ String({ProductList}));
+		console.log("String-{ProductList}:"+ JSON.stringify({ProductList}));
 		
 		myData = await graphqlRequest(ProductList,'');
 		
