@@ -50,7 +50,7 @@ exports.handler = async (event, context) => {
 		const { GLQuery } = require('./graphql/queries/products.js');
 		console.log("GLQuery:"+ JSON.stringify(GLQuery));
 		
-		myData = await graphqlRequest(GLQuery,'');
+		// myData = await graphqlRequest(GLQuery,'');
 	}
 	
 	if (event.httpMethod === "POST") {
