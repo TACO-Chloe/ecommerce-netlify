@@ -70,7 +70,7 @@ exports.handler = async (event, context) => {
 	};
 };
 
-function graphqlRequest(GLQuery, postData) {
+async function graphqlRequest(GLQuery, postData) {
 	const endPoint = process.env.GRAPHCMS_ENDPOINT;
 	const token = process.env.GRAPHCMS_TOKEN;
 	// console.log("token:"+token);
