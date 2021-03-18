@@ -10,7 +10,7 @@ const ProductDetail = gql`
       images {
             id
             url(transformation: {
-              image: { resize: { width: 50, height: 50, fit: clip } }
+              image: { resize: { width: 200, height: 200, fit: clip } }
             })
             height
             width
