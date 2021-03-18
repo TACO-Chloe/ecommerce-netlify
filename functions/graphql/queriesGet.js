@@ -3,10 +3,22 @@ const gql = require('graphql-tag');
 
 const ProductList = gql`
 	query ProductList {
-	  products {
-		name
-		id
-	  }
+		products {
+		    id
+		    name
+		    description{markdown}
+		    slug
+		    category {
+		      name
+		    }
+		    price
+		    reviews {
+		      id
+		    }
+		    images {
+		      id
+		    }
+		}
 	}
 `;
 
