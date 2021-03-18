@@ -13,10 +13,15 @@ const ProductList = gql`
 		    }
 		    price
 		    reviews {
-		      id
+		      name
+		      email
+		      headline
+		      message
+		      rating
+		      product{name}
 		    }
 		    images {
-		      id
+		      url
 		    }
 		}
 	}
