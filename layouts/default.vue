@@ -6,7 +6,6 @@
       <nuxt />
     </main>
     <app-footer />
-    <AppNav /> 
   </div>
 </template>
 
