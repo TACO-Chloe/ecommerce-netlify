@@ -6,7 +6,7 @@ const ProductList = gql`
 		products {
 		    id
 		    name
-		    description{}
+		    description{markdown}
 		    slug
 		    category {
 		      name
