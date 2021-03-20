@@ -1,17 +1,29 @@
 import axios from "axios";
-import data from "~/static/storedata.json";
+//import data from "~/static/storedata.json";
+//import {data} from "~/plugins/storedata.js";
+
+
+
 
 export const state = () => ({
   cartUIStatus: "idle",
-  storedata: data,
+  storedata: "" ,
   cart: [],
   clientSecret: "" // Required to initiate the payment from the client
 });
 
+console.log("S-Data:"+JSON.stringify(state.storedata))
+console.log("S-Data:"+state.storedata)
+
+
 export const getters = {
-  featuredProducts: state => state.storedata.slice(0, 3),
+  featuredProducts: state => {
+	  console.log("get-S-Data:"+JSON.stringify(state.storedata))
+	  return state.storedata.slice(0, 3)},
   women: state => state.storedata.filter(el => el.gender === "Female"),
   men: state => state.storedata.filter(el => el.gender === "Male"),
+  tshirts: state => state.storedata.filter(el => el.category.name === "T-Shirts"),
+  accessories: state => state.storedata.filter(el => el.category.name === "Accessories"),
   cartCount: state => {
     if (!state.cart.length) return 0;
     return state.cart.reduce((ac, next) => ac + next.quantity, 0);
@@ -46,9 +58,12 @@ export const mutations = {
       ? (itemfound.quantity += payload.quantity)
       : state.cart.push(payload)
   },
-   setClientSecret: (state, payload) => {
+  setClientSecret: (state, payload) => {
     state.clientSecret = payload;
-   },
+  },
+  setStoredata: (state, payload) => {
+    state.storedata = payload;
+  }, 
   addOneToCart: (state, payload) => {
     let itemfound = state.cart.find(el => el.id === payload.id)
     itemfound ? itemfound.quantity++ : state.cart.push(payload)
@@ -88,5 +103,10 @@ export const actions = {
     } catch (e) {
       console.log("error", e);
     }
+  },
+  async getProducts({commit}) {
+    const products = await axios.get("https://admiring-hopper-bcb70e.netlify.app/.netlify/functions/cms-gw", { useCache: true });
+	console.log("Products-actions:"+JSON.stringify(products.data.products))
+    commit("setStoredata", products.data.products);
   }
 };
