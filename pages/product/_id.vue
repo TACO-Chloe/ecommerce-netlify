@@ -14,7 +14,7 @@
           style="margin: 5px 0"
         ></star-rating>
         <h4 class="price">{{ product.price | dollar }}</h4>
-        <p>{{ product.description }}</p>
+        <p v-html="product.description.html"></p>
         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto velit dolores repudiandae animi quidem, eveniet quod dolor facilis dicta eligendi ullam error. Assumenda in fugiat natus enim similique nam itaque.</p>
         <div class="product-options">
           <div class="quantity">
@@ -92,7 +92,8 @@ export default {
       }
 
       let item = this.product;
-      item = { 
+      item = {
+		// ... 展開運算符(Spread Operator)與其餘運算符(Rest Operator)
         ...item, 
         quantity: this.quantity, 
         size: this.size 
