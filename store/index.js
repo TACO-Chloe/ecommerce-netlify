@@ -105,7 +105,7 @@ export const actions = {
     }
   },
   async getProducts({commit}) {
-    const products = await axios.get("https://admiring-hopper-bcb70e.netlify.app/.netlify/functions/cms-gw", { useCache: true });
+    const products = await axios.get("https://subangbang.netlify.app/.netlify/functions/cms-gw", { useCache: true });
 	console.log("Products-actions:"+JSON.stringify(products.data.products))
     commit("setStoredata", products.data.products);
   }
