@@ -5,7 +5,9 @@
     </h2>
     <div class="featureditems">
       <div class="item" v-for="product in featuredProducts" :key="product.id">
-        <img :src="`/products/${product.img}`" />
+        <!--<img :src="`/products/${product.img}`" />-->
+		<!--<img :src="`${img.url}`"  v-for="img in product.images" />-->
+		<img :src="`${img.url}`"  v-for="img in product.images.slice(0, 1)" />
         <h3>{{ product.name }}</h3>
         <h4>{{ product.price | dollar }}</h4>
         <NuxtLink :to="`/product/${product.id}`">
@@ -18,6 +20,10 @@
 
 <script>
 export default {
+  mounted() {
+    // create a PaymentIntent on Stripe with order information
+	this.$store.dispatch("getProducts");
+  },
   computed: {
     featuredProducts() {
       return this.$store.getters.featuredProducts;
@@ -88,7 +94,7 @@ h2 span:after {
   }
 
   img {
-    width: initial;
+    width: 100%;
   }
 }
 

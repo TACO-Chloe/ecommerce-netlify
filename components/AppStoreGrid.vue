@@ -4,7 +4,8 @@
       <div v-for="item in filteredprice" :key="item.id" class="item">
         <div class="img-contain">
           <NuxtLink :to="`product/${item.id}`">
-            <img :src="`/products/${item.img}`" />
+            <!--<img :src="`/products/${item.img}`" />-->
+			<img :src="`${img.url}`"  v-for="img in item.images.slice(0, 1)" />
           </NuxtLink>
         </div>
         <star-rating
@@ -56,8 +57,8 @@ export default {
   data() {
     return {
       min: 0,
-      max: 200,
-      pricerange: 200
+      max: 2000,
+      pricerange: 2000
     };
   },
   computed: {
