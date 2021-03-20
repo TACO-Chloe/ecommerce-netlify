@@ -14,7 +14,7 @@
     </app-textlockup>
     <app-featured-products />
   </div>
-  <div class="container mx-auto text-center">
+  <!--<div class="container mx-auto text-center">
     <div class="pt-4">
       <h2 class="text-xl">Nuxt with GraphCMS</h2>
       <div class="flex justify-center -mx-4 my-4">
@@ -29,7 +29,7 @@
         </router-link>
       </div>
     </div>
-  </div>
+  </div>-->
 </div>  
 </template>
 
