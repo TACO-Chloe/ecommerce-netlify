@@ -75,7 +75,7 @@ export default {
 		// Workbox options
 		runtimeCaching: [
 		 {
-		   urlPattern: 'https://my-cdn.com/posts/.*',
+		   urlPattern: 'https://https://subangbang.netlify.app/.*',
 		   strategyOptions: {
 			 cacheName: 'our-cache',
 		   },
