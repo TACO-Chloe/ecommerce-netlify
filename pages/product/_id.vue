@@ -2,7 +2,8 @@
   <div>
     <section class="item-contain">
       <section class="img">
-        <img :src="`/products/${product.img}`" />
+        <!--<img :src="`/products/${product.img}`" />-->
+		<img :src="`${img.url}`"  v-for="img in product.images.slice(0, 1)" />
       </section>
       <section class="product-info">
         <h1>{{ product.name }}</h1>
