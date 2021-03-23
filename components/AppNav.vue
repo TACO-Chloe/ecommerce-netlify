@@ -1,25 +1,24 @@
 <template>
   <header>
-    <h1>Tested E-Commerce</h1>
+    <h1>E-Commerce</h1>
     <nav>
-      <ul>
-        <li>
-          <nuxt-link exact to="/">Home</nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="/all">All</nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="/women">Women</nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="/men">Men</nuxt-link>
-        </li>
-        <li>
-          <div class="carttotal" v-if="cartCount > 0">{{ cartCount }}</div>
-          <nuxt-link to="/cart">Cart</nuxt-link>
-        </li>
-      </ul>
+		<ul>
+			<li>
+				<nuxt-link exact to="/"><van-icon name="wap-home" /></nuxt-link>
+			</li>
+			<li>
+				<nuxt-link to="/all"><van-icon name="hot" /></nuxt-link>
+			</li>
+			<li>
+				<nuxt-link to="/women"><van-icon name="new" /></nuxt-link>
+			<li>
+				<nuxt-link to="/men"><van-icon name="shop" /></nuxt-link>
+			</li>
+			<li>
+				<div class="carttotal" v-if="cartCount > 0">{{ cartCount }}</div>
+				<nuxt-link to="/cart"><van-icon name="cart" /></nuxt-link>
+			</li>
+		</ul>
     </nav>
   </header>
 </template>
@@ -73,6 +72,10 @@ nav {
   }
 }
 
+.van-icon {
+  font-size: 45px;
+}
+
 .carttotal {
   position: absolute;
   border-radius: 1000px;
@@ -89,6 +92,8 @@ nav {
   padding: 6px 10px;
   font-weight: bold;
 }
+
+
 
 @media screen and (max-width: 850px) {
   h1 {
