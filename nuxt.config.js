@@ -1,9 +1,11 @@
 import data from './static/storedata.json'
+
 let dynamicRoutes = () => {
   return new Promise(resolve => {
     resolve(data.map(el => `product/${el.id}`))
   })
 }
+
 
 export default {
   // mode: 'universal',
@@ -48,7 +50,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/currency-filter.js',  '~/plugins/graphcms.js'],
+  plugins: ['~/plugins/currency-filter.js',  '~/plugins/graphcms.js', {src: '@/plugins/vant-ui', ssr: true}],
   /*
    ** Nuxt.js modules
    */
@@ -73,20 +75,7 @@ export default {
 	  },
 	  workbox: {
 		// Workbox options
-		runtimeCaching: [
-		 {
-		   strategyOptions: {
-			 cacheName: 'our-cache',
-		   },
-		   strategyPlugins: [{
-			  use: 'Expiration',
-			  config: {
-				maxEntries: 10,
-				maxAgeSeconds: 300
-			  }
-			}]
-		 }
-	    ]
+
 	  }
-  }
+  }	
 }
