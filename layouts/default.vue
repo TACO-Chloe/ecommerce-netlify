@@ -6,18 +6,21 @@
       <nuxt />
     </main>
     <app-footer />
+	<app-tabbar /> 
   </div>
 </template>
 
 <script>
 import AppFooter from "~/components/AppFooter.vue";
 import AppNav from "~/components/AppNav.vue";
+import AppTabbar from "~/components/AppTabbar.vue";
 //import AppSidebar from "~/components/AppSidebar.vue";
 
 export default {
   components: {
     AppFooter,
     AppNav,
+	AppTabbar,
     //AppSidebar
   }
 };
