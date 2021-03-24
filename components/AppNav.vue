@@ -15,8 +15,8 @@
 				<nuxt-link to="/men"><van-icon name="shop" /></nuxt-link>
 			</li>
 			<li>
-				<div class="carttotal" v-if="cartCount > 0">{{ cartCount }}</div>
 				<nuxt-link to="/cart"><van-icon name="cart" /></nuxt-link>
+				<div class="carttotal" v-if="cartCount > 0">{{ cartCount }}</div>
 			</li>
 		</ul>
     </nav>
@@ -73,7 +73,7 @@ nav {
 }
 
 .van-icon {
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .carttotal {
