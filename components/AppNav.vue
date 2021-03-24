@@ -73,7 +73,7 @@ nav {
 }
 
 .van-icon {
-  font-size: 45px;
+  font-size: 30px;
 }
 
 .carttotal {
