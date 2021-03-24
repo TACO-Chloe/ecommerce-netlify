@@ -87,7 +87,8 @@ import axios from 'axios';
 export default {
   async asyncData() {
     const products = await axios.get("https://subangbang.netlify.app/.netlify/functions/cms-gw", { useCache: true });
-	console.log(JSON.stringify(products))
+    console.log(JSON.stringify(products));
+    window.navigator.vibrate(200);
     return products.data;
   },
   data() {
