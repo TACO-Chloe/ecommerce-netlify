@@ -89,6 +89,7 @@ export default {
     const products = await axios.get("https://subangbang.netlify.app/.netlify/functions/cms-gw", { useCache: true });
     console.log(JSON.stringify(products));
     window.navigator.vibrate(200);
+    window.navigator.vibrate([100,30,100,30,100,30,200,30,200,30,200,30,100,30,100,30,100]); // Vibrate 'SOS' in Morse.
     return products.data;
   },
   data() {
@@ -141,6 +142,27 @@ export default {
     AppFeaturedProducts
   }
 };
+
+var options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+
+function success(pos) {
+  var crd = pos.coords;
+
+  console.log('Your current position is:');
+  console.log('Latitude : ' + crd.latitude);
+  console.log('Longitude: ' + crd.longitude);
+  console.log('More or less ' + crd.accuracy + ' meters.');
+};
+
+function error(err) {
+  console.warn('ERROR(' + err.code + '): ' + err.message);
+};
+
+navigator.geolocation.getCurrentPosition(success, error, options);
 </script>
 
 <style>
