@@ -2,23 +2,14 @@
   <header>
     <h1>E-Commerce</h1>
     <nav>
-		<ul>
-			<li>
-				<nuxt-link exact to="/"><van-icon name="wap-home" /></nuxt-link>
-			</li>
-			<li>
-				<nuxt-link to="/all"><van-icon name="hot" /></nuxt-link>
-			</li>
-			<li>
-				<nuxt-link to="/women"><van-icon name="new" /></nuxt-link>
-			<li>
-				<nuxt-link to="/men"><van-icon name="shop" /></nuxt-link>
-			</li>
-			<li>
-				<nuxt-link to="/cart"><van-icon name="cart" /></nuxt-link>
-				<div class="carttotal" v-if="cartCount > 0">{{ cartCount }}</div>
-			</li>
-		</ul>
+		<van-grid column-num="5" :border=false>
+				<nuxt-link exact to="/"><van-grid-item icon="wap-home" text="HOME"  dot/></nuxt-link>
+				<nuxt-link to="/all"><van-grid-item icon="hot" text="HOT" /></nuxt-link>
+				<nuxt-link to="/goods"><van-grid-item icon="new" text="NEW" /></nuxt-link>
+				<nuxt-link to="/mycart"><van-grid-item icon="shop" text="SHOP" /></nuxt-link>
+				<!--<div class="carttotal" v-if="cartCount > 0">{{ cartCount }}</div>-->
+				<nuxt-link to="/cart"><van-grid-item icon="cart" text="CART" :badge="cartCount" /></nuxt-link>
+		</van-grid>
     </nav>
   </header>
 </template>
@@ -70,6 +61,16 @@ nav {
       }
     }
   }
+}
+
+.van-grid {
+	flex-wrap: nowrap;
+	a {
+		color: black;
+		&:hover {
+		  color: #c14103;
+		}
+	}
 }
 
 .van-icon {

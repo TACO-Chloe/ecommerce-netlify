@@ -14,13 +14,13 @@
       return {
         isAct: 0,
         tabbarList: [{
-            path: "/cart",
+            path: "/",
             title: "HOME",
             normal: "https://sucai.suoluomei.cn/sucai_zs/images/20190910093117-fx2.png",
             active: "https://sucai.suoluomei.cn/sucai_zs/images/20190910093117-fx.png",
           },
           {
-            path: "/all",
+            path: "/user",
             title: "MY",
             normal: "https://sucai.suoluomei.cn/sucai_zs/images/20190910093117-wd.png",
             active: "https://sucai.suoluomei.cn/sucai_zs/images/20190910093117-wd2.png",
