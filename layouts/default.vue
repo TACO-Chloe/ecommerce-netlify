@@ -1,25 +1,24 @@
 <template>
   <div>
     <!-- <AppSidebar /> -->
-    <app-nav />
     <main>
       <nuxt />
     </main>
     <app-footer />
-	<app-tabbar /> 
+	<app-tabbar />
+	<!-- <app-tabbar /> -->
   </div>
 </template>
 
 <script>
 import AppFooter from "~/components/AppFooter.vue";
-import AppNav from "~/components/AppNav.vue";
+
 import AppTabbar from "~/components/AppTabbar.vue";
 //import AppSidebar from "~/components/AppSidebar.vue";
 
 export default {
   components: {
     AppFooter,
-    AppNav,
 	AppTabbar,
     //AppSidebar
   }
@@ -53,6 +52,9 @@ main {
   padding: 0;
   width: 95vw;
   margin-left: 2vw;
+  margin-right: 2vw;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
 }
 
 @media screen and (min-width: 1000px) {
@@ -60,6 +62,9 @@ main {
     padding: 40px;
     width: 80vw;
     margin-left: 7vw;
+	margin-right: 7vw;
+	margin-top: 0vw;
+	margin-bottom: 0vw;
   }
 }
 </style>
