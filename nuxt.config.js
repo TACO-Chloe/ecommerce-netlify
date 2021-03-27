@@ -15,7 +15,7 @@ export default {
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'Subangbang Store' || 'Subangbang' || '素邦邦',
     script: [{ src: 'https://js.stripe.com/v3/' }],
     meta: [
       { charset: 'utf-8' },
@@ -24,7 +24,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
+        content: '素邦邦 - 素食者的烏托邦' || '到處都是隨手可吃的食材、調味料、美食，再也不用在包裝上找"素食"兩個字。'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
