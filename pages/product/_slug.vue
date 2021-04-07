@@ -5,10 +5,10 @@
       <p class="text-lg">{{ product.description }}</p>
       <p>
         {{
-          new Intl.NumberFormat('de-DE', {
+          new Intl.NumberFormat('zh-Hans', {
             style: 'currency',
-            currency: 'EUR',
-          }).format(product.price / 100)
+            currency: 'CNY',
+          }).format(product.price)
         }}
       </p>
 	  <p>

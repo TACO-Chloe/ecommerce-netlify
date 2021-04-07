@@ -4,21 +4,20 @@
     <main>
       <nuxt />
     </main>
-    <app-footer />
+    <!-- <app-footer /> -->
 	<app-tabbar />
-	<!-- <app-tabbar /> -->
   </div>
 </template>
 
 <script>
-import AppFooter from "~/components/AppFooter.vue";
+//import AppFooter from "~/components/AppFooter.vue";
 
 import AppTabbar from "~/components/AppTabbar.vue";
 //import AppSidebar from "~/components/AppSidebar.vue";
 
 export default {
   components: {
-    AppFooter,
+    //AppFooter,
 	AppTabbar,
     //AppSidebar
   }
@@ -27,7 +26,7 @@ export default {
 
 <style scoped>
 body {
-  border: 10px solid #ccc;
+  border: 12px solid #ccc;
   min-height: 100vh;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -39,6 +38,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+  z-index: 999;
 }
 
 *,
@@ -51,9 +51,9 @@ body {
 main {
   padding: 0;
   width: 95vw;
-  margin-left: 2vw;
-  margin-right: 2vw;
-  margin-top: 1vw;
+  margin-left: 0vw;
+  margin-right: 0vw;
+  margin-top: 0vw;
   margin-bottom: 1vw;
 }
 

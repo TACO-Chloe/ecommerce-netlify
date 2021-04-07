@@ -1,6 +1,21 @@
 <template>
+<div>
+  <div class="swiper">
+    <van-swipe id="swiper" :autoplay="5000" indicator-color="#ccc">
+		<!-- slides -->
+		<van-swipe-item v-for="(item, idx) in 4" :key="idx">
+		  <van-image :src="require(`@/assets/bg${item}.png`)"
+			  fit="cover"
+			  width="100%"
+		  />
+		</van-swipe-item>
+
+		<!-- Optional controls -->
+		<div class=""
+			 slot="pagination"></div>
+    </van-swipe>
+  </div>	
   <header>
-    <h1>E-Commerce</h1>
     <nav>
 		<van-grid column-num="5" :border=false>
 				<nuxt-link exact to="/"><van-grid-item icon="wap-home" text="HOME"  dot/></nuxt-link>
@@ -12,14 +27,50 @@
 		</van-grid>
     </nav>
   </header>
+</div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 
 export default {
+  data () {
+    return {
+      swiperOption: {
+        // 进来就加载
+        notNextTick: true,
+        pagination: {
+          el: '.swiper-pagination',
+        },
+        loop: true,
+        //配置自动播放
+        autoplay: {
+          delay: 3000,
+          // 最后一个是否停止
+          stopOnLastSlide: false,
+          // 用户操作swiper之后，是否禁止autoplay
+          disableOnInteraction: false,
+        },
+        observer: true,
+        observeParents: true,
+        // 配置速度
+        speed: 600,
+        // 滑动后回调函数
+        on: {
+          slideChangeTransitionEnd () {
+          },
+          //   preventLinksPropagation: false
+        }
+      }
+    }
+  },
+  components: {
+  },
+  mounted () {
+
+  },
   computed: {
-    ...mapGetters(["cartCount"])
+    ...mapGetters(["cartCount"]),
   }
 };
 </script>
@@ -30,13 +81,13 @@ header {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding: 40px 40px 0;
+  padding: 5px 5px 0;
 }
 
 nav {
   display: flex;
   width: 80vw;
-  margin-top: 30px;
+  margin-top: 0px;
   justify-content: center;
   align-items: center;
   border-top: 1px solid #ccc;
@@ -106,4 +157,28 @@ nav {
     border-right: none !important;
   }
 }
+
+.swiper{
+	.van-swipe {
+	  //margin: 0px;
+	  //padding-top: 0.5rem;
+	  width: 100%;
+	  height: 95%;
+	  z-index: -99;
+	  //border-radius: 3rem;
+
+	  .van-swipe-item {
+		color: #ccc;
+		font-size: 20px;
+		line-height: 0px;
+		text-align: center;
+		background-color: #ccc;
+		van-image {
+		  width: 100%;
+		  height: 100%;
+		}
+	  }
+	}
+}
+
 </style>

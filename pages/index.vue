@@ -1,6 +1,7 @@
 <template>
 <div>
   <div>
+    <app-header />
     <app-nav />
     <app-textlockup />
     <app-sales-boxes />
@@ -15,26 +16,12 @@
     </app-textlockup>
     <app-featured-products />
   </div>
-  <!--<div class="container mx-auto text-center">
-    <div class="pt-4">
-      <h2 class="text-xl">Nuxt with GraphCMS</h2>
-      <div class="flex justify-center -mx-4 my-4">
-        <router-link
-          v-for="product in products"
-          :to="{ name: 'product-slug', params: { slug: product.id } }"
-          :key="product.id"
-        >
-          <article class="border rounded-md p-6 mx-2">
-            <h1 class="fopnt-bold text-xl">{{ product.name }}</h1>
-          </article>
-        </router-link>
-      </div>
-    </div>
-  </div>-->
+
 </div>  
 </template>
 
 <script>
+import AppHeader from "~/components/AppHeader.vue";
 import AppNav from "~/components/AppNav.vue";
 import AppTextlockup from "~/components/AppTextlockup.vue";
 import AppSalesBoxes from "~/components/AppSalesBoxes.vue";
@@ -49,11 +36,12 @@ export default {
 	//window.navigator.vibrate(200);
     //return products.data;
   //},
-  mounted() {
+  //mounted() {
     // create a PaymentIntent on Stripe with order information
-	this.$store.dispatch("getProducts");
-  },
+	//this.$store.dispatch("getProducts");
+  //},
   components: {
+    AppHeader,
     AppNav,
     AppTextlockup,
     AppSalesBoxes,

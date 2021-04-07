@@ -1,10 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="013"
-				 :fixed=true
-                 left-arrow
-                 @click-left="onClickLeft">
-    </van-nav-bar>
+	<app-navbar :title="'購物車'" />
     <van-checkbox-group class="card-goods" v-model="checkedGoods">
       <van-checkbox
         class="card-goods__item"
@@ -32,13 +28,16 @@
 
 <script>
 import { Checkbox, CheckboxGroup, Card, SubmitBar, Toast } from 'vant';
+import AppNavbar from "~/components/AppNavbar.vue";
+
 
 export default {
   components: {
     [Card.name]: Card,
     [Checkbox.name]: Checkbox,
     [SubmitBar.name]: SubmitBar,
-    [CheckboxGroup.name]: CheckboxGroup
+    [CheckboxGroup.name]: CheckboxGroup,
+	AppNavbar
   },
 
   data() {
@@ -84,9 +83,6 @@ export default {
     formatPrice(price) {
       return (price / 100).toFixed(2);
     },
-	onClickLeft () {
-      this.$router.go(-1);
-    },
     onSubmit() {
       Toast('点击结算');
     }
@@ -96,6 +92,7 @@ export default {
 
 <style lang="scss">
 .card-goods {
+  margin-top: 30px;
   padding: 10px 0;
   background-color: #fff;
 

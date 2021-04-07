@@ -1,7 +1,7 @@
 {
-  "name": "ecommerce-netlify",
+  "name": "subangbang-ecommerce",
   "version": "1.0.0",
-  "description": "A serverless function to process stripe payments with Nuxt, Netlify, and Lambda",
+  "description": "subangbang store",
   "author": "momo",
   "private": true,
   "scripts": {

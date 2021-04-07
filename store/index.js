@@ -19,11 +19,12 @@ console.log("S-Data:"+state.storedata)
 export const getters = {
   featuredProducts: state => {
 	  console.log("get-S-Data:"+JSON.stringify(state.storedata))
-	  return state.storedata.slice(0, 3)},
+	  return state.storedata.slice(0, 4)},
   women: state => state.storedata.filter(el => el.gender === "Female"),
   men: state => state.storedata.filter(el => el.gender === "Male"),
   tshirts: state => state.storedata.filter(el => el.category.name === "T-Shirts"),
   accessories: state => state.storedata.filter(el => el.category.name === "Accessories"),
+  addressList: state => {return state.addressList;},
   cartCount: state => {
     if (!state.cart.length) return 0;
     return state.cart.reduce((ac, next) => ac + next.quantity, 0);
@@ -76,6 +77,15 @@ export const mutations = {
   },
   removeAllFromCart: (state, payload) => {
     state.cart = state.cart.filter(el => el.id !== payload.id)
+  },
+  SET_ADDRESSLIST_MUTATION: (state, payload) => {
+    state.addressList = payload;
+  },
+  SET_EDITADDRESS_MUTATION: (state, payload) => {
+    state.editAddress = payload;
+  },
+  SET_ADDRESSID_MUTATION: (state, payload) => {
+    state.addressId = payload;
   }
 };
 
