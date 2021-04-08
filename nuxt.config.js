@@ -70,8 +70,8 @@ export default {
 	  },
 	  manifest: {
 		lang: 'en',
-		name: "adsf",
-		short_name: "adsf",
+		name: "素邦邦 - SuBangBang Stroe",
+		short_name: "SuBangBang",
 	  },
 	  workbox: {
 		// Workbox options
