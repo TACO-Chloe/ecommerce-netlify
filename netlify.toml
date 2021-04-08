@@ -1,6 +1,5 @@
 [build]
-  command = "yarn upgrade"
-  command = "yarn generate"
+  command = "yarn upgrade && yarn generate"
   functions = "functions"
   publish = "dist"
 [build.environment]
