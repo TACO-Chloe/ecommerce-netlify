@@ -1,5 +1,4 @@
 [build]
-  command = "yarn install"
   functions = "functions"
 [build.environment]
   # skip installing Cypress during the build step
