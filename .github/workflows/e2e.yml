@@ -17,7 +17,7 @@ jobs:
       - run: echo "Testing url ${{ github.event.inputs.deployPrimeUrl }}"
 
       - name: Checkout ⬇️
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.9.10
 
       # test the deployed site using
       # https://github.com/cypress-io/github-action
