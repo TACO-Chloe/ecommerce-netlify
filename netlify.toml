@@ -1,7 +1,6 @@
 [build]
-  command = "yarn install && yarn generate"
+  command = "yarn install"
   functions = "functions"
-  publish = "dist"
 [build.environment]
   # skip installing Cypress during the build step
   # because we will run Cypress tests in the GitHub workflow
