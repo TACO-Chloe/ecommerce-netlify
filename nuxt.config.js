@@ -69,9 +69,9 @@ export default {
 		// Icon options
 	  },
 	  manifest: {
-		lang: 'en',
-		name: "adsf",
-		short_name: "adsf",
+		lang: 'zh-Hans',
+		name: "素邦邦 - SuBangBang Stroe",
+		short_name: "SuBangBang",
 	  },
 	  workbox: {
 		// Workbox options
