@@ -48,7 +48,7 @@
 	<van-grid class="goods-list" :column-num="columnNum" :gutter="gutter" :border=true :center=true>
 		<van-grid-item v-for="goods in featuredProducts" :key="goods.id" :to="'/product/'+goods.id">
 		  <div class="goods-item" :style="'width:'+itemSize+'px'">
-			<img fit="cover" :width="itemSize" v-lazy="`${img.url}`"  v-for="img in goods.images.slice(0, 1)" />
+			<img :width="itemSize" v-lazy="`${img.url}`"  v-for="img in goods.images.slice(0, 1)" />
 			<h4 class="card-title van-multi-ellipsis--l2">{{goods.name}}</h4>
 			<div class="prodinfo">
 			  <div class="price">{{coculate(goods,  percent, credit_rate)}} + {{credit(goods,  percent, credit_rate)}}<van-icon name="diamond-o"></van-icon></div>

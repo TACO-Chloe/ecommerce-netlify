@@ -26,7 +26,7 @@
 
     <van-cell-group>
 	  <van-cell icon="points" title="我的地址" is-link to="/user/address" />
-      <van-cell icon="points" title="我的消息" is-link to="/user/setting"/>
+      <van-cell icon="points" title="我的信息" is-link to="/user/setting"/>
       <van-cell icon="gold-coin-o" title="我的优惠券" is-link />
       <van-cell icon="gift-o" title="我收到的礼物" is-link />
     </van-cell-group>
@@ -51,8 +51,10 @@ export default {
 .user {
   &-poster {
     width: 100%;
-    height: 53vw;
-    display: block;
+    height: 38vw;
+	display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
   }
 
   &-group {

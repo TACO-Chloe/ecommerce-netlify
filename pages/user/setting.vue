@@ -1,18 +1,10 @@
 <template>
   <div class="seting-box">
     <app-navbar :title="'我的消息'" />
-	<van-cell-group style="margin-top:2.4rem">
-      <van-cell is-link center>
-		<div class="personMsg">
-			<van-uploader>
-				<img class="iconImage"
-					 :src="user_image.noLogin_icon"
-					 alt="">
-			</van-uploader>
-		</div>
-	  </van-cell>
+	<van-cell-group style="margin-top:3rem">
+	  	<app-uploader />
     </van-cell-group>
-	
+
 	
     <div class="input-item">
       <van-field v-model="nickName" label="昵称" />
@@ -29,7 +21,7 @@
 		  <div class="van-cell__title van-field__label">
 			<span>生日</span>
 		  </div>
-		  <div class="van-field__body"><input type="text" v-model="birth" class="van-field__control"></div>
+		  <div class="van-field__body">{{birth}}</div>
 	  </div>
 	  <van-popup v-model="showdate"  position="bottom">
 		  <van-datetime-picker
@@ -41,7 +33,14 @@
 			  @confirm="confirmPicker"
 		  />
 	  </van-popup>
-	  <van-field v-model="mobile" @touchstart.native.stop="show = true" label="電話" />
+	  <div class="van-cell van-field" @click="onKeyboard">
+		  <div class="van-cell__title van-field__label">
+			<span>電話</span>
+		  </div> 
+		  <div class="van-field__body" v-if="win"><input type="text" v-model="mobile" class="van-field__control"></div>
+		  <div class="van-field__body" v-else>{{mobile}}</div>
+	  </div>
+
 	  <van-number-keyboard
 		  :show="show"
 		  theme="custom"
@@ -67,12 +66,6 @@ export default {
   },
   data() {
     return {
-	  user_image: {
-        login_icon: require('./../../images/mine/defaultImg.jpeg'),
-        noLogin_icon: require('./../../images/login/grey.jpg'),
-        female: require('./../../images/mine/female.png'),
-        male: require('./../../images/mine/male.png')
-      },
 	  nickName: '',
       gender: 'M',
 	  birth: '',
@@ -80,6 +73,7 @@ export default {
 	  introduceSign: '',
 	  show: false,
 	  showdate: false,
+	  win: false,
 	  minDate: new Date(1920, 0, 1),
       maxDate: new Date(),
 	  currentDate: new Date(new Date().getFullYear() -20 , 0, 1)
@@ -97,12 +91,25 @@ export default {
 	save() {
 	  Toast('保存');
 	},
+	onKeyboard() {
+	  var isMobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)|(Win)/i);
+	  console.log(navigator.userAgent);
+	  console.log(isMobile[0]);
+	  console.log(this.win);
+	  if (isMobile[0]=='Win'){
+		this.win = true;
+	  }
+	  else {
+		this.show = true;
+	  }
+	},
 	datePicker() {
 	  Toast('datepicker');
 	  this.showdate = true;
 	},
 	cancelPicker () {
 	  this.showdate = false;
+	  this.birth = '';
 	},
 	confirmPicker (value) {
 	  this.showdate = false;
@@ -166,33 +173,8 @@ export default {
   }
   .van-cell-group {
       background-color: transparent;
-	  .van-cell {
-	    background-color: #3bba63;
-		color:#FFF;
-		margin: 5px auto;
-	  }
   }
   
-  .personMsg {
-    display: flex;
-    align-items: center;
-    .sex {
-      position: absolute;
-      top: 3.5rem;
-      left: 3.8rem;
-      width: 0.1rem;
-      height: 0.1rem;
-      img {
-        width: 1rem;
-        height: 1rem;
-      }
-    }
-    img {
-      width: 4rem;
-      height: 4rem;
-      border-radius: 50%;
-    }
-  }
   
   .input-item {
 	  .van-cell {
@@ -200,6 +182,5 @@ export default {
 		margin-top: 12px;
 	  }
   }
-  
 
 </style>

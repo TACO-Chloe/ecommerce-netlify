@@ -1,12 +1,13 @@
 <template>
-
-	<van-uploader v-model="fileList" 
+	<div class="div-cell">
+		<van-uploader v-model="fileList" 
 				:before-read="beforeRead" 
 				:after-read="afterRead" 
 				:max-size="500 * 1024" 
-				@oversize="onOversize" 
-	/>
-	
+				@oversize="onOversize" >
+			<img :src="user_image.noLogin_icon" alt="">
+		</van-uploader>
+	</div>
 </template>
 
 
@@ -19,6 +20,12 @@ export default {
       fileList: [
 
       ],
+	  user_image: {
+        login_icon: require('./../images/mine/defaultImg.jpeg'),
+        noLogin_icon: require('./../images/login/grey.jpg'),
+        female: require('./../images/mine/female.png'),
+        male: require('./../images/mine/male.png')
+      },
     };
   },
   methods: {
@@ -60,5 +67,32 @@ export default {
   },
 };
 
-
 </script>
+
+<style lang="scss" scoped>
+img {
+	width: 4rem;
+	height: 4rem;
+	border-radius: 50%;
+}
+
+.div-cell {
+  background-color: #3bba63;
+  color: #FFF;
+  padding: 1rem;
+}
+.sex {
+  position: absolute;
+  top: 3.5rem;
+  left: 3.8rem;
+  width: 0.1rem;
+  height: 0.1rem;
+  img {
+	width: 1rem;
+	height: 1rem;
+  }
+}
+
+
+
+</style>

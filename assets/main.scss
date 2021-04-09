@@ -6,7 +6,6 @@ $brandsecondary: #03c1c1;
 /*------------  Global   -----------*/
 
 body {
-  border: 10px solid #ccc;
   min-height: 100vh;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -18,6 +17,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+  border: 0.5rem solid #ccc;
 }
 
 h1,

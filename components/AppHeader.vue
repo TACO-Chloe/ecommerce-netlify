@@ -40,11 +40,13 @@ export default {
 
 .van-search {
     background-color: #ccc; 
+	margin: -1px;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 540px) {
 	.van-search {
 		background-color: transparent; 
+		margin-right: 10px;
 	}
 }
 
