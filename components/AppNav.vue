@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="swiper">
-    <van-swipe id="swiper" :autoplay="5000" indicator-color="#ccc">
+    <van-swipe :autoplay="5000">
 		<!-- slides -->
 		<van-swipe-item v-for="(item, idx) in 4" :key="idx">
 		  <van-image :src="require(`@/assets/bg${item}.png`)"
@@ -9,10 +9,6 @@
 			  width="100%"
 		  />
 		</van-swipe-item>
-
-		<!-- Optional controls -->
-		<div class=""
-			 slot="pagination"></div>
     </van-swipe>
   </div>	
   <header>
@@ -36,32 +32,6 @@ import { mapGetters } from "vuex";
 export default {
   data () {
     return {
-      swiperOption: {
-        // 进来就加载
-        notNextTick: true,
-        pagination: {
-          el: '.swiper-pagination',
-        },
-        loop: true,
-        //配置自动播放
-        autoplay: {
-          delay: 3000,
-          // 最后一个是否停止
-          stopOnLastSlide: false,
-          // 用户操作swiper之后，是否禁止autoplay
-          disableOnInteraction: false,
-        },
-        observer: true,
-        observeParents: true,
-        // 配置速度
-        speed: 600,
-        // 滑动后回调函数
-        on: {
-          slideChangeTransitionEnd () {
-          },
-          //   preventLinksPropagation: false
-        }
-      }
     }
   },
   components: {
@@ -160,11 +130,8 @@ nav {
 
 .swiper{
 	.van-swipe {
-	  //margin: 0px;
-	  //padding-top: 0.5rem;
 	  width: 100%;
 	  height: 95%;
-	  z-index: -99;
 	  //border-radius: 3rem;
 
 	  .van-swipe-item {
