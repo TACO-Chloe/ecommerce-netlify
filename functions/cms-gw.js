@@ -54,7 +54,23 @@ exports.handler = async (event, context) => {
 		const postData = JSON.parse(event.body);
 		console.log("Data:"+postData);
 		
-		myData = await graphqlRequest(GLQuery.ProductDetail,postData);
+		switch (postData.gltype) {
+		  case 'ProductDetail':
+			myData = await graphqlRequest(GLQuery.ProductDetail,postData);
+			console.log('ProductDetail');
+			break;
+		  case 'UpdateUserSetting':
+			myData = await graphqlRequest(GLQuery.UpdateUserSetting,postData);
+			console.log('UpdateUserSetting');
+			break;
+		  case 'Other':
+			console.log('Other');
+			break;
+		  default:
+			console.log(`Sorry, we are out of ${expr}.`);
+		}
+		
+		//myData = await graphqlRequest(GLQuery.ProductDetail,postData);
 	};
 
 
