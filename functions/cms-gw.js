@@ -56,11 +56,11 @@ exports.handler = async (event, context) => {
 		
 		switch (postData.gltype) {
 		  case 'ProductDetail':
-			GLQuery = GLQuery.ProductDetail;
+			Query = GLQuery.ProductDetail;
 			console.log('ProductDetail');
 			break;
 		  case 'UpdateUserSetting':
-			GLQuery = GLQuery.UpdateUserSetting;
+			Query = GLQuery.UpdateUserSetting;
 			console.log('UpdateUserSetting');
 			break;
 		  case 'Other':
@@ -70,7 +70,7 @@ exports.handler = async (event, context) => {
 			console.log(`Sorry, we are out of ${expr}.`);
 		}
 		
-		myData = await graphqlRequest(GLQuery,postData);
+		myData = await graphqlRequest(Query,postData);
 	};
 
 
