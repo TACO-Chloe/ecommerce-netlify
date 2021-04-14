@@ -50,7 +50,7 @@ exports.handler = async (event, context) => {
 		
 		const postData = JSON.parse(event.body);
 		console.log("Data:"+postData);
-		//gltype = postData.gltype;
+		gltype = postData.gltype;
 		
 		const GLQuery = require(`./graphql/queriesPost${gltype}`);
 		console.log("GLQuery:"+ JSON.stringify(GLQuery));
