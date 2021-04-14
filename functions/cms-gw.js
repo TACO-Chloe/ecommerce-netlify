@@ -48,11 +48,11 @@ exports.handler = async (event, context) => {
 // 		const {ProductDetail} = require('./graphql/queries/queries.js');
 // 		console.log("ProductDetail:"+ ProductDetail);
 		
-		const GLQuery = require('./graphql/queriesPost.js').postData.gltype;
-		console.log("GLQuery:"+ JSON.stringify(GLQuery));
-		
 		const postData = JSON.parse(event.body);
 		console.log("Data:"+postData);
+		
+		const GLQuery = require('./graphql/queriesPost.js').postData.gltype;
+		console.log("GLQuery:"+ JSON.stringify(GLQuery));
 		
 		// switch (postData.gltype) {
 		  // case 'ProductDetail':
