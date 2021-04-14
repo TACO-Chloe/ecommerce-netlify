@@ -50,9 +50,9 @@ exports.handler = async (event, context) => {
 		
 		const postData = JSON.parse(event.body);
 		console.log("Data:"+postData);
-		gltype = postData.gltype;
+		//gltype = postData.gltype;
 		
-		const GLQuery = require('./graphql/queriesPost.js').`${gltype}`;
+		const GLQuery = require(`./graphql/queriesPost${gltype}`);
 		console.log("GLQuery:"+ JSON.stringify(GLQuery));
 		
 		// switch (postData.gltype) {
@@ -71,8 +71,8 @@ exports.handler = async (event, context) => {
 			// console.log(`Sorry, we are out of ${expr}.`);
 		// }
 		
-		myData = await graphqlRequest(Query,postData);
-		// myData = await graphqlRequest(GLQuery,postData);
+		// myData = await graphqlRequest(Query,postData);
+		myData = await graphqlRequest(GLQuery,postData);
 	};
 
 

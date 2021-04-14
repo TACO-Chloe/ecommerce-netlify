@@ -50,5 +50,6 @@ const upsertSuUser = gql`
 `
 
 module.exports = {
-  ProductDetail
+  ProductDetail,
+  upsertSuUser
 }
