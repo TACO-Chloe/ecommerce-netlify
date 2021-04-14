@@ -48,29 +48,30 @@ exports.handler = async (event, context) => {
 // 		const {ProductDetail} = require('./graphql/queries/queries.js');
 // 		console.log("ProductDetail:"+ ProductDetail);
 		
-		const GLQuery = require('./graphql/queriesPost.js');
+		const GLQuery = require('./graphql/queriesPost.js').postData.gltype;
 		console.log("GLQuery:"+ JSON.stringify(GLQuery));
 		
 		const postData = JSON.parse(event.body);
 		console.log("Data:"+postData);
 		
-		switch (postData.gltype) {
-		  case 'ProductDetail':
-			Query = GLQuery.ProductDetail;
-			console.log('ProductDetail');
-			break;
-		  case 'UpdateUserSetting':
-			Query = GLQuery.UpdateUserSetting;
-			console.log('UpdateUserSetting');
-			break;
-		  case 'Other':
-			console.log('Other');
-			break;
-		  default:
-			console.log(`Sorry, we are out of ${expr}.`);
-		}
+		// switch (postData.gltype) {
+		  // case 'ProductDetail':
+			// Query = GLQuery.ProductDetail;
+			// console.log('ProductDetail');
+			// break;
+		  // case 'upsertSuUser':
+			// Query = GLQuery.upsertSuUser;
+			// console.log('UpdateUserSetting');
+			// break;
+		  // case 'Other':
+			// console.log('Other');
+			// break;
+		  // default:
+			// console.log(`Sorry, we are out of ${expr}.`);
+		// }
 		
-		myData = await graphqlRequest(Query,postData);
+		// myData = await graphqlRequest(Query,postData);
+		myData = await graphqlRequest(GLQuery,postData);
 	};
 
 
