@@ -105,16 +105,16 @@ async function graphqlRequest(GLQuery, postData) {
 	console.log("postData:"+postData);
 	
 	if (postData) { 
-		data = await graphQLClient.request(query,postData).catch((error) => data=error;
+		data = await graphQLClient.request(query,postData).catch((error) => console.error(error));
 		console.log("Data:"+JSON.stringify(data, undefined, 2));
 		console.log("info:2");
-		console.log(data);
+		console.log(data.status)
 	} 
 	else {
-		data = await graphQLClient.request(query).catch((error) => data=error;
+		data = await graphQLClient.request(query).catch((error) => console.error(error));
 		console.log("Data:"+JSON.stringify(data, undefined, 2));
 		console.log("info:3");
-		console.log(data);
+		console.log(data.status)
 	}
 	
 	//console.log(JSON.stringify(data, undefined, 2));
