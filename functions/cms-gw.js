@@ -41,7 +41,7 @@ exports.handler = async (event, context) => {
 		console.log("GLQuery:"+ GLQuery);
 		console.log("GLQuery:"+ JSON.stringify(GLQuery.ProductList));
 		
-		myData = await graphqlRequest(GLQuery.ProductList,'').catch((error) => console.error(error));
+		myData = await graphqlRequest(GLQuery.ProductList,'');
 	}
 	
 	if (event.httpMethod === "POST") {
@@ -73,7 +73,7 @@ exports.handler = async (event, context) => {
 		// }
 		
 		// myData = await graphqlRequest(Query,postData);
-		myData = await graphqlRequest(GLQuery,postData).catch((error) => console.error(error));
+		myData = await graphqlRequest(GLQuery,postData);
 	};
 
 
@@ -105,12 +105,12 @@ async function graphqlRequest(GLQuery, postData) {
 	console.log("postData:"+postData);
 	
 	if (postData) { 
-		data = await graphQLClient.request(query,postData);
+		data = await graphQLClient.request(query,postData).catch((error) => console.error(error));
 		console.log("Data:"+JSON.stringify(data, undefined, 2));
 		console.log("info:2");
 	} 
 	else {
-		data = await graphQLClient.request(query);
+		data = await graphQLClient.request(query).catch((error) => console.error(error));
 		console.log("Data:"+JSON.stringify(data, undefined, 2));
 		console.log("info:3");
 	}
