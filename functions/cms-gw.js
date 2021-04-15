@@ -79,8 +79,8 @@ exports.handler = async (event, context) => {
 
 
 	return {
-	  statusCode: myData.status,
-	  body: JSON.stringify(myData.data, undefined, 2),
+	  statusCode: 200,
+	  body: JSON.stringify(myData, undefined, 2),
 	  headers:{
 		"Access-Control-Allow-Origin": "*",
 		"Access-Control-Allow-Headers": "Content-Type",
@@ -105,20 +105,20 @@ async function graphqlRequest(GLQuery, postData) {
 	console.log("postData:"+postData);
 	
 	if (postData) { 
-		const {data, errors, extensions, headers, status} = await graphQLClient.request(query,postData).catch((error) => console.error(error));
+		data = await graphQLClient.request(query,postData).catch((error) => data=error;
 		console.log("Data:"+JSON.stringify(data, undefined, 2));
 		console.log("info:2");
-		console.log(status);
+		console.log(data);
 	} 
 	else {
-		const {data, errors, extensions, headers, status} = await graphQLClient.request(query).catch((error) => console.error(error));
+		data = await graphQLClient.request(query).catch((error) => data=error;
 		console.log("Data:"+JSON.stringify(data, undefined, 2));
 		console.log("info:3");
-		console.log(status);
+		console.log(data);
 	}
 	
 	//console.log(JSON.stringify(data, undefined, 2));
 	console.log("info:4");
 	
-	return {data, errors, extensions, headers, status}
+	return data
 }
