@@ -41,7 +41,6 @@ exports.handler = async (event, context) => {
 		console.log("GLQuery:"+ GLQuery);
 		console.log("GLQuery:"+ JSON.stringify(GLQuery.ProductList));
 		
-		myData = await graphqlRequest(GLQuery.ProductList,'');
 	}
 	
 	if (event.httpMethod === "POST") {
@@ -73,7 +72,7 @@ exports.handler = async (event, context) => {
 		// }
 		
 		// myData = await graphqlRequest(Query,postData);
-		myData = await graphqlRequest(GLQuery,postData);
+		myData = await graphqlRequest(GLQuery,postData).catch((error) => console.error(error));
 	};
 
 

@@ -42,7 +42,17 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  //loading: '~/components/AppLoadingbar.vue',
+  loading: { 
+	color: '#07c160',
+    height: '3px',
+	continuous: true 
+	},
+  loadingIndicator: {
+    name: 'circle',
+    color: '#3B8070',
+    background: 'white'
+  },
   /*
    ** Global CSS
    */
