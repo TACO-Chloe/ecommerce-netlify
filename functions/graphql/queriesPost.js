@@ -39,7 +39,13 @@ const createSuUser = gql`
   mutation createSuUser($data: SuUserCreateInput!)
   {
     createSuUser(data: $data) {
-      id
+      	id
+		name
+		snapshot{url}
+		gender
+		birth
+		mobile
+		motto
     } 
   }
 `
@@ -49,8 +55,13 @@ const updateSuUser = gql`
 mutation updateSuUser($userid: String!,$data: SuUserUpdateInput!)
 {
   updateSuUser(where: {userid: $userid},data: $data){ 
-    id
-    name
+    	id
+		name
+		snapshot{url}
+		gender
+		birth
+		mobile
+		motto
   }
 
 }
@@ -70,9 +81,13 @@ const upsertSuUser = gql`
 		  }
 		})
 	  {
-		id,
-		userid,
+		id
 		name
+		snapshot{url}
+		gender
+		birth
+		mobile
+		motto
 	  }
 	}
 `
@@ -83,7 +98,13 @@ mutation publishSuUser($userid: String!)
 {
   publishSuUser(where: {userid: $userid})
   {
-    id
+    	id
+		name
+		snapshot{url}
+		gender
+		birth
+		mobile
+		motto
   }
 }
 `
