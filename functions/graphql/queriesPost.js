@@ -19,6 +19,21 @@ const ProductDetail = gql`
   }
 `
 
+const getSuUser = gql`
+	query getSuUser($userid: String!)
+	{
+	  suUser(where: {userid: $userid}) {
+		id
+		name
+		snapshot{url}
+		gender
+		birth
+		mobile
+		motto
+	  }
+	}
+`
+
 
 const createSuUser = gql`
   mutation createSuUser($data: SuUserCreateInput!)
@@ -28,6 +43,19 @@ const createSuUser = gql`
     } 
   }
 `
+
+
+const updateSuUser = gql`
+mutation updateSuUser($userid: String!,$data: SuUserUpdateInput!)
+{
+  updateSuUser(where: {userid: $userid},data: $data){ 
+    id
+    name
+  }
+
+}
+`
+
 
 const upsertSuUser = gql`
 	mutation upsertSuUser($userid: String!,$name: String!,$snapshotid: ID!,$gender: String!,$birth: Date!,$mobile: String!,$email: String!, $state: String!, $level: String!, $motto: String!) 
@@ -49,8 +77,23 @@ const upsertSuUser = gql`
 	}
 `
 
+
+const publishSuUser = gql`
+mutation publishSuUser($userid: String!)
+{
+  publishSuUser(where: {userid: $userid})
+  {
+    id
+  }
+}
+`
+
+
 module.exports = {
   ProductDetail,
+  getSuUser,
   createSuUser,
-  upsertSuUser
+  updateSuUser,
+  upsertSuUser,
+  publishSuUser
 }

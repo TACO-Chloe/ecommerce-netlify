@@ -48,11 +48,6 @@ export default {
     height: '3px',
 	continuous: true 
 	},
-  loadingIndicator: {
-    name: 'circle',
-    color: '#3B8070',
-    background: 'white'
-  },
   /*
    ** Global CSS
    */
