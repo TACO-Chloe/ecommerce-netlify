@@ -8,6 +8,8 @@ import axios from "axios";
 export const state = () => ({
   cartUIStatus: "idle",
   storedata: "" ,
+  postdata: "",
+  userinfo: "",
   cart: [],
   clientSecret: "" // Required to initiate the payment from the client
 });
@@ -42,7 +44,13 @@ export const getters = {
       };
     });
   },
-  clientSecret: state => state.clientSecret
+  clientSecret: state => state.clientSecret,
+  userinfo: state => {
+						console.log('sessionStorage',sessionStorage.getItem('userinfo'));
+						console.log('state',state.userinfo);
+						return JSON.parse(sessionStorage.getItem('userinfo'));
+					 },
+  postData: state => state.postdata
 };
 
 export const mutations = {
@@ -64,7 +72,14 @@ export const mutations = {
   },
   setStoredata: (state, payload) => {
     state.storedata = payload;
-  }, 
+  },
+  setUserInfo: (state, payload) => {
+    state.userinfo = payload;
+	console.log('SETUSERINFO',state.userinfo)
+  },
+  setPostData: (state, payload) => {
+    state.postdata = payload;
+  },
   addOneToCart: (state, payload) => {
     let itemfound = state.cart.find(el => el.id === payload.id)
     itemfound ? itemfound.quantity++ : state.cart.push(payload)
@@ -118,5 +133,13 @@ export const actions = {
     const products = await axios.get("https://subangbang.netlify.app/.netlify/functions/cms-gw", { useCache: true });
 	console.log("Products-actions:"+JSON.stringify(products.data.products))
     commit("setStoredata", products.data.products);
+	localStorage.setItem("products", JSON.stringify(products.data.products));
+  },
+  async getUserInfo({getters,commit}) {
+    const userinfo = await axios.post("https://subangbang.netlify.app/.netlify/functions/cms-gw", getters.postData);
+	console.log("UserInfo-actions:"+JSON.stringify(userinfo.data.suUser))
+    commit("setUserInfo", userinfo.data.suUser);
+	sessionStorage.setItem('userinfo', JSON.stringify(userinfo.data.suUser));
+	console.log("Finish SET");
   }
 };

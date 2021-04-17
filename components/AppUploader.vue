@@ -53,7 +53,8 @@ export default {
 
       //this.files.type = file.file.type; // 获取类型
 	  
-      let url = 'https://api-ap-northeast-1.graphcms.com/v2/ckm1b1lzcbj5801xu6yqlfh53/master/upload'
+      //let url = 'https://api-ap-northeast-1.graphcms.com/v2/ckm1b1lzcbj5801xu6yqlfh53/master/upload';
+	  let url = `${process.env.GRAPHCMS_ENDPOINT}/upload`;
       
 	  let formData = new FormData()
 	  

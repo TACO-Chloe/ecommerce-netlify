@@ -13,7 +13,11 @@ export default {
     AppStoreGrid
   },
   computed: {
-    ...mapState(["storedata"])
+    //...mapState(["storedata"])
+	storedata() {
+	  const storeData = JSON.parse(localStorage.getItem("products"));
+      return storeData;
+	}
   }
 };
 </script>

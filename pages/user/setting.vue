@@ -2,7 +2,9 @@
   <div class="seting-box">
     <app-navbar :title="'我的消息'" />
 	<van-cell-group style="margin-top:3rem">
-	  	<app-uploader />
+		<div class="div-cell">
+			<app-uploader :img="snapshot.url" />
+		</div>
     </van-cell-group>
 
 	
@@ -59,6 +61,8 @@
 import AppNavbar from "~/components/AppNavbar.vue";
 import AppUploader from "~/components/AppUploader.vue";
 import { Toast } from 'vant'
+import { postCMS } from '@/api/api';
+
 export default {
   components: {
     AppNavbar,
@@ -66,11 +70,12 @@ export default {
   },
   data() {
     return {
-	  nickName: '',
-      gender: 'M',
-	  birth: '',
-	  mobile: '',
-	  introduceSign: '',
+	  nickName: this.$store.getters.userinfo.name,
+	  snapshot: this.getSnapshot(),
+      gender: this.$store.getters.userinfo.gender,
+	  birth: this.$store.getters.userinfo.birth,
+	  mobile: this.$store.getters.userinfo.mobile,
+	  introduceSign: this.$store.getters.userinfo.motto,
 	  show: false,
 	  showdate: false,
 	  win: false,
@@ -78,6 +83,16 @@ export default {
       maxDate: new Date(),
 	  currentDate: new Date(new Date().getFullYear() -20 , 0, 1)
     };
+  },
+  //async created (){
+	//console.log('created : this.save();')
+    //await this.save()
+  //},
+  mounted() {
+    this.$store.commit('setPostData','{"gltype":"getSuUser","userid": "A1234567890"}')
+	this.$store.dispatch("getUserInfo");
+	console.log('xxxxxxxx');
+	console.log(this.$store.getters.userinfo);
   },
   methods: {
     onInput(value) {
@@ -89,7 +104,45 @@ export default {
 	  this.mobile = this.mobile.slice(0,this.mobile.length - 1);
     },
 	save() {
-	  Toast('保存');
+		Toast('保存');
+		console.log(this.snapshot);
+		if (localStorage.getItem("token") === null && process.browser) {
+		localStorage.setItem('token','7533967');
+		alert('set_token');
+		}
+		//var data = JSON.parse('{"userid": "A1234567895","snapshot": {"connect": {"id": "cknftykhc7qk00a89qzoqh9bs"}}}');
+		//const userInfo = axios.post("https://subangbang.netlify.app/.netlify/functions/cms-gw", {'gltype':'createSuUser','data':data}, { useCache: true });
+		
+		//${sessionStorage.getItem('connectID')}
+		
+		var data = `{
+			"gltype":"upsertSuUser",
+			"userid": "A1234567890",
+			"name": "${this.nickName}",
+			"snapshotid": "${sessionStorage.getItem('connectID')}", 
+			"gender": "${this.gender}",
+			"birth": "${this.birth}",
+			"mobile": "${this.mobile}",
+			"email": "test@test.com",
+			"state": "0",
+			"level": "VIP",
+			"motto": "${this.introduceSign}"
+		}`;
+		
+		postCMS(data).then(result => {
+		  console.log('Result:',result);
+		  sessionStorage.setItem('userinfo', JSON.stringify(result.data.upsertSuUser));
+		  Toast.success('保存成功~');
+		})
+		.catch(error => {
+		  console.log(error);
+		});
+
+	  
+		alert(localStorage.getItem('token'));
+		document.cookie = "name=oeschger";
+		document.cookie = "favorite_food=tripe";
+		alert(document.cookie);
 	},
 	onKeyboard() {
 	  var isMobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)|(Win)/i);
@@ -113,50 +166,20 @@ export default {
 	},
 	confirmPicker (value) {
 	  this.showdate = false;
+	  value.setHours(8)
 	  Toast(value.toDateString());
-	  console.log(value.toDateString());
-	  console.log(value.toLocaleString());
-	  this.birth = value.toLocaleString().slice(0,value.toLocaleString().indexOf(" "));
+	  console.log('toDateString',value.toDateString());
+	  console.log('toLocaleString',value.toLocaleString());
+	  console.log('toISOString',value.toISOString());
+	  this.birth = value.toISOString().slice(0,value.toISOString().indexOf("T"));
+	},
+	getSnapshot(){
+		if(this.$store.getters.userinfo.snapshot) {
+			return this.$store.getters.userinfo.snapshot
+		} else {
+			return {"url":"https://vcunited.club/wp-content/uploads/2020/01/No-image-available-2.jpg"}
+		}
 	}
-  },
-  setup() {
-    const state = reactive({
-      nickName: '',
-      introduceSign: '',
-      password: ''
-    })
-
-    onMounted(async () => {
-      const { data } = await getUserInfo()
-      state.nickName = data.nickName
-      state.introduceSign = data.introduceSign
-    })
-
-    const save = async () => {
-      const params = {
-        introduceSign: state.introduceSign,
-        nickName: state.nickName
-      }
-      if (state.password) {
-        //params.passwordMd5 = md5(state.password)
-      } 
-      await EditUserInfo(params)
-      Toast.success('保存成功')
-    }
-
-    const handleLogout = async () => {
-      const { resultCode } = await logout()
-      if (resultCode == 200) {
-        setLocal('token', '')
-        window.location.href = '/home'
-      }
-    }
-
-    return {
-      ...toRefs(state),
-      save,
-      handleLogout
-    }
   }
 }
 </script>
@@ -181,6 +204,12 @@ export default {
 		background-color: transparent;
 		margin-top: 12px;
 	  }
+  }
+  
+  .div-cell {
+	  background-color: #3bba63;
+	  color: #FFF;
+	  padding: 1rem;
   }
 
 </style>

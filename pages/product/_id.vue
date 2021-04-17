@@ -80,7 +80,11 @@ export default {
     };
   },
   computed: {
-    ...mapState(["storedata"]),
+    //...mapState(["storedata"]),
+	storedata() {
+	  const storeData = JSON.parse(localStorage.getItem("products"));
+      return storeData;
+	},
     product() {
       return this.storedata.find(el => el.id === this.id);
     }

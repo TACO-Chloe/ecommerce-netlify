@@ -36,10 +36,6 @@ export default {
 	//window.navigator.vibrate(200);
     //return products.data;
   //},
-  //mounted() {
-    // create a PaymentIntent on Stripe with order information
-	//this.$store.dispatch("getProducts");
-  //},
   components: {
     AppHeader,
     AppNav,
