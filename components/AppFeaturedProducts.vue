@@ -59,6 +59,26 @@
 		  </div>
 		</van-grid-item>
     </van-grid>
+	
+	<h2>
+      <span>Another3 Products</span>
+    </h2>
+	  <div class="container mx-auto text-center">
+		<div class="pt-4">
+		  <h2 class="text-xl">Nuxt with GraphCMS</h2>
+		  <div class="flex justify-center -mx-4 my-4">
+			<router-link
+			  v-for="product in featuredProducts"
+			  :to="{ name: 'product-slug', params: { slug: product.id } }"
+			  :key="product.id"
+			>
+			  <article class="border rounded-md p-6 mx-2">
+				<h1 class="fopnt-bold text-xl">{{ product.name }}</h1>
+			  </article>
+			</router-link>
+		  </div>
+		</div>
+	  </div>
   </section>
 </template>
 

@@ -1,20 +1,30 @@
 <template>
-	<div class="div-cell">
-		<van-uploader v-model="fileList" 
+	<div>
+		<van-uploader v-model="fileList" multiple 
+				:max-count="1"
+				:deletable="false"
 				:before-read="beforeRead" 
 				:after-read="afterRead" 
-				:max-size="500 * 1024" 
+				:max-size="500 * 1024"			
 				@oversize="onOversize" >
-			<img :src="user_image.noLogin_icon" alt="">
+			<img :src="imgSrc" alt="">
 		</van-uploader>
+		<van-popup v-model="show"><img src="/icon-loading.svg"></van-popup>
 	</div>
 </template>
 
 
 <script>
-import { Toast } from 'vant'
+import { Toast } from 'vant';
+import axios from "axios";
 
 export default {
+  props: {
+	img: {
+	  type: String,
+	  default: ''
+	},
+  },
   data() {
     return {
       fileList: [
@@ -26,17 +36,44 @@ export default {
         female: require('./../images/mine/female.png'),
         male: require('./../images/mine/male.png')
       },
+	  imgSrc: this.img,
+	  show: false,
+	  message: ""
     };
   },
   methods: {
     afterRead(file) {
-      file.status = 'uploading';
-      file.message = '上传中...';
+	  //this.postData.push(file);
+	  //file.status = 'uploading';
+	  //file.message = '上传中...';
+	  this.show = true;
+	  console.log(file);
+	  
+	  //this.files.name = file.file.name; // 获取文件名
 
-      setTimeout(() => {
-        file.status = 'failed';
-        file.message = '上传失败';
-      }, 1000);
+      //this.files.type = file.file.type; // 获取类型
+	  
+      let url = 'https://api-ap-northeast-1.graphcms.com/v2/ckm1b1lzcbj5801xu6yqlfh53/master/upload'
+      
+	  let formData = new FormData()
+	  
+      formData.append('fileUpload', file.file);
+      
+	  setTimeout(() => {
+		  axios.post(url, formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(result => {
+			file.status = 'done';
+			file.message = '上传成功';
+			console.log(result);
+			this.imgSrc = result.url;
+			this.show = false;
+			sessionStorage.setItem('connectID', result.data.id);
+		  }).catch(error => {
+			file.status = 'failed';
+			file.message = '上传失败';
+			console.log(error);
+			alert(error)
+		  })
+	  }, 1000);
     },
 	onOversize(file) {
       console.log(file);
@@ -50,20 +87,7 @@ export default {
       }
       return true;
     },
-    // 返回 Promise
-    asyncBeforeRead(file) {
-      return new Promise((resolve, reject) => {
-        if (file.type !== 'image/jpeg') {
-          Toast('请上传 jpg 格式图片');
-          reject();
-        } else {
-          let img = new File(['foo'], 'bar.jpg', {
-            type: 'image/jpeg',
-          });
-          resolve(img);
-        }
-      });
-    },
+
   },
 };
 
@@ -76,11 +100,19 @@ img {
 	border-radius: 50%;
 }
 
-.div-cell {
-  background-color: #3bba63;
-  color: #FFF;
-  padding: 1rem;
+/deep/ .van-image {
+	width: 4rem;
+	height: 4rem;
+	border-radius: 50%;
 }
+
+.van-popup {
+	background-color: transparent;
+}
+
+
+
+
 .sex {
   position: absolute;
   top: 3.5rem;

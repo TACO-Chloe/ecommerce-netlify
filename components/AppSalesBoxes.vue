@@ -27,6 +27,16 @@ export default {
           icon: "/icon-service.svg",
           heading: "Easy Online Returns",
           details: "Send Within 30 Days"
+        },
+		{
+          icon: "/icon-loading.svg",
+          heading: "Loading ...",
+          details: "... ..."
+        },
+		{
+          icon: "/svg/wechat.svg",
+          heading: "",
+          details: ""
         }
       ]
     };
