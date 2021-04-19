@@ -65,13 +65,13 @@ import { Toast } from 'vant'
 import { postCMS } from '@/api/api';
 
 export default {
-  async asyncData() {
+  async asyncData({store}) {
 	let data = '{"gltype":"getSuUser","userid": "A1234567890"}'
 	
 	await postCMS(data).then(result => {
 	  console.log('Result:',result);
 	  sessionStorage.setItem('userinfo', JSON.stringify(result.data.suUser));
-	  //this.$store.commit("setUserInfo", JSON.stringify(result.data.suUser));
+	  store.commit("setUserInfo", JSON.stringify(result.data.suUser));
 	  Toast.success('Query Success~');
 	})
 	.catch(error => {

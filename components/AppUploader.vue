@@ -81,10 +81,10 @@ export default {
 		  })
 	  }, 1000);
     },
-	onOversize(file) {
-      console.log(file);
-      Toast('文件大小不能超过 500kb');
-    },
+	//onOversize(file) {
+      //console.log(file);
+      //Toast('文件大小不能超过 500kb');
+    //},
 	// 返回布尔值
     beforeRead(file) {
       if (file.type !== 'image/jpeg') {
