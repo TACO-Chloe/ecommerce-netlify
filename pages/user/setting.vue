@@ -58,41 +58,45 @@
 </template>
 
 <script>
+import { mapState, mapActions, mapMutations  } from 'vuex'
 import AppNavbar from "~/components/AppNavbar.vue";
 import AppUploader from "~/components/AppUploader.vue";
 import { Toast } from 'vant'
 import { postCMS } from '@/api/api';
+import axios from 'axios';
 
 export default {
+  async asyncData() {
+	let data = '{"gltype":"getSuUser","userid": "A1234567890"}'
+	
+	await postCMS(data).then(result => {
+	  console.log('Result:',result);
+	  sessionStorage.setItem('userinfo', JSON.stringify(result.data.suUser));
+	  Toast.success('Query Success~');
+	})
+	.catch(error => {
+	  console.log(error);
+	});
+  },
   components: {
     AppNavbar,
 	AppUploader
   },
   data() {
     return {
-	  nickName: this.$store.getters.userinfo.name,
+	  nickName: this.$store.getters.gettersUserInfo.name,
 	  snapshot: this.getSnapshot(),
-      gender: this.$store.getters.userinfo.gender,
-	  birth: this.$store.getters.userinfo.birth,
-	  mobile: this.$store.getters.userinfo.mobile,
-	  introduceSign: this.$store.getters.userinfo.motto,
+      gender: this.$store.getters.gettersUserInfo.gender,
+	  birth: this.$store.getters.gettersUserInfo.birth,
+	  mobile: this.$store.getters.gettersUserInfo.mobile,
+	  introduceSign: this.$store.getters.gettersUserInfo.motto,
 	  show: false,
 	  showdate: false,
 	  win: false,
 	  minDate: new Date(1920, 0, 1),
       maxDate: new Date(),
-	  currentDate: new Date(new Date().getFullYear() -20 , 0, 1)
+	  currentDate: new Date(new Date().getFullYear() -20 , 0, 1),
     };
-  },
-  //async created (){
-	//console.log('created : this.save();')
-    //await this.save()
-  //},
-  mounted() {
-    this.$store.commit('setPostData','{"gltype":"getSuUser","userid": "A1234567890"}')
-	this.$store.dispatch("getUserInfo");
-	console.log('xxxxxxxx');
-	console.log(this.$store.getters.userinfo);
   },
   methods: {
     onInput(value) {
@@ -174,9 +178,11 @@ export default {
 	  this.birth = value.toISOString().slice(0,value.toISOString().indexOf("T"));
 	},
 	getSnapshot(){
-		if(this.$store.getters.userinfo.snapshot) {
-			return this.$store.getters.userinfo.snapshot
+		if(this.$store.getters.gettersUserInfo.snapshot) {
+			console.log('Y-getSnapshot');
+			return this.$store.getters.gettersUserInfo.snapshot
 		} else {
+			console.log('N-getSnapshot');
 			return {"url":"https://vcunited.club/wp-content/uploads/2020/01/No-image-available-2.jpg"}
 		}
 	}
