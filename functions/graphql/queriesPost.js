@@ -25,7 +25,10 @@ const getSuUser = gql`
 	  suUser(where: {userid: $userid}) {
 		id
 		name
-		snapshot{url}
+		snapshot{
+					url
+					id
+				}
 		gender
 		birth
 		mobile
@@ -41,7 +44,10 @@ const createSuUser = gql`
     createSuUser(data: $data) {
       	id
 		name
-		snapshot{url}
+		snapshot{
+					url
+					id
+				}
 		gender
 		birth
 		mobile
@@ -57,7 +63,10 @@ mutation updateSuUser($userid: String!,$data: SuUserUpdateInput!)
   updateSuUser(where: {userid: $userid},data: $data){ 
     	id
 		name
-		snapshot{url}
+		snapshot{
+					url
+					id
+				}
 		gender
 		birth
 		mobile
@@ -83,7 +92,10 @@ const upsertSuUser = gql`
 	  {
 		id
 		name
-		snapshot{url}
+		snapshot{
+					url
+					id
+				}
 		gender
 		birth
 		mobile
@@ -100,7 +112,10 @@ mutation publishSuUser($userid: String!)
   {
     	id
 		name
-		snapshot{url}
+		snapshot{
+					url
+					id
+				}
 		gender
 		birth
 		mobile
