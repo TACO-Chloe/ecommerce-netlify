@@ -64,10 +64,15 @@ export default {
 		  axios.post(url, formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(result => {
 			file.status = 'done';
 			file.message = '上传成功';
-			console.log(result);
-			this.imgSrc = result.url;
+			console.log('Upload-result',result);
+			this.imgSrc = result.data.url;
 			this.show = false;
-			sessionStorage.setItem('connectID', result.data.id);
+			const userInfo = this.$store.getters.gettersUserInfo;
+			userInfo.snapshot.id = result.data.id;
+			userInfo.snapshot.url = result.data.url;
+			console.log('Upload-userInfo',userInfo)
+			this.$store.commit("setUserInfo", JSON.stringify(userInfo));
+			sessionStorage.setItem('userinfo', JSON.stringify(userInfo));
 		  }).catch(error => {
 			file.status = 'failed';
 			file.message = '上传失败';

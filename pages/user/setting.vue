@@ -63,7 +63,6 @@ import AppNavbar from "~/components/AppNavbar.vue";
 import AppUploader from "~/components/AppUploader.vue";
 import { Toast } from 'vant'
 import { postCMS } from '@/api/api';
-import axios from 'axios';
 
 export default {
   async asyncData() {
@@ -72,11 +71,13 @@ export default {
 	await postCMS(data).then(result => {
 	  console.log('Result:',result);
 	  sessionStorage.setItem('userinfo', JSON.stringify(result.data.suUser));
+	  //this.$store.commit("setUserInfo", JSON.stringify(result.data.suUser));
 	  Toast.success('Query Success~');
 	})
 	.catch(error => {
 	  console.log(error);
 	});
+	
   },
   components: {
     AppNavbar,
@@ -123,7 +124,7 @@ export default {
 			"gltype":"upsertSuUser",
 			"userid": "A1234567890",
 			"name": "${this.nickName}",
-			"snapshotid": "${sessionStorage.getItem('connectID')}", 
+			"snapshotid": "${this.snapshot.id}", 
 			"gender": "${this.gender}",
 			"birth": "${this.birth}",
 			"mobile": "${this.mobile}",
@@ -180,10 +181,12 @@ export default {
 	getSnapshot(){
 		if(this.$store.getters.gettersUserInfo.snapshot) {
 			console.log('Y-getSnapshot');
-			return this.$store.getters.gettersUserInfo.snapshot
+			console.log(this.$store.getters.gettersUserInfo.snapshot);
+			console.log('sessionStorage',sessionStorage.getItem('userinfo'));
+			return this.$store.getters.gettersUserInfo.snapshot;
 		} else {
 			console.log('N-getSnapshot');
-			return {"url":"https://vcunited.club/wp-content/uploads/2020/01/No-image-available-2.jpg"}
+			return {"id":"cknftykhc7qk00a89qzoqh9bs","url":"https://vcunited.club/wp-content/uploads/2020/01/No-image-available-2.jpg"};
 		}
 	}
   }
