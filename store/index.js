@@ -9,7 +9,7 @@ export const state = () => ({
   cartUIStatus: "idle",
   storedata: "" ,
   postdata: "",
-  userinfo: "",
+  userinfo: {},
   cart: [],
   clientSecret: "" // Required to initiate the payment from the client
 });
@@ -45,12 +45,12 @@ export const getters = {
     });
   },
   clientSecret: state => state.clientSecret,
-  userinfo: state => {
+  gettersUserInfo: state => {
 						console.log('sessionStorage',sessionStorage.getItem('userinfo'));
 						console.log('state',state.userinfo);
 						return JSON.parse(sessionStorage.getItem('userinfo'));
 					 },
-  postData: state => state.postdata
+  gettersPostData: state => state.postdata
 };
 
 export const mutations = {
@@ -136,7 +136,7 @@ export const actions = {
 	localStorage.setItem("products", JSON.stringify(products.data.products));
   },
   async getUserInfo({getters,commit}) {
-    const userinfo = await axios.post("https://subangbang.netlify.app/.netlify/functions/cms-gw", getters.postData);
+    const userinfo = await axios.post("https://subangbang.netlify.app/.netlify/functions/cms-gw", getters.gettersPostData);
 	console.log("UserInfo-actions:"+JSON.stringify(userinfo.data.suUser))
     commit("setUserInfo", userinfo.data.suUser);
 	sessionStorage.setItem('userinfo', JSON.stringify(userinfo.data.suUser));
