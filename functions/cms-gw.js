@@ -49,7 +49,8 @@ exports.handler = async (event, context) => {
 	if (event.httpMethod === "POST") {
 		if (event.path === "/.netlify/functions/cms-gw/upload") {
 			const uploadUrl = `${process.env.GRAPHCMS_ENDPOINT}/upload`
-			const formData = event.body
+			const formData = new FormData()
+			formData.append('fileUpload', event.body);
 			myData = await axios.post(uploadUrl, formData, {headers: {'Content-Type': 'multipart/form-data'}})
 				.then(result => {
 					console.log('Upload-result',result);
@@ -57,37 +58,38 @@ exports.handler = async (event, context) => {
 				}).catch(error => {
 					console.error(error);
 				})
-		}
+		} else {
 
-// 		const {ProductDetail} = require('./graphql/queries/queries.js');
-// 		console.log("ProductDetail:"+ ProductDetail);
-		
-		const postData = JSON.parse(event.body);
-		console.log("Data:"+postData);
-		gltype = postData.gltype;
-		
-		//const GLQuery = require(`../api/graphql/queriesPost${gltype}`).myGraphql;
-		const GLQuery = require('./graphql/queriesPost')[gltype];
-		console.log("GLQuery:"+ JSON.stringify(GLQuery));
-		
-		// switch (postData.gltype) {
-		  // case 'ProductDetail':
-			// Query = GLQuery.ProductDetail;
-			// console.log('ProductDetail');
-			// break;
-		  // case 'upsertSuUser':
-			// Query = GLQuery.upsertSuUser;
-			// console.log('UpdateUserSetting');
-			// break;
-		  // case 'Other':
-			// console.log('Other');
-			// break;
-		  // default:
-			// console.log(`Sorry, we are out of ${expr}.`);
-		// }
-		
-		// myData = await graphqlRequest(Query,postData);
-		myData = await graphqlRequest(GLQuery,postData);
+	// 		const {ProductDetail} = require('./graphql/queries/queries.js');
+	// 		console.log("ProductDetail:"+ ProductDetail);
+			
+			const postData = JSON.parse(event.body);
+			console.log("Data:"+postData);
+			gltype = postData.gltype;
+			
+			//const GLQuery = require(`../api/graphql/queriesPost${gltype}`).myGraphql;
+			const GLQuery = require('./graphql/queriesPost')[gltype];
+			console.log("GLQuery:"+ JSON.stringify(GLQuery));
+			
+			// switch (postData.gltype) {
+			  // case 'ProductDetail':
+				// Query = GLQuery.ProductDetail;
+				// console.log('ProductDetail');
+				// break;
+			  // case 'upsertSuUser':
+				// Query = GLQuery.upsertSuUser;
+				// console.log('UpdateUserSetting');
+				// break;
+			  // case 'Other':
+				// console.log('Other');
+				// break;
+			  // default:
+				// console.log(`Sorry, we are out of ${expr}.`);
+			// }
+			
+			// myData = await graphqlRequest(Query,postData);
+			myData = await graphqlRequest(GLQuery,postData);
+		}
 	};
 
 
