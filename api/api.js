@@ -20,4 +20,4 @@ const urlUpload = 'https://subangbang.netlify.app/.netlify/functions/cms-gw/uplo
 // export const createOrder = params => post('createOrder', params);
 // export const getGoodById = params => post('getGoodById', params);
 export const postCMS = params => axios.post(url, params , { useCache: true });
-export const postUpload = params => axios.post(urlUpload, params, , {headers: {'Content-Type': 'multipart/form-data'});
+export const postUpload = params => axios.post(urlUpload, params, {headers: {'Content-Type': 'multipart/form-data'}});
