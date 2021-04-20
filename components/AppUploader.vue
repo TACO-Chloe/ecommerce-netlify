@@ -5,7 +5,7 @@
 				:deletable="false"
 				:before-read="beforeRead" 
 				:after-read="afterRead" 
-				:max-size="500 * 1024"			
+				:max-size="5000 * 1024"			
 				@oversize="onOversize" >
 			<img :src="imgSrc" alt="">
 		</van-uploader>
@@ -81,10 +81,10 @@ export default {
 		  })
 	  }, 1000);
     },
-	//onOversize(file) {
-      //console.log(file);
-      //Toast('文件大小不能超过 500kb');
-    //},
+	onOversize(file) {
+      console.log(file);
+      Toast('文件大小不能超过 500kb');
+    },
 	// 返回布尔值
     beforeRead(file) {
       if (file.type !== 'image/jpeg') {
