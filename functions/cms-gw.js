@@ -1,5 +1,7 @@
 require("dotenv").config();
 
+const axios = require('axios');
+
 const { GraphQLClient, gql } = require('graphql-request');
 
 const { Headers } = require('cross-fetch');
@@ -45,6 +47,18 @@ exports.handler = async (event, context) => {
 	}
 	
 	if (event.httpMethod === "POST") {
+		if (event.path === "/.netlify/functions/cms-gw/upload") {
+			const uploadUrl = `${process.env.GRAPHCMS_ENDPOINT}/upload`
+			const formData = event.body
+			myData = await axios.post(uploadUrl, formData, {headers: {'Content-Type': 'multipart/form-data'}})
+				.then(result => {
+					console.log('Upload-result',result);
+
+				}).catch(error => {
+					console.error(error);
+				})
+		}
+
 // 		const {ProductDetail} = require('./graphql/queries/queries.js');
 // 		console.log("ProductDetail:"+ ProductDetail);
 		

@@ -16,7 +16,7 @@
 
 <script>
 import { Toast } from 'vant';
-import axios from "axios";
+import { postUpload } from '@/api/api';
 
 export default {
   props: {
@@ -61,29 +61,31 @@ export default {
       formData.append('fileUpload', file.file);
       
 	  setTimeout(() => {
-		  axios.post(url, formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(result => {
-			file.status = 'done';
-			file.message = '上传成功';
-			console.log('Upload-result',result);
-			this.imgSrc = result.data.url;
-			this.show = false;
-			const userInfo = this.$store.getters.gettersUserInfo;
-			userInfo.snapshot.id = result.data.id;
-			userInfo.snapshot.url = result.data.url;
-			console.log('Upload-userInfo',userInfo)
-			this.$store.commit("setUserInfo", JSON.stringify(userInfo));
-			sessionStorage.setItem('userinfo', JSON.stringify(userInfo));
-		  }).catch(error => {
-			file.status = 'failed';
-			file.message = '上传失败';
-			console.log(error);
-			alert(error)
-		  })
+			postUpload(formData).then(result => {
+				file.status = 'done';
+				file.message = '上传成功';
+				console.log('Result:',result);
+				this.imgSrc = result.data.url;
+				this.show = false;
+				const userInfo = this.$store.getters.gettersUserInfo;
+				userInfo.snapshot.id = result.data.id;
+				userInfo.snapshot.url = result.data.url;
+				console.log('Upload-userInfo',userInfo)
+				this.$store.commit("setUserInfo", JSON.stringify(userInfo));
+				sessionStorage.setItem('userinfo', JSON.stringify(userInfo));
+				Toast.success(file.message);
+			})
+			.catch(error => {
+			  	file.status = 'failed';
+				file.message = '上传失败';
+				console.log(error);
+				Toast.fail(file.message);
+			});
 	  }, 1000);
     },
 	onOversize(file) {
       console.log(file);
-      Toast('文件大小不能超过 500kb');
+      Toast('文件大小不能超过 5 MB');
     },
 	// 返回布尔值
     beforeRead(file) {
