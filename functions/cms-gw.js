@@ -2,6 +2,8 @@ require("dotenv").config();
 
 const axios = require('axios');
 
+const Blob = require("cross-blob");
+
 const FormData = require('form-data');
 
 const { GraphQLClient, gql } = require('graphql-request');
