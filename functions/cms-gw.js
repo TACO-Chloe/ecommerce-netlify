@@ -56,7 +56,7 @@ exports.handler = async (event, context) => {
 			const buff = Buffer.from(event.body, 'base64');
 			console.log("Buffer:" + buff);
 			
-			const file = new Blob([buff], { type: "image/jpeg" })
+			const file = JSON.stringify(new Blob([buff], { type: "image/jpeg" }))
 			console.log("File:" + file);
 			
 			const formData = new FormData()
