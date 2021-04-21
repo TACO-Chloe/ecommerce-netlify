@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const axios = require('axios');
 
-const { Blob } = require('buffer');
+//const { Blob } = require('buffer');
 
 const FormData = require('form-data');
 
@@ -56,11 +56,11 @@ exports.handler = async (event, context) => {
 			const buff = Buffer.from(event.body, 'base64');
 			console.log("Buffer:" + buff);
 			
-			const file = new Blob([buff], { type: "image/jpeg" })
-			console.log("File:" + file);
+			//const file = new Blob([buff], { type: "image/jpeg" })
+			//console.log("File:" + file);
 			
 			const formData = new FormData()
-			formData.append('fileUpload', file);
+			formData.append('fileUpload', buff, { filename : 'test.jpeg' });
 			myData = await axios.post(uploadUrl, formData, {headers: {'Content-Type': 'multipart/form-data'}})
 				.then(result => {
 					console.log('Upload-result',result);
