@@ -51,8 +51,10 @@ exports.handler = async (event, context) => {
 	if (event.httpMethod === "POST") {
 		if (event.path === "/.netlify/functions/cms-gw/upload") {
 			const uploadUrl = `${process.env.GRAPHCMS_ENDPOINT}/upload`
+			const buff = new Buffer(event.body, 'base64');
+			console.log("EVEN.BODY:" + buff);
 			const formData = new FormData()
-			formData.append('fileUpload', event.body);
+			formData.append('fileUpload', buff);
 			myData = await axios.post(uploadUrl, formData, {headers: {'Content-Type': 'multipart/form-data'}})
 				.then(result => {
 					console.log('Upload-result',result);
