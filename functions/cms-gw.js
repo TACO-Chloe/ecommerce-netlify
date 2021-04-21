@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const axios = require('axios');
 
-const Blob = require("cross-blob");
+const Blob = require('node-blob');
 
 const FormData = require('form-data');
 
