@@ -2,6 +2,8 @@ require("dotenv").config();
 
 const axios = require('axios');
 
+const fs = require('fs');
+
 const FormData = require('form-data');
 
 const { GraphQLClient, gql } = require('graphql-request');
@@ -52,10 +54,10 @@ exports.handler = async (event, context) => {
 		if (event.path === "/.netlify/functions/cms-gw/upload") {
 			const uploadUrl = `${process.env.GRAPHCMS_ENDPOINT}/upload`
 			const buff = Buffer.from(event.body, 'base64');
-			console.log("EVEN.BODY:" + buff);
+			console.log("Buffer:" + buff);
 			const formData = new FormData()
-			formData.append('fileUpload', buff);
-			myData = await axios.post(uploadUrl, buff, {headers: {'Content-Type': 'multipart/form-data'}})
+			formData.append('fileUpload', fs.writeFileSync('stack-abuse-logo-out.png', buff));
+			myData = await axios.post(uploadUrl, formData, {headers: {'Content-Type': 'multipart/form-data'}})
 				.then(result => {
 					console.log('Upload-result',result);
 
