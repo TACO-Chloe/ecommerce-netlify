@@ -4,8 +4,6 @@ const axios = require('axios');
 
 const FormData = require('form-data');
 
-const Buffer = require('safer-buffer').Buffer
-
 const { GraphQLClient, gql } = require('graphql-request');
 
 const { Headers } = require('cross-fetch');
@@ -53,8 +51,7 @@ exports.handler = async (event, context) => {
 	if (event.httpMethod === "POST") {
 		if (event.path === "/.netlify/functions/cms-gw/upload") {
 			const uploadUrl = `${process.env.GRAPHCMS_ENDPOINT}/upload`
-			//const buff = new Buffer(event.body, 'base64');
-			const buff = Buffer(event.body, 'base64');
+			const buff = Buffer.from(event.body, 'base64');
 			console.log("EVEN.BODY:" + buff);
 			const formData = new FormData()
 			formData.append('fileUpload', buff);
