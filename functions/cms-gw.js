@@ -4,6 +4,8 @@ const axios = require('axios');
 
 const FormData = require('form-data');
 
+const Buffer = require('safer-buffer').Buffer
+
 const { GraphQLClient, gql } = require('graphql-request');
 
 const { Headers } = require('cross-fetch');
@@ -55,7 +57,7 @@ exports.handler = async (event, context) => {
 			console.log("EVEN.BODY:" + buff);
 			const formData = new FormData()
 			formData.append('fileUpload', buff);
-			myData = await axios.post(uploadUrl, formData, {headers: {'Content-Type': 'multipart/form-data'}})
+			myData = await axios.post(uploadUrl, buff, {headers: {'Content-Type': 'multipart/form-data'}})
 				.then(result => {
 					console.log('Upload-result',result);
 
