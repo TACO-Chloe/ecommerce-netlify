@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const axios = require('axios');
 
-const Blob = require('node-blob');
+const { Blob } = require('buffer');
 
 const FormData = require('form-data');
 
@@ -56,7 +56,7 @@ exports.handler = async (event, context) => {
 			const buff = Buffer.from(event.body, 'base64');
 			console.log("Buffer:" + buff);
 			
-			const file = JSON.stringify(new Blob([buff], { type: "image/jpeg" }))
+			const file = new Blob([buff], { type: "image/jpeg" })
 			console.log("File:" + file);
 			
 			const formData = new FormData()
