@@ -2,7 +2,9 @@ require("dotenv").config();
 
 const axios = require('axios');
 
-//const { Blob } = require('buffer');
+const Buffer = require( "buffer" ).Buffer;
+
+const fs = require("fs");
 
 const FormData = require('form-data');
 
@@ -22,6 +24,11 @@ headers = {
 };
 
 exports.handler = async (event, context) => {
+	var corsHeaders = {
+		"Access-Control-Allow-Origin" : process.env.NETLIFY_ACCESS_CONTROL_ALLOW_ORIGIN,
+		"Access-Control-Allow-Headers": "*",
+		"Access-Control-Allow-Methods": "*"
+	};
 	
 	if (event.httpMethod === "OPTIONS") {
 		return {
@@ -30,10 +37,14 @@ exports.handler = async (event, context) => {
 		};
 	}
 
+	console.log( "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" );
+	console.log( "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" );
 	console.log("EVENT: \n" + JSON.stringify(event, null, 2));
 	console.log("CONTEXT: \n" + JSON.stringify(context, null, 2));
 	console.log("HTTP-METHOD: \n" + JSON.stringify(event.httpMethod, null, 2));
 	console.log("EVEN.BODY:" + event.body);
+	console.log( "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" );
+	console.log( "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" );
 	
 	if (event.httpMethod === "GET") {
 // 		const { ProductList } = require('./graphql/queries/products.js');
@@ -58,9 +69,9 @@ exports.handler = async (event, context) => {
 			
 			//const file = new Blob([buff], { type: "image/jpeg" })
 			//console.log("File:" + file);
-			
+			//fs.writeFileSync("new-path.jpg", buff);
 			const formData = new FormData()
-			formData.append('fileUpload', buff, { filename : 'test.jpeg' });
+			formData.append('fileUpload', fs.createReadStream(buff));
 			myData = await axios.post(uploadUrl, formData, {headers: {'Content-Type': 'multipart/form-data'}})
 				.then(result => {
 					console.log('Upload-result',result);
