@@ -6,6 +6,8 @@ const Buffer = require( "buffer" ).Buffer;
 
 const fs = require("fs");
 
+const { Readable } = require('stream');
+
 const FormData = require('form-data');
 
 const { GraphQLClient, gql } = require('graphql-request');
@@ -65,13 +67,15 @@ exports.handler = async (event, context) => {
 		if (event.path === "/.netlify/functions/cms-gw/upload") {
 			const uploadUrl = `${process.env.GRAPHCMS_ENDPOINT}/upload`
 			const buff = Buffer.from(event.body, 'base64');
-			console.log("Buffer:" + buff);
+			//console.log("Buffer:" + buff);
 			
 			//const file = new Blob([buff], { type: "image/jpeg" })
 			//console.log("File:" + file);
+			
 			//fs.writeFileSync("new-path.jpg", buff);
+			
 			const formData = new FormData()
-			formData.append('fileUpload', fs.createReadStream(buff));
+			formData.append('fileUpload', bufferToStream(buff));
 			myData = await axios.post(uploadUrl, formData, {headers: {'Content-Type': 'multipart/form-data'}})
 				.then(result => {
 					console.log('Upload-result',result);
@@ -156,4 +160,16 @@ async function graphqlRequest(GLQuery, postData) {
 	console.log("info:4");
 	
 	return data
+}
+
+function bufferToStream(binary) {
+
+    const readableInstanceStream = new Readable({
+      read() {
+        this.push(binary);
+        this.push(null);
+      }
+    });
+
+    return readableInstanceStream;
 }
