@@ -76,7 +76,7 @@ exports.handler = async (event, context) => {
 			
 			const formData = new FormData()
 			//formData.append('fileUpload', bufferToStream(buff));
-			formData.append('fileUpload',  fs.createReadStream(require('./shoe1.jpg')));
+			formData.append('fileUpload',  fs.createReadStream(require.resolve('./shoe1.jpg')));
 			myData = await axios.post(uploadUrl, formData, {headers: {'Content-Type': 'multipart/form-data'}})
 				.then(result => {
 					console.log('Upload-result',result);
