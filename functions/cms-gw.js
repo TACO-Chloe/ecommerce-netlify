@@ -6,7 +6,7 @@ const Buffer = require( "buffer" ).Buffer;
 
 const fs = require("fs");
 
-const { Readable } = require('stream');
+const Blob = require("cross-blob");
 
 const FormData = require('form-data');
 
@@ -69,14 +69,14 @@ exports.handler = async (event, context) => {
 			const buff = Buffer.from(event.body, 'base64');
 			//console.log("Buffer:" + buff);
 			
-			//const file = new Blob([buff], { type: "image/jpeg" })
-			//console.log("File:" + file);
+			const file = new Blob([buff], { type: "image/jpeg" })
+			console.log("File:" + file);
+			console.log("File:" + JSON.stringify(file));
 			
 			//fs.writeFileSync("new-path.jpg", buff);
 			
 			const formData = new FormData()
-			//formData.append('fileUpload', bufferToStream(buff));
-			formData.append('fileUpload',  fs.createReadStream(require.resolve('./shoe1.jpg')));
+			formData.append('fileUpload', file);
 			myData = await axios.post(uploadUrl, formData, {headers: {'Content-Type': 'multipart/form-data'}})
 				.then(result => {
 					console.log('Upload-result',result);
@@ -161,16 +161,4 @@ async function graphqlRequest(GLQuery, postData) {
 	console.log("info:4");
 	
 	return data
-}
-
-function bufferToStream(binary) {
-
-    const readableInstanceStream = new Readable({
-      read() {
-        this.push(binary);
-        this.push(null);
-      }
-    });
-
-    return readableInstanceStream;
 }
