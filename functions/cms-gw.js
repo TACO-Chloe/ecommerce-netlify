@@ -93,7 +93,7 @@ exports.handler = async (event, context) => {
 				// }).catch(error => {
 					// console.error(error);
 				// })
-			myData = fetch(uploadUrl, {
+			myData = await fetch(uploadUrl, {
 				  method: 'POST',
 				  body: formData,
 				}).then(result => {
