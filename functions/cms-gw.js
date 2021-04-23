@@ -103,7 +103,7 @@ exports.handler = async (event, context) => {
 					console.error(error);
 					return error
 				});	
-			console.log("fetch:/*************/");
+			console.log("fetch:/*************/",myData);
 			
 		} 
 		else {
