@@ -68,7 +68,7 @@ exports.handler = async (event, context) => {
 		if (event.path === "/.netlify/functions/cms-gw/upload") {
 			const uploadUrl = `${process.env.GRAPHCMS_ENDPOINT}/upload`
 			const buff = Buffer.from(event.body, 'base64');
-			//console.log("Buffer:" + buff);
+			console.log("Buffer:" + buff);
 			
 			//const file = new Blob([buff], { type: "image/jpeg" })
 			//console.log("File:" + {file});
@@ -78,8 +78,8 @@ exports.handler = async (event, context) => {
 			} 
 			catch (error){
 				console.error(error);
-				
 			}
+			console.log("writeFileSync:/*************/");
 			
 			const formData = new FormData()
 			
