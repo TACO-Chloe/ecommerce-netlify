@@ -73,8 +73,13 @@ exports.handler = async (event, context) => {
 			//const file = new Blob([buff], { type: "image/jpeg" })
 			//console.log("File:" + {file});
 			//console.log("File:" + JSON.stringify(file));
-			
-			fs.writeFileSync("/tmp/new-path.jpg", buff);
+			try{
+				fs.writeFileSync("/tmp/new-path.jpg", buff);
+			} 
+			catch (error){
+				console.error(error);
+				
+			}
 			
 			const formData = new FormData()
 			
