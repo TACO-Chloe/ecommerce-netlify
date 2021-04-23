@@ -85,6 +85,7 @@ exports.handler = async (event, context) => {
 			
 			//formData.append('fileUpload', file);
 			formData.append('fileUpload', fs.createReadStream('/tmp/new-path.jpg'))
+			console.log("createReadStream:/*************/");
 			// myData = await axios.post(uploadUrl, formData, {headers: {'Content-Type': 'multipart/form-data'}})
 				// .then(result => {
 					// console.log('Upload-result',result);
@@ -100,7 +101,10 @@ exports.handler = async (event, context) => {
 				}).catch(error => {
 					console.error(error);
 				});	
-		} else {
+			console.log("fetch:/*************/");
+			
+		} 
+		else {
 
 	// 		const {ProductDetail} = require('./graphql/queries/queries.js');
 	// 		console.log("ProductDetail:"+ ProductDetail);
