@@ -6,7 +6,8 @@ const Buffer = require( "buffer" ).Buffer;
 
 const fs = require("fs");
 
-const Blob = require("cross-blob");
+//const Blob = require("cross-blob");
+const fetch = require("node-fetch");
 
 const FormData = require('form-data');
 
@@ -69,21 +70,31 @@ exports.handler = async (event, context) => {
 			const buff = Buffer.from(event.body, 'base64');
 			//console.log("Buffer:" + buff);
 			
-			const file = new Blob([buff], { type: "image/jpeg" })
-			console.log("File:" + file);
-			console.log("File:" + JSON.stringify(file));
+			//const file = new Blob([buff], { type: "image/jpeg" })
+			//console.log("File:" + {file});
+			//console.log("File:" + JSON.stringify(file));
 			
-			//fs.writeFileSync("new-path.jpg", buff);
+			fs.writeFileSync("new-path.jpg", buff);
 			
 			const formData = new FormData()
-			formData.append('fileUpload', file);
-			myData = await axios.post(uploadUrl, formData, {headers: {'Content-Type': 'multipart/form-data'}})
-				.then(result => {
-					console.log('Upload-result',result);
+			
+			//formData.append('fileUpload', file);
+			formData.append('fileUpload', fs.createReadStream('new-path.jpg'))
+			// myData = await axios.post(uploadUrl, formData, {headers: {'Content-Type': 'multipart/form-data'}})
+				// .then(result => {
+					// console.log('Upload-result',result);
 
+				// }).catch(error => {
+					// console.error(error);
+				// })
+			myData = fetch(uploadUrl, {
+				  method: 'POST',
+				  body: formData,
+				}).then(result => {
+					console.log('Upload-result',result);
 				}).catch(error => {
 					console.error(error);
-				})
+				});	
 		} else {
 
 	// 		const {ProductDetail} = require('./graphql/queries/queries.js');
