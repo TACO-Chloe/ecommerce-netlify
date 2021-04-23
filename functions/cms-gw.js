@@ -98,8 +98,10 @@ exports.handler = async (event, context) => {
 				  body: formData,
 				}).then(result => {
 					console.log('Upload-result',result);
+					return result.json()
 				}).catch(error => {
 					console.error(error);
+					return error
 				});	
 			console.log("fetch:/*************/");
 			
