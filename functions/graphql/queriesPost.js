@@ -33,6 +33,14 @@ const getSuUser = gql`
 		birth
 		mobile
 		motto
+		shippingAddresses(where: {suUser: {userid: $userid}}) {
+		  receiver
+		  area
+		  address
+		  phone
+		  default
+		  state
+		}
 	  }
 	}
 `
