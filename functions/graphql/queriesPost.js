@@ -85,7 +85,7 @@ const upsertSuUser = gql`
 		  create: {
 			userid:$userid,name:$name,gender:$gender,birth:$birth,mobile:$mobile,email:$email,state:$state,level:$level,motto:$motto
 		  },
-		  update: {
+		  update: {		
 			name:$name,snapshot:{connect:{id:$snapshotid}},gender:$gender,birth:$birth,mobile:$mobile,email:$email,state:$state,level:$level,motto:$motto
 		  }
 		})

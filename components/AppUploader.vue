@@ -52,14 +52,25 @@ export default {
 	  //this.files.name = file.file.name; // 获取文件名
 
       //this.files.type = file.file.type; // 获取类型
-	  
       
 	  let formData = new FormData()
 	  
       formData.append('fileUpload', file.file);
-      
+	  
+	  console.log('file:',file);
+	  console.log('file.file:',file.file);
+      console.log('formData:',formData.get('fileUpload'));
+	  
+	  
+	  // axios.post(url, formData, {headers: {'Content-Type': 'multipart/form-data'}})
+				// .then(result => {
+					// console.log('Upload-result',result);
+				// }).catch(error => {
+					// console.error(error);
+				// })
+	  
 	  setTimeout(() => {
-			postUpload(formData).then(result => {
+			postUpload(file.file).then(result => {
 				file.status = 'done';
 				file.message = '上传成功';
 				console.log('Result:',result);
@@ -76,10 +87,11 @@ export default {
 			.catch(error => {
 			  	file.status = 'failed';
 				file.message = '上传失败';
+				this.show = false;
 				console.log(error);
 				Toast.fail(file.message);
 			});
-	  }, 1000);
+	  }, 500);
     },
 	onOversize(file) {
       console.log(file);
@@ -117,8 +129,6 @@ img {
 }
 
 
-
-
 .sex {
   position: absolute;
   top: 3.5rem;
@@ -130,7 +140,6 @@ img {
 	height: 1rem;
   }
 }
-
 
 
 </style>
