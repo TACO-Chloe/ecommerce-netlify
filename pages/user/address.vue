@@ -4,7 +4,7 @@
 	  <app-navbar :title="'我的收貨地址'" />
 	  <van-address-list
 	    v-model="chosenAddressId"
-	    :list="list"
+	    :list="shippingAddresses"
 	    :disabled-list="disabledList"
 	    disabled-text="以下地址超出配送范围"
 	    default-tag-text="默认"
@@ -20,25 +20,14 @@ import { Toast } from 'vant';
 import AppNavbar from "~/components/AppNavbar.vue";
 
 export default {
+  components: {
+	AppNavbar
+  },
   data() {
     return {
-      chosenAddressId: '1',
-      list: [
-        {
-          id: '1',
-          name: '张三',
-          tel: '13000000000',
-          address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室',
-          isDefault: true,
-        },
-        {
-          id: '2',
-          name: '李四',
-          tel: '1310000000',
-          address: '浙江省杭州市拱墅区莫干山路 50 号',
-        },
-      ],
-      disabledList: [
+	  shippingAddresses: this.$store.getters.gettersUserInfo.shippingAddresses,
+      chosenAddressId: this.$store.getters.gettersUserInfo.defaultAddress,
+	  disabledList: [
         {
           id: '3',
           name: '王五',
@@ -51,6 +40,9 @@ export default {
   methods: {
     onAdd() {
       Toast('新增地址');
+	  //alert(JSON.stringify(this.shippingAddresses))
+	  this.$router.push({ name:'user-addressedit', query: { type: 'add'}})
+
     },
     onEdit(item, index) {
       Toast('编辑地址:' + index);
@@ -59,9 +51,6 @@ export default {
       this.$router.go(-1);
     }
   },
-  components: {
-	AppNavbar
-  },
 };
 </script>
 
@@ -69,9 +58,5 @@ export default {
 .van-address-list {
   margin-top: 10px;
   padding-top: 46px;
-}
-
-.van-nav-bar .van-icon {
-    color: #323233;
 }
 </style>

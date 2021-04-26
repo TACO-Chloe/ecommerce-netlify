@@ -35,8 +35,30 @@
 
 <script>
 import { Row, Col, Icon, Cell, CellGroup } from 'vant';
+import { postCMS } from '@/api/api';
 
 export default {
+  async asyncData({store}) {
+	let data = '{"gltype":"getSuUser","userid": "A1234567891"}'
+	
+	await postCMS(data).then(result => {
+	  console.log('Result:',result);
+	  var shippingAddresses = result.data.suUser.shippingAddresses
+	  for (let i = 0; i < shippingAddresses.length; i++){
+		if (shippingAddresses[i].id === result.data.suUser.defaultAddress)
+		{
+			result.data.suUser.shippingAddresses[i].isDefault = true;
+		}
+	  }
+	  sessionStorage.setItem('userinfo', JSON.stringify(result.data.suUser));
+	  store.commit("setUserInfo", JSON.stringify(result.data.suUser));
+	  Toast.success('Query Success~');
+	})
+	.catch(error => {
+	  console.log(error);
+	});
+	
+  },
   components: {
     [Row.name]: Row,
     [Col.name]: Col,

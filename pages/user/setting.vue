@@ -58,27 +58,26 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations  } from 'vuex'
 import AppNavbar from "~/components/AppNavbar.vue";
 import AppUploader from "~/components/AppUploader.vue";
 import { Toast } from 'vant'
 import { postCMS } from '@/api/api';
 
 export default {
-  async asyncData({store}) {
-	let data = '{"gltype":"getSuUser","userid": "A1234567890"}'
+  // async asyncData({store}) {
+	// let data = '{"gltype":"getSuUser","userid": "A1234567891"}'
 	
-	await postCMS(data).then(result => {
-	  console.log('Result:',result);
-	  sessionStorage.setItem('userinfo', JSON.stringify(result.data.suUser));
-	  store.commit("setUserInfo", JSON.stringify(result.data.suUser));
-	  Toast.success('Query Success~');
-	})
-	.catch(error => {
-	  console.log(error);
-	});
+	// await postCMS(data).then(result => {
+	  // console.log('Result:',result);
+	  // sessionStorage.setItem('userinfo', JSON.stringify(result.data.suUser));
+	  // store.commit("setUserInfo", JSON.stringify(result.data.suUser));
+	  // Toast.success('Query Success~');
+	// })
+	// .catch(error => {
+	  // console.log(error);
+	// });
 	
-  },
+  // },
   components: {
     AppNavbar,
 	AppUploader
@@ -122,7 +121,7 @@ export default {
 		
 		var data = `{
 			"gltype":"upsertSuUser",
-			"userid": "A1234567890",
+			"userid": "A1234567891",
 			"name": "${this.nickName}",
 			"snapshotid": "${this.snapshot.id}", 
 			"gender": "${this.gender}",
@@ -188,7 +187,7 @@ export default {
 			console.log('N-getSnapshot');
 			return {"id":"cknftykhc7qk00a89qzoqh9bs","url":"https://vcunited.club/wp-content/uploads/2020/01/No-image-available-2.jpg"};
 		}
-	}
+	},
   }
 }
 </script>
