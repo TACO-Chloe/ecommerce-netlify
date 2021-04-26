@@ -33,12 +33,12 @@ const getSuUser = gql`
 		birth
 		mobile
 		motto
+		defaultAddress
 		shippingAddresses(where: {suUser: {userid: $userid}}) {
 		  receiver
 		  area
 		  address
 		  phone
-		  default
 		  state
 		}
 	  }
