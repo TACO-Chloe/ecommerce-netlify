@@ -24,6 +24,7 @@ const getSuUser = gql`
 	{
 	  suUser(where: {userid: $userid}) {
 		id
+		userid
 		name
 		snapshot{
 					url
@@ -35,10 +36,11 @@ const getSuUser = gql`
 		motto
 		defaultAddress
 		shippingAddresses(where: {suUser: {userid: $userid}}) {
-		  receiver
+		  id
+		  name:receiver
 		  area
 		  address
-		  phone
+		  tel:phone
 		  state
 		}
 	  }
@@ -51,6 +53,7 @@ const createSuUser = gql`
   {
     createSuUser(data: $data) {
       	id
+		userid
 		name
 		snapshot{
 					url
@@ -70,6 +73,7 @@ mutation updateSuUser($userid: String!,$data: SuUserUpdateInput!)
 {
   updateSuUser(where: {userid: $userid},data: $data){ 
     	id
+		userid
 		name
 		snapshot{
 					url
