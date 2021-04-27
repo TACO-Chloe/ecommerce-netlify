@@ -40,7 +40,7 @@ const getSuUser = gql`
 		  name:receiver
 		  province
 		  city
-		  area
+		  county:area
 		  address
 		  tel:phone
 		  state
