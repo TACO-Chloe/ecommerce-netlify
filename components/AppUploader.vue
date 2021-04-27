@@ -77,7 +77,7 @@ export default {
 				this.imgSrc = result.data.url;
 				this.show = false;
 				const userInfo = this.$store.getters.gettersUserInfo;
-				userInfo.snapshot.id = result.data.id;
+				userInfo.snapshot = {id:result.data.id}
 				userInfo.snapshot.url = result.data.url;
 				console.log('Upload-userInfo',userInfo)
 				this.$store.commit("setUserInfo", JSON.stringify(userInfo));
@@ -91,7 +91,7 @@ export default {
 				console.log(error);
 				Toast.fail(file.message);
 			});
-	  }, 500);
+	  }, 1000);
     },
 	onOversize(file) {
       console.log(file);

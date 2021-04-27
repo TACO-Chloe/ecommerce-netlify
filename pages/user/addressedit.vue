@@ -6,7 +6,7 @@
       :area-list="areaList"
       :address-info="addressInfo"
       :show-delete="type == 'edit'"
-      show-set-default
+      :show-set-default="type == 'edit'"
       show-search-result
       :search-result="searchResult"
       :area-columns-placeholder="['请选择', '请选择', '请选择']"
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { Toast } from 'vant';
 import AppNavbar from "~/components/AppNavbar.vue";
 import { tdist } from '@/util/util';
 
@@ -27,7 +28,8 @@ export default {
   },
   data() {
 	return {
-		type: 'add',
+		type: this.$route.query.type,
+		addressId: this.$route.query.addressId,
 		areaList: {
 			province_list: {
 				110000: '北京市',
@@ -61,43 +63,44 @@ export default {
 	let _city_list = {}
 	let _county_list = {}
 	tdist.getLev1().forEach(p => {
-	_province_list[p.id] = p.text
-	tdist.getLev2(p.id).forEach(c => {
-	  _city_list[c.id] = c.text
-	  tdist.getLev3(c.id).forEach(q => _county_list[q.id] = q.text)
+		_province_list[p.id] = p.text
+		console.log('p.text',p.text)
+		tdist.getLev2(p.id).forEach(c => {
+		  _city_list[c.id] = c.text
+		  tdist.getLev3(c.id).forEach(q => _county_list[q.id] = q.text)
+		  console.log('c.text',c.text)
+		})
 	})
-	})
+	
+	this.areaList.province_list = _province_list
+    this.areaList.city_list = _city_list
+    this.areaList.county_list = _county_list
+	
+
 
 	if (this.type == 'edit') {
-	//const { data: addressDetail } = await getAddressDetail(addressId)
-	let _areaCode = ''
-	const province = tdist.getLev1()
-	Object.entries(state.areaList.county_list).forEach(([id, text]) => {
-	  // 先找出当前对应的区
-	  if (text == addressDetail.regionName) {
-		// 找到区对应的几个省份
-		const provinceIndex = province.findIndex(item => item.id.substr(0, 2) == id.substr(0, 2))
-		// 找到区对应的几个市区
-		// eslint-disable-next-line no-unused-vars
-		const cityItem = Object.entries(state.areaList.city_list).filter(([cityId, cityName]) => cityId.substr(0, 4) == id.substr(0, 4))[0]
-		// 对比找到的省份和接口返回的省份是否相等，因为有一些区会重名
-		if (province[provinceIndex].text == addressDetail.provinceName && cityItem[1] == addressDetail.cityName) {
-		  _areaCode = id
+		const addressDetail = this.$store.getters.gettersUserInfo.shippingAddresses[this.$route.query.index]
+		console.log('this.$route.query.index',this.$route.query.index)
+		console.log('addressDetail',addressDetail)
+		
+		this.addressInfo = {
+		  id: addressDetail.id,
+		  name: addressDetail.name,
+		  tel: addressDetail.tel,
+		  province: '',
+		  city: '',
+		  county: addressDetail.area,
+		  addressDetail: addressDetail.address,
+		  areaCode: '',
+		  isDefault: !!addressDetail.isDefault
 		}
-	  }
-	})
-	state.addressInfo = {
-	  id: addressDetail.addressId,
-	  name: addressDetail.userName,
-	  tel: addressDetail.userPhone,
-	  province: addressDetail.provinceName,
-	  city: addressDetail.cityName,
-	  county: addressDetail.regionName,
-	  addressDetail: addressDetail.detailAddress,
-	  areaCode: _areaCode,
-	  isDefault: !!addressDetail.defaultFlag
+		
+		console.log('addressInfo',this.addressInfo)
+
+		let _areaCode = ''
+		const province = tdist.getLev1()
+		
 	}
-  }
   }
 }
 </script>

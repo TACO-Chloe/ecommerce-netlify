@@ -45,11 +45,10 @@ export default {
 
     },
     onEdit(item, index) {
-      Toast('编辑地址:' + index);
+      Toast('编辑地址:' + index + item.id );
+	  console.log(item);
+	  this.$router.push({ name:'user-addressedit', query: { type: 'edit', addressId: item.id, index: index}})
     },
-	goBack() {
-      this.$router.go(-1);
-    }
   },
 };
 </script>

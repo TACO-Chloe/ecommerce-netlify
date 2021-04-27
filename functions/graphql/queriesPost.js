@@ -38,6 +38,8 @@ const getSuUser = gql`
 		shippingAddresses(where: {suUser: {userid: $userid}}) {
 		  id
 		  name:receiver
+		  province
+		  city
 		  area
 		  address
 		  tel:phone
@@ -69,23 +71,22 @@ const createSuUser = gql`
 
 
 const updateSuUser = gql`
-mutation updateSuUser($userid: String!,$data: SuUserUpdateInput!)
-{
-  updateSuUser(where: {userid: $userid},data: $data){ 
-    	id
-		userid
-		name
-		snapshot{
-					url
-					id
-				}
-		gender
-		birth
-		mobile
-		motto
-  }
-
-}
+	mutation updateSuUser($userid: String!,$data: SuUserUpdateInput!)
+	{
+	  updateSuUser(where: {userid: $userid},data: $data){ 
+			id
+			userid
+			name
+			snapshot{
+						url
+						id
+					}
+			gender
+			birth
+			mobile
+			motto
+	  }
+	}
 `
 
 
@@ -118,23 +119,72 @@ const upsertSuUser = gql`
 
 
 const publishSuUser = gql`
-mutation publishSuUser($userid: String!)
-{
-  publishSuUser(where: {userid: $userid})
-  {
-    	id
-		name
-		snapshot{
-					url
-					id
-				}
-		gender
-		birth
-		mobile
-		motto
-  }
-}
+	mutation publishSuUser($userid: String!)
+	{
+	  publishSuUser(where: {userid: $userid})
+	  {
+			id
+			name
+			snapshot{
+						url
+						id
+					}
+			gender
+			birth
+			mobile
+			motto
+	  }
+	}
 `
+
+
+const updateShippingAddress = gql`
+	mutation updateShippingAddress($id: ID!,$data: ShippingAddressUpdateInput!)
+	{
+	  updateShippingAddress(where: {id: $id}, data:$data){ 
+		id
+		name:receiver
+		province
+		city
+		area
+		address
+		tel:phone
+		state
+		suUser
+		{
+		  id
+		  userid
+		  name
+		  defaultAddress
+		}
+	  }
+	}
+`
+
+
+const createShippingAddress = gql`
+	mutation createShippingAddress($data: ShippingAddressCreateInput!)
+	{
+	  createShippingAddress(data:$data){ 
+		id
+		name:receiver
+		province
+		city
+		area
+		address
+		tel:phone
+		state
+		suUser
+		{
+		  id
+		  userid
+		  name
+		  defaultAddress
+		}
+	  }
+	}
+`
+
 
 
 module.exports = {
@@ -143,5 +193,7 @@ module.exports = {
   createSuUser,
   updateSuUser,
   upsertSuUser,
-  publishSuUser
+  publishSuUser,
+  createShippingAddress,
+  updateShippingAddress
 }
