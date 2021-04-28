@@ -62,28 +62,16 @@ import AppNavbar from "~/components/AppNavbar.vue";
 import AppUploader from "~/components/AppUploader.vue";
 import { Toast } from 'vant'
 import { postCMS } from '@/api/api';
+import '@vant/touch-emulator';
 
 export default {
-  // async asyncData({store}) {
-	// let data = '{"gltype":"getSuUser","userid": "A1234567891"}'
-	
-	// await postCMS(data).then(result => {
-	  // console.log('Result:',result);
-	  // sessionStorage.setItem('userinfo', JSON.stringify(result.data.suUser));
-	  // store.commit("setUserInfo", JSON.stringify(result.data.suUser));
-	  // Toast.success('Query Success~');
-	// })
-	// .catch(error => {
-	  // console.log(error);
-	// });
-	
-  // },
   components: {
     AppNavbar,
 	AppUploader
   },
   data() {
     return {
+	  userid: this.$store.getters.gettersUserInfo.userid,
 	  nickName: this.$store.getters.gettersUserInfo.name,
 	  snapshot: this.getSnapshot(),
       gender: this.$store.getters.gettersUserInfo.gender,
@@ -121,7 +109,7 @@ export default {
 		
 		var data = `{
 			"gltype":"upsertSuUser",
-			"userid": "A1234567891",
+			"userid": "${this.userid}",
 			"name": "${this.nickName}",
 			"snapshotid": "${this.snapshot.id}", 
 			"gender": "${this.gender}",
@@ -185,7 +173,7 @@ export default {
 			return this.$store.getters.gettersUserInfo.snapshot;
 		} else {
 			console.log('N-getSnapshot');
-			return {"id":"cknftykhc7qk00a89qzoqh9bs","url":"https://vcunited.club/wp-content/uploads/2020/01/No-image-available-2.jpg"};
+			return {"id":"cko13io281q5b0d348vdp6yxa","url":"https://vcunited.club/wp-content/uploads/2020/01/No-image-available-2.jpg"};
 		}
 	},
   }

@@ -34,25 +34,44 @@
 </template>
 
 <script>
-import { Row, Col, Icon, Cell, CellGroup } from 'vant';
+import { Row, Col, Icon, Cell, CellGroup, Toast } from 'vant';
 import { postCMS } from '@/api/api';
+import { DeviceUUID } from '@/util/device-uuid'
 
 export default {
   async asyncData({store}) {
-	let data = '{"gltype":"getSuUser","userid": "A1234567891"}'
+	let uuid = new DeviceUUID().get();
+	console.log('deviceUUID',uuid)
+	let data = {"gltype":"getSuUser","userid": uuid}
 	
 	await postCMS(data).then(result => {
-	  console.log('Result:',result);
-	  var shippingAddresses = result.data.suUser.shippingAddresses
-	  for (let i = 0; i < shippingAddresses.length; i++){
-		if (shippingAddresses[i].id === result.data.suUser.defaultAddress)
-		{
-			result.data.suUser.shippingAddresses[i].isDefault = true;
-		}
+	  console.log('getSuUserResult:',result);
+	  if (result.data.suUser) {
+	  
+		  var shippingAddresses = result.data.suUser.shippingAddresses
+		  for (let i = 0; i < shippingAddresses.length; i++){
+			if (shippingAddresses[i].id === result.data.suUser.defaultAddress)
+			{
+				result.data.suUser.shippingAddresses[i].isDefault = true;
+			}
+		  }
+		  sessionStorage.setItem('userinfo', JSON.stringify(result.data.suUser));
+		  store.commit("setUserInfo", JSON.stringify(result.data.suUser));
+		  Toast.success('Query Success~');
 	  }
-	  sessionStorage.setItem('userinfo', JSON.stringify(result.data.suUser));
-	  store.commit("setUserInfo", JSON.stringify(result.data.suUser));
-	  Toast.success('Query Success~');
+	  else {
+		let data = {"gltype":"createSuUser","data":{"userid": uuid}}
+		postCMS(data).then(result => {
+			console.log('createSuUserResult:',result);
+			
+			sessionStorage.setItem('userinfo', JSON.stringify(result.data.suUser));
+			store.commit("setUserInfo", JSON.stringify(result.data.suUser));
+			Toast.success('Add Success~');
+		})
+		.catch(error => {
+			console.log(error);
+		});
+	  }
 	})
 	.catch(error => {
 	  console.log(error);

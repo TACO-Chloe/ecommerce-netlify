@@ -19,8 +19,10 @@
 
 <script>
 import { Toast } from 'vant';
+import { areaList } from '@vant/area-data';
+import { postCMS } from '@/api/api';
+import '@vant/touch-emulator';
 import AppNavbar from "~/components/AppNavbar.vue";
-import { tdist } from '@/util/util';
 
 export default {
   components: {
@@ -30,22 +32,7 @@ export default {
 	return {
 		type: this.$route.query.type,
 		addressId: this.$route.query.addressId,
-		areaList: {
-			province_list: {
-				110000: '北京市',
-				120000: '天津市',
-			},
-			city_list: {
-				110100: '北京市',
-				120100: '天津市',
-			},
-			county_list: {
-				110101: '东城区',
-				110102: '西城区',
-				120101:	'龍華區'
-				// ....
-			},
-		},
+		areaList,
 		addressInfo: {},
 		searchResult: [],
 	}
@@ -54,30 +41,46 @@ export default {
     onDelete() {
       Toast('删除');
     },
-	save() {
+	save(content) {
+		console.log('content',content)
+		if (this.type == 'add') {
+			let data = {
+				"gltype":"createShippingAddress",
+				"data": {
+					"address": content.addressDetail,
+					"areaCode": content.areaCode,
+					"city": content.city,
+					"area": content.county,
+					"receiver": content.name,
+					"province": content.province,
+					"phone": content.tel,
+					"suUser": {
+					  "connect": {
+						  "userid": this.$store.getters.gettersUserInfo.userid
+					  }
+					}
+				}
+			}
+			postCMS(data).then(result => {
+				console.log('createShippingAddress:',result);
+				
+				const userInfo = this.$store.getters.gettersUserInfo;
+				userInfo.shippingAddresses = userInfo.shippingAddresses.push(result.data.createShippingAddress);
+				sessionStorage.setItem('userinfo', JSON.stringify(userInfo));
+				this.$store.commit("setUserInfo", JSON.stringify(userInfo));
+				Toast.success('Add Success~');
+			})
+			.catch(error => {
+				console.log(error);
+			});
+		}
+		else {
+			
+		}
 		Toast('保存');
 	}
   },
   mounted() {
-	let _province_list = {}
-	let _city_list = {}
-	let _county_list = {}
-	tdist.getLev1().forEach(p => {
-		_province_list[p.id] = p.text
-		console.log('p.text',p.text)
-		tdist.getLev2(p.id).forEach(c => {
-		  _city_list[c.id] = c.text
-		  tdist.getLev3(c.id).forEach(q => _county_list[q.id] = q.text)
-		  console.log('c.text',c.text)
-		})
-	})
-	
-	this.areaList.province_list = _province_list
-    this.areaList.city_list = _city_list
-    this.areaList.county_list = _county_list
-	
-
-
 	if (this.type == 'edit') {
 		const addressDetail = this.$store.getters.gettersUserInfo.shippingAddresses[this.$route.query.index]
 		console.log('this.$route.query.index',this.$route.query.index)
@@ -87,19 +90,16 @@ export default {
 		  id: addressDetail.id,
 		  name: addressDetail.name,
 		  tel: addressDetail.tel,
-		  province: '',
-		  city: '',
-		  county: addressDetail.area,
+		  province: addressDetail.province,
+		  city: addressDetail.city,
+		  county: addressDetail.county,
 		  addressDetail: addressDetail.address,
-		  areaCode: '',
+		  areaCode: addressDetail.areaCode,
+		  //areaCode: "310101",
 		  isDefault: !!addressDetail.isDefault
 		}
 		
 		console.log('addressInfo',this.addressInfo)
-
-		let _areaCode = ''
-		const province = tdist.getLev1()
-		
 	}
   }
 }

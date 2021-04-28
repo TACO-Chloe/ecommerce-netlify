@@ -50,6 +50,16 @@ export default {
 	  this.$router.push({ name:'user-addressedit', query: { type: 'edit', addressId: item.id, index: index}})
     },
   },
+  mounted() {
+	for (let i = 0; i < this.shippingAddresses.length; i++){
+		var addrObj = this.shippingAddresses[i]
+		addrObj.address = addrObj.province + 
+						addrObj.city + 
+						addrObj.county +
+						addrObj.address
+		//console.log('addrObj',addrObj)
+	}
+  },
 };
 </script>
 

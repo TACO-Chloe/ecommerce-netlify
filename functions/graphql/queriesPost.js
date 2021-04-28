@@ -146,7 +146,7 @@ const updateShippingAddress = gql`
 		name:receiver
 		province
 		city
-		area
+		county:area
 		address
 		tel:phone
 		state
@@ -170,7 +170,7 @@ const createShippingAddress = gql`
 		name:receiver
 		province
 		city
-		area
+		county:area
 		address
 		tel:phone
 		state
