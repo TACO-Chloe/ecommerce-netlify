@@ -42,6 +42,7 @@ const getSuUser = gql`
 		  city
 		  county:area
 		  address
+		  areaCode
 		  tel:phone
 		  state
 		}
@@ -148,6 +149,7 @@ const updateShippingAddress = gql`
 		city
 		county:area
 		address
+		areaCode
 		tel:phone
 		state
 		suUser
@@ -172,6 +174,7 @@ const createShippingAddress = gql`
 		city
 		county:area
 		address
+		areaCode
 		tel:phone
 		state
 		suUser
