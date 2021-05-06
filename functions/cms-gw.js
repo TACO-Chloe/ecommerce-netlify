@@ -4,6 +4,8 @@ const axios = require('axios');
 
 const Buffer = require( "buffer" ).Buffer;
 
+const multipart = require('parse-multipart');
+
 const fs = require("fs");
 
 const fetch = require("node-fetch");
@@ -59,13 +61,19 @@ exports.handler = async (event, context) => {
 	if (event.httpMethod === "POST") {
 		if (event.path === "/.netlify/functions/cms-gw/upload") {
 			const uploadUrl = `${process.env.GRAPHCMS_ENDPOINT}/upload`
-			const buff = Buffer.from( event.body );
-			//const buff = Buffer.from(event.body, 'base64');
+			//const buff = Buffer.from( event.body );
+			const buff = Buffer.from(event.body, 'base64');
 			//console.log("Buffer:" + buff);
 
-			const contentType = event.queryStringParameters.fileType
-			const fileName = event.queryStringParameters.fileName
-			const filePath = `/tmp/${fileName}`
+			//const contentType = event.queryStringParameters.fileType
+			//const fileName = event.queryStringParameters.fileName
+			//const filePath = `/tmp/${fileName}`
+			const filePath = `/tmp/snapshot.jpg`
+			
+			const boundary = multipart.getBoundary(event.params.header['Content-Type'])
+			const parts = multipart.Parse(buff, boundary)
+			
+			console.log("parts:" + parts);
 		
 
 			try{
