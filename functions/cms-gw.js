@@ -67,17 +67,19 @@ exports.handler = async (event, context) => {
 
 			//const contentType = event.queryStringParameters.fileType
 			//const fileName = event.queryStringParameters.fileName
-			//const filePath = `/tmp/${fileName}`
-			const filePath = `/tmp/snapshot.jpg`
-			
+
 			const boundary = multipart.getBoundary(event.headers['content-type'])
 			const parts = multipart.Parse(buff, boundary)
 			
-			console.log("parts:" + JSON.stringify(parts));
+			console.log("parts-filename:" + JSON.stringify(parts[0].filename));
+			console.log("parts-data:" + JSON.stringify(parts[0].data));
+			
+			//const filePath = `/tmp/snapshot.jpg`
+			const filePath = `/tmp/${parts[0].filename}`
 		
 
 			try{
-				fs.writeFileSync(filePath, buff);
+				fs.writeFileSync(filePath, parts[0].data);
 			} 
 			catch (error){
 				console.error(error);
