@@ -23,6 +23,7 @@
     "node-sass": "^4.13.1",
     "normalize.css": "^8.0.1",
     "nuxt": "^2.15.4",
+    "parse-multipart": "^1.0.4",
     "sass-loader": "^10.1.1",
     "stripe": "^7.4.0",
     "uuid": "^3.3.2",
