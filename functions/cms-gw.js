@@ -62,24 +62,24 @@ exports.handler = async (event, context) => {
 			const buff = Buffer.from(event.body, 'base64');
 			console.log("Buffer:" + buff);
 			
-			console.log(buff.search('filename="'))
-			console.log(buff.indexOf('"', buff.search('filename="')+10))
+			console.log(buff.indexOf('filename="'))
+			console.log(buff.indexOf('"', buff.indexOf('filename="')+10))
 
-			a = buff.search('filename="') + 10
-			b = buff.indexOf('"', buff.search('filename="')+10)
+			a = buff.indexOf('filename="') + 10
+			b = buff.indexOf('"', buff.indexOf('filename="')+10)
 
-			c = buff.substring(a, b)
+			c = buff.slice(a, b)
 
-			console.log('filename=',c)
+			console.log('filename=',c.toString())
 
-			console.log(buff.search("Content-Type:"))
+			console.log(buff.indexOf("Content-Type:"))
 
-			a = buff.search('Content-Type:') + 14
-			b = buff.search('Content-Type:') + 24
+			a = buff.indexOf('Content-Type:') + 14
+			b = buff.indexOf('Content-Type:') + 24
 
-			c = buff.substring(a, b)
+			c = buff.slice(a, b)
 
-			console.log('Content-Type:',c)
+			console.log('Content-Type:',c.toString())
 			
 
 			try{
