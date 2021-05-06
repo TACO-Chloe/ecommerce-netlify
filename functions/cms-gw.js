@@ -49,13 +49,6 @@ exports.handler = async (event, context) => {
 	console.log( "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" );
 	
 	if (event.httpMethod === "GET") {
-// 		const { ProductList } = require('./graphql/queries/products.js');
-// 		console.log("ProductList:"+ JSON.stringify(ProductList));
-// 		console.log("{ProductList}:"+ {ProductList});
-// 		console.log("String-{ProductList}:"+ JSON.stringify({ProductList}));
-		
-// 		myData = await graphqlRequest(ProductList,'');
-		
 		const GLQuery = require('./graphql/queriesGet.js');
 		console.log("GLQuery:"+ GLQuery);
 		console.log("GLQuery:"+ JSON.stringify(GLQuery.ProductList));
@@ -69,9 +62,26 @@ exports.handler = async (event, context) => {
 			const buff = Buffer.from(event.body, 'base64');
 			console.log("Buffer:" + buff);
 			
-			//const file = new Blob([buff], { type: "image/jpeg" })
-			//console.log("File:" + {file});
-			//console.log("File:" + JSON.stringify(file));
+			console.log(buff.search('filename="'))
+			console.log(buff.indexOf('"', buff.search('filename="')+10))
+
+			a = buff.search('filename="') + 10
+			b = buff.indexOf('"', buff.search('filename="')+10)
+
+			c = buff.substring(a, b)
+
+			console.log('filename=',c)
+
+			console.log(buff.search("Content-Type:"))
+
+			a = buff.search('Content-Type:') + 14
+			b = buff.search('Content-Type:') + 24
+
+			c = buff.substring(a, b)
+
+			console.log('Content-Type:',c)
+			
+
 			try{
 				fs.writeFileSync("/tmp/new-path.jpg", buff);
 			} 
@@ -82,15 +92,9 @@ exports.handler = async (event, context) => {
 			
 			const formData = new FormData()
 			
-			//formData.append('fileUpload', file);
 			formData.append('fileUpload', fs.createReadStream('/tmp/new-path.jpg'))
 			console.log("createReadStream:/*************/");
-			// myData = await axios.post(uploadUrl, formData, {headers: {'Content-Type': 'multipart/form-data'}})
-				// .then(result => {
-					// console.log('Upload-result',result);
-				// }).catch(error => {
-					// console.error(error);
-				// })
+
 			myData = await fetch(uploadUrl, {
 				  method: 'POST',
 				  body: formData,
