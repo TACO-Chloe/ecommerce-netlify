@@ -59,7 +59,7 @@ exports.handler = async (event, context) => {
 	if (event.httpMethod === "POST") {
 		if (event.path === "/.netlify/functions/cms-gw/upload") {
 			const uploadUrl = `${process.env.GRAPHCMS_ENDPOINT}/upload`
-			const buff = event.body;
+			const buff = Buffer.from( event.body );
 			//const buff = Buffer.from(event.body, 'base64');
 			//console.log("Buffer:" + buff);
 
