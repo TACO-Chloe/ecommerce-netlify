@@ -73,7 +73,7 @@ exports.handler = async (event, context) => {
 			const boundary = multipart.getBoundary(event.headers['content-type'])
 			const parts = multipart.Parse(buff, boundary)
 			
-			console.log("parts:" + parts);
+			console.log("parts:" + JSON.stringify(parts));
 		
 
 			try{
