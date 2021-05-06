@@ -70,7 +70,7 @@ exports.handler = async (event, context) => {
 			//const filePath = `/tmp/${fileName}`
 			const filePath = `/tmp/snapshot.jpg`
 			
-			const boundary = multipart.getBoundary(event.params.header['Content-Type'])
+			const boundary = multipart.getBoundary(event.headers['Content-Type'])
 			const parts = multipart.Parse(buff, boundary)
 			
 			console.log("parts:" + parts);
