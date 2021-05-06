@@ -61,14 +61,6 @@ export default {
 	  console.log('file.file:',file.file);
       console.log('formData:',formData.get('fileUpload'));
 	  
-	  
-	  // axios.post(url, formData, {headers: {'Content-Type': 'multipart/form-data'}})
-				// .then(result => {
-					// console.log('Upload-result',result);
-				// }).catch(error => {
-					// console.error(error);
-				// })
-	  
 	  setTimeout(() => {
 			postUpload(file.file).then(result => {
 				file.status = 'done';
@@ -80,8 +72,7 @@ export default {
 				userInfo.snapshot = {id:result.data.id}
 				userInfo.snapshot.url = result.data.url;
 				console.log('Upload-userInfo',userInfo)
-				this.$store.commit("setUserInfo", JSON.stringify(userInfo));
-				sessionStorage.setItem('userinfo', JSON.stringify(userInfo));
+				this.$store.commit("setUserInfo",userInfo);
 				Toast.success(file.message);
 			})
 			.catch(error => {
@@ -99,8 +90,10 @@ export default {
     },
 	// 返回布尔值
     beforeRead(file) {
-      if (file.type !== 'image/jpeg') {
-        Toast('请上传 jpg 格式图片');
+      //if (file.type !== 'image/jpeg') {
+	  if (file.type.split('/')[0] !== 'image') {
+	    console.log(file.type.split('/')[0])
+        Toast('请上传 图片 格式');
         return false;
       }
       return true;

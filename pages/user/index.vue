@@ -25,8 +25,8 @@
     </van-cell-group>
 
     <van-cell-group>
-	  <van-cell icon="points" title="我的地址" is-link to="/user/address" />
-      <van-cell icon="points" title="我的信息" is-link to="/user/setting"/>
+	  <van-cell icon="location-o" title="我的地址" is-link to="/user/address" />
+      <van-cell icon="contact" title="我的信息" is-link to="/user/setting"/>
       <van-cell icon="gold-coin-o" title="我的优惠券" is-link />
       <van-cell icon="gift-o" title="我收到的礼物" is-link />
     </van-cell-group>
@@ -55,17 +55,15 @@ export default {
 				result.data.suUser.shippingAddresses[i].isDefault = true;
 			}
 		  }
-		  sessionStorage.setItem('userinfo', JSON.stringify(result.data.suUser));
-		  store.commit("setUserInfo", JSON.stringify(result.data.suUser));
+		  
+		  store.commit("setUserInfo", result.data.suUser);
 		  Toast.success('Query Success~');
 	  }
 	  else {
 		let data = {"gltype":"createSuUser","data":{"userid": uuid}}
 		postCMS(data).then(result => {
 			console.log('createSuUserResult:',result);
-			
-			sessionStorage.setItem('userinfo', JSON.stringify(result.data.suUser));
-			store.commit("setUserInfo", JSON.stringify(result.data.suUser));
+			store.commit("setUserInfo", result.data.suUser);
 			Toast.success('Add Success~');
 		})
 		.catch(error => {

@@ -25,6 +25,12 @@
         >
       </li>
     </ul>
+	
+	<van-swipe class="my-swipe" :autoplay="6000">
+	  <van-swipe-item v-for="(image, index) in images" :key="index">
+		<van-image fit="cover" :src="image" width="80%" height="200px" />
+	  </van-swipe-item>
+   </van-swipe>
   </div>
 </template>
 
@@ -35,7 +41,12 @@ export default {
   mixins: [],
   props: {},
   data() {
-    return {}
+    return {
+	  images: [
+        'https://img01.yzcdn.cn/vant/apple-1.jpg',
+        'https://img01.yzcdn.cn/vant/apple-2.jpg',
+      ],
+	}
   },
   computed: {},
   watch: {},
@@ -63,4 +74,13 @@ export default {
     }
   }
 }
+
+
+
+.my-swipe .van-swipe-item {
+	height: 200px;
+	width: 100px;
+
+}
+
 </style>

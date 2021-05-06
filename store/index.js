@@ -1,4 +1,6 @@
 import axios from "axios";
+import { getCMS,postCMS } from '@/api/api';
+import {myEncrypt,myDecrypt} from '@/util/mycrypto';
 //import data from "~/static/storedata.json";
 //import {data} from "~/plugins/storedata.js";
 
@@ -14,13 +16,11 @@ export const state = () => ({
   clientSecret: "" // Required to initiate the payment from the client
 });
 
-console.log("S-Data:"+JSON.stringify(state.storedata))
-console.log("S-Data:"+state.storedata)
-
 
 export const getters = {
   featuredProducts: state => {
-	  console.log("get-S-Data:"+JSON.stringify(state.storedata))
+	  //console.log("get-StoreData:"+JSON.stringify(state.storedata))
+	  //let decryptData = this.$myDecrypt()
 	  return state.storedata.slice(0, 4)},
   women: state => state.storedata.filter(el => el.gender === "Female"),
   men: state => state.storedata.filter(el => el.gender === "Male"),
@@ -46,9 +46,14 @@ export const getters = {
   },
   clientSecret: state => state.clientSecret,
   gettersUserInfo: state => {
-						console.log('sessionStorage',sessionStorage.getItem('userinfo'));
-						console.log('state',state.userinfo);
-						return JSON.parse(sessionStorage.getItem('userinfo'));
+						//console.log('sessionStorage',sessionStorage.getItem('userinfo'));
+						let decryptData = myDecrypt(sessionStorage.getItem('userinfo'))
+						console.log('gettersUserInfo-decryptData',decryptData);
+						return JSON.parse(decryptData);
+					 },
+  gettersStoreData: state => {
+						let decryptData = myDecrypt(localStorage.getItem("storedata"))
+						return JSON.parse(decryptData);
 					 },
   gettersPostData: state => state.postdata
 };
@@ -70,11 +75,17 @@ export const mutations = {
   setClientSecret: (state, payload) => {
     state.clientSecret = payload;
   },
-  setStoredata: (state, payload) => {
+  setStoreData: (state, payload) => {
+	console.log('setStoreData-payload',payload)
+	let encryptData = myEncrypt(JSON.stringify(payload))
     state.storedata = payload;
+	localStorage.setItem("storedata", encryptData);
+	console.log('setStoreData-storedata',state.storedata)
   },
   setUserInfo: (state, payload) => {
-    state.userinfo = payload;
+    let encryptData = myEncrypt(JSON.stringify(payload))
+	state.userinfo = payload;
+	sessionStorage.setItem('userinfo', encryptData);
 	console.log('SETUSERINFO',state.userinfo)
   },
   setPostData: (state, payload) => {
@@ -104,7 +115,10 @@ export const mutations = {
   }
 };
 
+
+
 export const actions = {
+  
   async createPaymentIntent({ getters, commit }) {
     try {
       // Create a PaymentIntent with the information about the order
@@ -130,16 +144,25 @@ export const actions = {
     }
   },
   async getProducts({commit}) {
-    const products = await axios.get("https://subangbang.netlify.app/.netlify/functions/cms-gw", { useCache: true });
-	console.log("Products-actions:"+JSON.stringify(products.data.products))
-    commit("setStoredata", products.data.products);
-	localStorage.setItem("products", JSON.stringify(products.data.products));
+	await getCMS().then(result => {
+		//console.log("Products-actions:"+JSON.stringify(result.data.products))
+		let encryptData = myEncrypt(JSON.stringify(result.data.products))
+		let decryptData = myDecrypt(encryptData)
+
+		//console.log(decryptData)
+		commit("setStoreData", result.data.products);
+	})
+	.catch(error => {
+		console.log(error);
+	});
   },
   async getUserInfo({getters,commit}) {
     const userinfo = await axios.post("https://subangbang.netlify.app/.netlify/functions/cms-gw", getters.gettersPostData);
-	console.log("UserInfo-actions:"+JSON.stringify(userinfo.data.suUser))
+	//console.log("UserInfo-actions:"+JSON.stringify(userinfo.data.suUser))
+	let encryptData = await myEncrypt(JSON.stringify(userinfo.data.suUser))
+	let decryptData = await myDecrypt(encryptData)
+	
     commit("setUserInfo", userinfo.data.suUser);
-	sessionStorage.setItem('userinfo', JSON.stringify(userinfo.data.suUser));
 	console.log("Finish SET");
   }
 };

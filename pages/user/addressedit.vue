@@ -43,40 +43,51 @@ export default {
     },
 	save(content) {
 		console.log('content',content)
-		if (this.type == 'add') {
-			let data = {
-				"gltype":"createShippingAddress",
-				"data": {
-					"address": content.addressDetail,
-					"areaCode": content.areaCode,
-					"city": content.city,
-					"area": content.county,
-					"receiver": content.name,
-					"province": content.province,
-					"phone": content.tel,
-					"suUser": {
-					  "connect": {
-						  "userid": this.$store.getters.gettersUserInfo.userid
-					  }
-					}
-				}
+		
+		let address = {
+			"address": content.addressDetail,
+			"areaCode": content.areaCode,
+			"city": content.city,
+			"area": content.county,
+			"receiver": content.name,
+			"province": content.province,
+			"phone": content.tel,
+			"suUser": {
+			  "connect": {
+				  "userid": this.$store.getters.gettersUserInfo.userid
+			  }
 			}
-			postCMS(data).then(result => {
-				console.log('createShippingAddress:',result);
-				
-				const userInfo = this.$store.getters.gettersUserInfo;
-				userInfo.shippingAddresses = userInfo.shippingAddresses.push(result.data.createShippingAddress);
-				sessionStorage.setItem('userinfo', JSON.stringify(userInfo));
-				this.$store.commit("setUserInfo", JSON.stringify(userInfo));
-				Toast.success('Add Success~');
-			})
-			.catch(error => {
-				console.log(error);
-			});
+		}
+		
+		if (this.type == 'add') {
+			var gltype = "createShippingAddress"
+			var data = {
+				"gltype": gltype,
+				"data": address
+			}
+			var execStr = 'userInfo.shippingAddresses.push(result.data[gltype])'
 		}
 		else {
-			
+			var gltype = "updateShippingAddress"
+			var data = {
+				"gltype": gltype,
+				"id": this.addressId,
+				"data": address
+			}
+			var indexSA = this.$route.query.index
+			var execStr = 'userInfo.shippingAddresses[indexSA] = result.data[gltype]'
 		}
+		postCMS(data).then(result => {
+			console.log(`${this.type}ShippingAddress:`,result.data);
+			const userInfo = this.$store.getters.gettersUserInfo;
+			eval(execStr)
+			this.$store.commit("setUserInfo", userInfo);
+			console.log('userInfo',userInfo);
+			Toast.success('Success~');
+		})
+		.catch(error => {
+			console.log(error);
+		});
 		Toast('保存');
 	}
   },
@@ -95,7 +106,6 @@ export default {
 		  county: addressDetail.county,
 		  addressDetail: addressDetail.address,
 		  areaCode: addressDetail.areaCode,
-		  //areaCode: "310101",
 		  isDefault: !!addressDetail.isDefault
 		}
 		

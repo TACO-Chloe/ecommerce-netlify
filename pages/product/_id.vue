@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import StarRating from "vue-star-rating/src/star-rating.vue";
 import AppFeaturedProducts from "~/components/AppFeaturedProducts.vue";
 
@@ -80,13 +80,9 @@ export default {
     };
   },
   computed: {
-    //...mapState(["storedata"]),
-	storedata() {
-	  const storeData = JSON.parse(localStorage.getItem("products"));
-      return storeData;
-	},
+    ...mapGetters(["gettersStoreData"]),
     product() {
-      return this.storedata.find(el => el.id === this.id);
+      return this.gettersStoreData.find(el => el.id === this.id);
     }
   },
   methods: {

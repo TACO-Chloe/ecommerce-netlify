@@ -1,11 +1,11 @@
 <template>
   <div>
-    <app-store-grid :data="storedata" />
+    <app-store-grid :data="gettersStoreData" />
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import AppStoreGrid from "~/components/AppStoreGrid.vue";
 
 export default {
@@ -13,11 +13,7 @@ export default {
     AppStoreGrid
   },
   computed: {
-    //...mapState(["storedata"])
-	storedata() {
-	  const storeData = JSON.parse(localStorage.getItem("products"));
-      return storeData;
-	}
+    ...mapGetters(["gettersStoreData"]),
   }
 };
 </script>

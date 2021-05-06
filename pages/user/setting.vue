@@ -123,7 +123,7 @@ export default {
 		
 		postCMS(data).then(result => {
 		  console.log('Result:',result);
-		  sessionStorage.setItem('userinfo', JSON.stringify(result.data.upsertSuUser));
+		  this.$store.commit("setUserInfo", result.data.upsertSuUser);
 		  Toast.success('保存成功~');
 		})
 		.catch(error => {
@@ -167,9 +167,8 @@ export default {
 	},
 	getSnapshot(){
 		if(this.$store.getters.gettersUserInfo.snapshot) {
-			console.log('Y-getSnapshot');
-			console.log(this.$store.getters.gettersUserInfo.snapshot);
-			console.log('sessionStorage',sessionStorage.getItem('userinfo'));
+			console.log('Y-getSnapshot',this.$store.getters.gettersUserInfo.snapshot);
+			//console.log('sessionStorage',sessionStorage.getItem('userinfo'));
 			return this.$store.getters.gettersUserInfo.snapshot;
 		} else {
 			console.log('N-getSnapshot');

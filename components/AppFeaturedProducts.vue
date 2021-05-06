@@ -85,6 +85,7 @@
 <script>
 import { mapMutations } from 'vuex'
 
+
 export default {
   props: {
     gutter: { type: Number, default: 6 },
@@ -97,8 +98,10 @@ export default {
     }
   },
   mounted() {
-    // create a PaymentIntent on Stripe with order information
 	this.$store.dispatch("getProducts");
+	//console.log('crypto',{$graphcms}.encrypt('1234'))
+	//var test = $myCrypto.encrypt(JSON.stringify(products.data.products))
+	//console.log('decrypt',$myCrypto.decrypt(test))
   },
   computed: {
     featuredProducts() {
@@ -154,12 +157,15 @@ export default {
         name: "goods",
         query: {
           id: goods.id,
+		  category: goods.category,
           name: goods.name,
-          small_image: goods.small_image,
+          images: goods.images,
           price: goods.price,
-          spec: goods.spec,
-          total_sales: goods.total_sales,
+          description: goods.description,
+          reviews: goods.reviews,
           origin_price: goods.origin_price,
+		  express: '免运费',
+		  remain: 19,
         }
       });
     },

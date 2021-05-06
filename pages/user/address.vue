@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import { Toast } from 'vant';
 import AppNavbar from "~/components/AppNavbar.vue";
 
@@ -25,8 +26,6 @@ export default {
   },
   data() {
     return {
-	  shippingAddresses: this.$store.getters.gettersUserInfo.shippingAddresses,
-      chosenAddressId: this.$store.getters.gettersUserInfo.defaultAddress,
 	  disabledList: [
         {
           id: '3',
@@ -50,15 +49,25 @@ export default {
 	  this.$router.push({ name:'user-addressedit', query: { type: 'edit', addressId: item.id, index: index}})
     },
   },
-  mounted() {
-	for (let i = 0; i < this.shippingAddresses.length; i++){
-		var addrObj = this.shippingAddresses[i]
-		addrObj.address = addrObj.province + 
-						addrObj.city + 
-						addrObj.county +
-						addrObj.address
-		//console.log('addrObj',addrObj)
+  computed: {
+    ...mapGetters(["gettersUserInfo"]),
+	shippingAddresses() {
+		return this.gettersUserInfo.shippingAddresses
+	},
+	chosenAddressId() {
+		return this.gettersUserInfo.defaultAddress
 	}
+  },
+  mounted() {
+    console.log('shippingAddresses',this.gettersUserInfo)
+	// for (let i = 0; i < this.shippingAddresses.length; i++){
+		// var addrObj = this.shippingAddresses[i]
+		// addrObj.address = addrObj.province + 
+						// addrObj.city + 
+						// addrObj.county +
+						// addrObj.address
+		//console.log('addrObj',addrObj)
+	// }
   },
 };
 </script>
