@@ -60,30 +60,15 @@ exports.handler = async (event, context) => {
 		if (event.path === "/.netlify/functions/cms-gw/upload") {
 			const uploadUrl = `${process.env.GRAPHCMS_ENDPOINT}/upload`
 			const buff = Buffer.from(event.body, 'base64');
-			console.log("Buffer:" + buff);
-			
-			console.log(buff.indexOf('filename="'))
-			console.log(buff.indexOf('"', buff.indexOf('filename="')+10))
+			//console.log("Buffer:" + buff);
 
-			a = buff.indexOf('filename="') + 10
-			b = buff.indexOf('"', buff.indexOf('filename="')+10)
-
-			c = buff.slice(a, b)
-
-			console.log('filename=',c.toString())
-
-			console.log(buff.indexOf("Content-Type:"))
-
-			a = buff.indexOf('Content-Type:') + 14
-			b = buff.indexOf('Content-Type:') + 24
-
-			c = buff.slice(a, b)
-
-			console.log('Content-Type:',c.toString())
-			
+			const contentType = event.queryStringParameters.fileType
+			const fileName = event.queryStringParameters.fileName
+			const filePath = `/tmp/${fileName}`
+		
 
 			try{
-				fs.writeFileSync("/tmp/new-path.jpg", buff);
+				fs.writeFileSync(filePath, buff);
 			} 
 			catch (error){
 				console.error(error);
@@ -92,7 +77,7 @@ exports.handler = async (event, context) => {
 			
 			const formData = new FormData()
 			
-			formData.append('fileUpload', fs.createReadStream('/tmp/new-path.jpg'))
+			formData.append('fileUpload', fs.createReadStream(filePath))
 			console.log("createReadStream:/*************/");
 
 			myData = await fetch(uploadUrl, {
