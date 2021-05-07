@@ -143,7 +143,7 @@ exports.handler = async (event, context) => {
 	  statusCode: 200,
 	  body: JSON.stringify(myData, undefined, 2),
 	  headers:{
-		"Access-Control-Allow-Origin": "*",
+		"Access-Control-Allow-Origin": "https://subangbang.netlify.app/",
 		"Access-Control-Allow-Headers": "Content-Type",
 		"Access-Control-Allow-Methods": "GET, POST, OPTION",
 		"Content-Type": "application/json; charset=utf-8"
