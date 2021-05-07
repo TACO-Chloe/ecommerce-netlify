@@ -75,8 +75,8 @@ export default {
 	  nickName: this.$store.getters.gettersUserInfo.name,
 	  snapshot: this.getSnapshot(),
       gender: this.$store.getters.gettersUserInfo.gender,
-	  birth: this.$store.getters.gettersUserInfo.birth,
-	  mobile: this.$store.getters.gettersUserInfo.mobile,
+	  birth: this.$store.getters.gettersUserInfo.birth  || '2000-01-01',
+	  mobile: this.$store.getters.gettersUserInfo.mobile || '' ,
 	  introduceSign: this.$store.getters.gettersUserInfo.motto,
 	  show: false,
 	  showdate: false,
@@ -99,13 +99,10 @@ export default {
 		Toast('保存');
 		console.log(this.snapshot);
 		if (localStorage.getItem("token") === null && process.browser) {
-		localStorage.setItem('token','7533967');
-		alert('set_token');
+			localStorage.setItem('token','7533967');
+			//alert('set_token');
+			//alert(localStorage.getItem('token'));
 		}
-		//var data = JSON.parse('{"userid": "A1234567895","snapshot": {"connect": {"id": "cknftykhc7qk00a89qzoqh9bs"}}}');
-		//const userInfo = axios.post("https://subangbang.netlify.app/.netlify/functions/cms-gw", {'gltype':'createSuUser','data':data}, { useCache: true });
-		
-		//${sessionStorage.getItem('connectID')}
 		
 		var data = `{
 			"gltype":"upsertSuUser",
@@ -131,7 +128,6 @@ export default {
 		});
 
 	  
-		alert(localStorage.getItem('token'));
 		document.cookie = "name=oeschger";
 		document.cookie = "favorite_food=tripe";
 		alert(document.cookie);
@@ -166,6 +162,7 @@ export default {
 	  this.birth = value.toISOString().slice(0,value.toISOString().indexOf("T"));
 	},
 	getSnapshot(){
+		console.log('gettersUserInfo',this.$store.getters.gettersUserInfo);
 		if(this.$store.getters.gettersUserInfo.snapshot) {
 			console.log('Y-getSnapshot',this.$store.getters.gettersUserInfo.snapshot);
 			//console.log('sessionStorage',sessionStorage.getItem('userinfo'));

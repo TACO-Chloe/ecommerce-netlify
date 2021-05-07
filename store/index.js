@@ -47,11 +47,13 @@ export const getters = {
   clientSecret: state => state.clientSecret,
   gettersUserInfo: state => {
 						//console.log('sessionStorage',sessionStorage.getItem('userinfo'));
+						console.log('state.userinfo',state.userinfo);
 						let decryptData = myDecrypt(sessionStorage.getItem('userinfo'))
 						console.log('gettersUserInfo-decryptData',decryptData);
 						return JSON.parse(decryptData);
 					 },
   gettersStoreData: state => {
+						console.log('state.storedata',state.storedata);
 						let decryptData = myDecrypt(localStorage.getItem("storedata"))
 						return JSON.parse(decryptData);
 					 },
@@ -76,13 +78,14 @@ export const mutations = {
     state.clientSecret = payload;
   },
   setStoreData: (state, payload) => {
-	console.log('setStoreData-payload',payload)
+	//console.log('setStoreData-payload',payload)
 	let encryptData = myEncrypt(JSON.stringify(payload))
     state.storedata = payload;
 	localStorage.setItem("storedata", encryptData);
 	console.log('setStoreData-storedata',state.storedata)
   },
   setUserInfo: (state, payload) => {
+    //console.log('setUserInfo-payload',payload)
     let encryptData = myEncrypt(JSON.stringify(payload))
 	state.userinfo = payload;
 	sessionStorage.setItem('userinfo', encryptData);

@@ -57,13 +57,14 @@ export default {
 		  }
 		  
 		  store.commit("setUserInfo", result.data.suUser);
+		  console.log('gettersUserInfo',store.getters.gettersUserInfo);
 		  Toast.success('Query Success~');
 	  }
 	  else {
 		let data = {"gltype":"createSuUser","data":{"userid": uuid}}
 		postCMS(data).then(result => {
 			console.log('createSuUserResult:',result);
-			store.commit("setUserInfo", result.data.suUser);
+			store.commit("setUserInfo", result.data.createSuUser);
 			Toast.success('Add Success~');
 		})
 		.catch(error => {
