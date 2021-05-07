@@ -56,6 +56,8 @@ exports.handler = async (event, context) => {
 	let weblist = ['https://subangbang.netlify.app/','http://localhost:3000/'];
 	let domain = (new URL(event.headers['referer']));
 	
+	console.log('domain',domain)
+	
 	if (!weblist.includes(domain)) {
 		return {
 			statusCode: 404,
