@@ -56,13 +56,18 @@ export default {
 	  let formData = new FormData()
 	  
       formData.append('fileUpload', file.file);
+	  //formData.append('fileName', file.file.name);
+	  //formData.append('fileType', file.file.type);
 	  
 	  console.log('file:',file);
 	  console.log('file.file:',file.file);
-      console.log('formData:',formData.get('fileUpload'));
+	  console.log('formData:',formData);
+      //console.log('formData.fileUpload:',formData.get('fileUpload'));
+	  
+	  //let queryStr = {params: { "fileName" : file.file.name , "fileType" : file.file.type }}
 	  
 	  setTimeout(() => {
-			postUpload(file.file).then(result => {
+			postUpload(formData).then(result => {
 				file.status = 'done';
 				file.message = '上传成功';
 				console.log('Result:',result);

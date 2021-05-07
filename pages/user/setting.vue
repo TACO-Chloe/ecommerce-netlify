@@ -73,7 +73,7 @@ export default {
     return {
 	  userid: this.$store.getters.gettersUserInfo.userid,
 	  nickName: this.$store.getters.gettersUserInfo.name,
-	  snapshot: this.getSnapshot(),
+	  //snapshot: this.getSnapshot(),
       gender: this.$store.getters.gettersUserInfo.gender,
 	  birth: this.$store.getters.gettersUserInfo.birth  || '2000-01-01',
 	  mobile: this.$store.getters.gettersUserInfo.mobile || '' ,
@@ -98,6 +98,7 @@ export default {
 	save() {
 		Toast('保存');
 		console.log(this.snapshot);
+		console.log('gettersUserInfo',this.$store.getters.gettersUserInfo);
 		if (localStorage.getItem("token") === null && process.browser) {
 			localStorage.setItem('token','7533967');
 			//alert('set_token');
@@ -160,8 +161,10 @@ export default {
 	  console.log('toLocaleString',value.toLocaleString());
 	  console.log('toISOString',value.toISOString());
 	  this.birth = value.toISOString().slice(0,value.toISOString().indexOf("T"));
-	},
-	getSnapshot(){
+	}
+  },
+  computed: {
+	snapshot(){
 		console.log('gettersUserInfo',this.$store.getters.gettersUserInfo);
 		if(this.$store.getters.gettersUserInfo.snapshot) {
 			console.log('Y-getSnapshot',this.$store.getters.gettersUserInfo.snapshot);

@@ -37,7 +37,8 @@ export default {
     ]
   },
   generate: {
-    routes: dynamicRoutes
+    routes: dynamicRoutes,
+	fallback: true
   },
   /*
    ** Customize the progress-bar color
@@ -55,7 +56,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/currency-filter.js',  '~/plugins/graphcms.js', {src: '@/plugins/vant-ui', ssr: true}],
+  plugins: ['~/plugins/currency-filter.js', '~/plugins/graphcms.js', {src: '@/plugins/vant-ui', ssr: true}],
   /*
    ** Nuxt.js modules
    */
@@ -67,7 +68,11 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) {
+	config.node = {
+            fs: 'empty'
+        }
+    }
   },
   pwa: {
 	  icon: {
