@@ -2,6 +2,8 @@ require("dotenv").config();
 
 const axios = require('axios');
 
+const URL = require('url').URL;
+
 const Buffer = require( "buffer" ).Buffer;
 
 const multipart = require('parse-multipart');
@@ -52,8 +54,9 @@ exports.handler = async (event, context) => {
 	
 	
 	let weblist = ['https://subangbang.netlify.app/','http://localhost:3000/'];
+	let domain = (new URL(event.headers['referer']));
 	
-	if (!weblist.includes(event.headers['referer'])) {
+	if (!weblist.includes(domain)) {
 		return {
 			statusCode: 404,
 			headers
