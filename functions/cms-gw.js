@@ -50,6 +50,16 @@ exports.handler = async (event, context) => {
 	console.log( "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" );
 	console.log( "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" );
 	
+	
+	let weblist = ['https://subangbang.netlify.app/','http://localhost:3000/'];
+	
+	if (!(event.headers['referer'] in weblist)) {
+		return {
+			statusCode: 404,
+			headers
+		};
+	}
+	
 	if (event.httpMethod === "GET") {
 		const GLQuery = require('./graphql/queriesGet.js');
 		console.log("GLQuery:"+ GLQuery);
@@ -143,7 +153,7 @@ exports.handler = async (event, context) => {
 	  statusCode: 200,
 	  body: JSON.stringify(myData, undefined, 2),
 	  headers:{
-		"Access-Control-Allow-Origin": "https://subangbang.netlify.app/",
+		"Access-Control-Allow-Origin": "*",
 		"Access-Control-Allow-Headers": "Content-Type",
 		"Access-Control-Allow-Methods": "GET, POST, OPTION",
 		"Content-Type": "application/json; charset=utf-8"
