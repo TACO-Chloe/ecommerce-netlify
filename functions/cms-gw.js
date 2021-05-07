@@ -53,7 +53,7 @@ exports.handler = async (event, context) => {
 	
 	let weblist = ['https://subangbang.netlify.app/','http://localhost:3000/'];
 	
-	if (!(event.headers['referer'] in weblist)) {
+	if (!weblist.includes(event.headers['referer'])) {
 		return {
 			statusCode: 404,
 			headers
