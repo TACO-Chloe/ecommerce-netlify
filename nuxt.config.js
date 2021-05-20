@@ -26,8 +26,9 @@ export default {
         content: '素邦邦 - 素食者的烏托邦' || '到處都是隨手可吃的食材、調味料、美食，再也不用在包裝上找"素食"兩個字。'
       },
 	  {
-		name: "baidu-site-verification", 
-		content: "code-lqL5VKUtDw"
+		name: 'baidu-site-verification', 
+		content: 'code-lqL5VKUtDw',
+		once: true
 	  }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
