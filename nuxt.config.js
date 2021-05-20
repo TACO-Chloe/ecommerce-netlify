@@ -20,12 +20,15 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-
       {
         hid: 'description',
         name: 'description',
         content: '素邦邦 - 素食者的烏托邦' || '到處都是隨手可吃的食材、調味料、美食，再也不用在包裝上找"素食"兩個字。'
-      }
+      },
+	  {
+		name: "baidu-site-verification", 
+		content: "code-lqL5VKUtDw"
+	  }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     link: [
