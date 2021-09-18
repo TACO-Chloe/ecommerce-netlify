@@ -39,9 +39,6 @@ export default {
 </script>
 
 <style>
-.test {
-  margin: 3vh;
-}
 
 main {
   width: 75vw;
