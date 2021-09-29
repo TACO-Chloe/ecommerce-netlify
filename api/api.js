@@ -3,13 +3,11 @@ import axios from "axios";
 
 const url = 'https://subangbang.netlify.app/.netlify/functions/cms-gw';
 const urlUpload = 'https://subangbang.netlify.app/.netlify/functions/cms-gw/upload';
-const urlWebRTC = 'http://172.18.2.10:8010/webrtcstreamer.html?rtsp://admin:passw0rd@172.18.2.125';
 
 
 export const getCMS = () => axios.get(url,{ useCache: true });
 export const postCMS = params => axios.post(url, params , { useCache: true });
 export const postUpload = params => axios.post(urlUpload, params, {headers: {'Content-Type': 'multipart/form-data'}});
-export const getWebRTC = () => axios.get(urlWebRTC,{ useCache: false });
 
 
 import request from '@/util/request'
