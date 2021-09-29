@@ -39,17 +39,17 @@ exports.handler = async (event, context) => {
 	console.log( "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" );
 	
 	
-	let weblist = ['subangbang.netlify.app','localhost:3000'];
-	let domain = (new URL(event.headers['referer']));
+	// let weblist = ['subangbang.netlify.app','localhost:3000'];
+	// let domain = (new URL(event.headers['referer']));
 	
-	console.log('domain',domain)
+	// console.log('domain',domain)
 	
-	if (!weblist.includes(domain.host)) {
-		return {
-			statusCode: 404,
-			headers
-		};
-	}
+	// if (!weblist.includes(domain.host)) {
+		// return {
+			// statusCode: 404,
+			// headers
+		// };
+	// }
 	
 	if (event.httpMethod === "GET") {
 		console.log("httpMethod:"+ httpMethod);
