@@ -53,19 +53,20 @@ exports.handler = async (event, context) => {
 	
 	if (event.httpMethod === "GET") {
 		console.log("httpMethod:"+ event.httpMethod);
+		const myData = event.httpMethod;
 	}
 	
 	if (event.httpMethod === "POST") {
 		console.log("httpMethod:"+ event.httpMethod);
 			
 		const postData = JSON.parse(event.body);
-		console.log("Data:"+postData);
-
 
 		let orderId=postData.orderId
+		console.log("Data:"+postData.orderId);
 		// * 添加购物车支付支付宝 */
 		// 调用 setMethod 并传入 get，会返回可以跳转到支付页面的 url
 		const formData = new AlipayFormData();
+		console.log("new AlipayFormData");
 		formData.setMethod('get');
 		// 通过 addField 增加参数
 		// 在用户支付完成之后，支付宝服务器会根据传入的 notify_url，以 POST 请求的形式将支付结果作为参数通知到商户系统。
@@ -80,6 +81,7 @@ exports.handler = async (event, context) => {
 		});
 		formData.addField('returnUrl', 'https://opendocs.alipay.com');//加在这里才有效果,不是加在bizContent 里面
 		// 如果需要支付后跳转到商户界面，可以增加属性"returnUrl"
+		console.log("formData END");
 		const myData =  alipaySdk.exec(  // result 为可以跳转到支付链接的 url
 							'alipay.trade.page.pay', // 统一收单下单并支付页面接口
 							{}, // api 请求的参数（包含“公共请求参数”和“业务参数”）
@@ -96,6 +98,7 @@ exports.handler = async (event, context) => {
 								// }
 							// )
 						// })
+		console.log("myData:",myData);
 	};
 
 
