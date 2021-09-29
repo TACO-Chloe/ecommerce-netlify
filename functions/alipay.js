@@ -52,11 +52,11 @@ exports.handler = async (event, context) => {
 	// }
 	
 	if (event.httpMethod === "GET") {
-		console.log("httpMethod:"+ httpMethod);
+		console.log("httpMethod:"+ event.httpMethod);
 	}
 	
 	if (event.httpMethod === "POST") {
-		console.log("httpMethod:"+ httpMethod);
+		console.log("httpMethod:"+ event.httpMethod);
 			
 		const postData = JSON.parse(event.body);
 		console.log("Data:"+postData);
