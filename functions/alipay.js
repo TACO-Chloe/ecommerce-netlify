@@ -51,6 +51,8 @@ exports.handler = async (event, context) => {
 		// };
 	// }
 	
+	var myData = '';
+	
 	if (event.httpMethod === "GET") {
 		console.log("httpMethod:"+ event.httpMethod);
 		myData = event.httpMethod;
@@ -88,17 +90,19 @@ exports.handler = async (event, context) => {
 							{}, // api 请求的参数（包含“公共请求参数”和“业务参数”）
 							{ formData: formData },
 						);
-						result.then((myData)=>{
-							axios.post(result,
-								{
-									"success": true,
-									"message": "success",
-									"code": 200,
-									"timestamp": (new Date()).getTime(),
-									"result": myData
-								}
-							)
-						})
+						
+		console.log("result:",result);
+		
+		myData = axios.post(result,
+							{
+								"success": true,
+								"message": "success",
+								"code": 200,
+								"timestamp": (new Date()).getTime(),
+								"result": myData
+							}
+						);
+
 		console.log("myData:",myData);
 	};
 
