@@ -93,15 +93,18 @@ exports.handler = async (event, context) => {
 						
 		console.log("result:",result);
 		
-		myData = axios.post(result,
-							{
-								"success": true,
-								"message": "success",
-								"code": 200,
-								"timestamp": (new Date()).getTime(),
-								"result": myData
-							}
-						);
+		myData = result.then((res) => { 
+						// axios.post(result,
+							// {
+								// "success": true,
+								// "message": "success",
+								// "code": 200,
+								// "timestamp": (new Date()).getTime(),
+								// "result": myData
+							// }
+						// )
+						return res
+				};
 
 		console.log("myData:",myData);
 	};
@@ -110,7 +113,8 @@ exports.handler = async (event, context) => {
 
 	return {
 	  statusCode: 200,
-	  body: JSON.stringify(myData, undefined, 2),
+	  //body: JSON.stringify(myData, undefined, 2),
+	  body: myData,
 	  headers:{
 		"Access-Control-Allow-Origin": "*",
 		"Access-Control-Allow-Headers": "Content-Type",
