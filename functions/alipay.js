@@ -82,22 +82,23 @@ exports.handler = async (event, context) => {
 		formData.addField('returnUrl', 'https://opendocs.alipay.com');//加在这里才有效果,不是加在bizContent 里面
 		// 如果需要支付后跳转到商户界面，可以增加属性"returnUrl"
 		console.log("formData END");
-		myData =  alipaySdk.exec(  // result 为可以跳转到支付链接的 url
+		result =  alipaySdk.exec(  // result 为可以跳转到支付链接的 url
+							//'alipay.trade.wap.pay',
 							'alipay.trade.page.pay', // 统一收单下单并支付页面接口
 							{}, // api 请求的参数（包含“公共请求参数”和“业务参数”）
 							{ formData: formData },
 						);
-						// myData.then((resp)=>{
-							// res.send(
-								// {
-									// "success": true,
-									// "message": "success",
-									// "code": 200,
-									// "timestamp": (new Date()).getTime(),
-									// "result": resp
-								// }
-							// )
-						// })
+						result.then((myData)=>{
+							axios.post(result,
+								{
+									"success": true,
+									"message": "success",
+									"code": 200,
+									"timestamp": (new Date()).getTime(),
+									"result": myData
+								}
+							)
+						})
 		console.log("myData:",myData);
 	};
 
