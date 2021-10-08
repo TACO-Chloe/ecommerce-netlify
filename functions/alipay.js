@@ -103,7 +103,9 @@ exports.handler = async (event, context) => {
 								// "result": myData
 							// }
 						// )
-						console.log("result:",result);
+						
+						console.log("result1:",result);
+						console.log("res1:",res);
 						return res
 				});
 
