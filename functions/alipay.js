@@ -91,21 +91,20 @@ exports.handler = async (event, context) => {
 							{ formData: formData },
 						);
 						
-		console.log("result:",result);
+		//console.log("result:",result);
 		
-		result.then(res => { 
-						// axios.post(result,
-							// {
-								// "success": true,
-								// "message": "success",
-								// "code": 200,
-								// "timestamp": (new Date()).getTime(),
-								// "result": myData
-							// }
-						// )
+		myData = result.then(res => { 
+						axios.post(res,
+							{
+								"success": true,
+								"message": "success",
+								"code": 200,
+								"timestamp": (new Date()).getTime(),
+							}
+						)
 						
-						console.log("result1:",result);
-						console.log("res1:",res);
+						console.log("result:",result);
+						console.log("res:",res);
 						return res
 				});
 
