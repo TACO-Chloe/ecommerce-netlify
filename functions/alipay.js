@@ -97,7 +97,7 @@ exports.handler = async (event, context) => {
 						//console.log("result:",result);
 						//console.log("res:",res);
 						console.log("Line 99");						
-						myData = axios.get(res)
+						myData = axios.get('https://www.google.com')
 							.then(resp => { 
 								console.log("Line 102");
 								console.log("response:",resp);
