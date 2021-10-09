@@ -96,7 +96,7 @@ exports.handler = async (event, context) => {
 		result.then(async (res) => {
 						//console.log("result:",result);
 						//console.log("res:",res);			
-						myData = await axios.get(res);
+						myData = await axios.get(res)
 							.then(response => { 
 								console.log("Line 107");
 								console.log("response:",response);
