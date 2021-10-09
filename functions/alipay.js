@@ -93,7 +93,7 @@ exports.handler = async (event, context) => {
 						
 		//console.log("result:",result);
 		
-		myData = result.then(res => {
+		myData = result.then(async (res) => {
 						console.log("result:",result);
 						console.log("res:",res);			
 						await axios.post(res,
