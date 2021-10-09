@@ -94,8 +94,8 @@ exports.handler = async (event, context) => {
 						
 		console.log("result:",resultURL);
 		
-		myData = await axios.get('https://swapi.dev/api/people/1/');
-		console.log("myData:",myData);
+		// myData = await axios.get('https://swapi.dev/api/people/1/');
+		// console.log("myData:",myData);
 		
 		myData = await axios.get(resultURL);
 		console.log("myData:",myData);
@@ -106,8 +106,8 @@ exports.handler = async (event, context) => {
 
 	return {
 	  statusCode: 200,
-	  body: JSON.stringify(myData, undefined, 2),
-	  //body: myData,
+	  //body: JSON.stringify(myData, undefined, 2),
+	  body: myData,
 	  headers:{
 		"Access-Control-Allow-Origin": "*",
 		"Access-Control-Allow-Headers": "Content-Type",
