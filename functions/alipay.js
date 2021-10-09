@@ -97,7 +97,8 @@ exports.handler = async (event, context) => {
 		// myData = await axios.get('https://swapi.dev/api/people/1/');
 		// console.log("myData:",myData);
 		
-		myData = await axios.get(resultURL);
+		result = await axios.get(resultURL);
+		myData = result.data;
 		console.log("myData:",myData);
 		
 	};
