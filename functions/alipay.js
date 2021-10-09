@@ -102,12 +102,15 @@ exports.handler = async (event, context) => {
 								"message": "success",
 								"code": 200,
 								"timestamp": (new Date()).getTime(),
-							}
-						).then(response => { 
+							})
+						.then(response => { 
 							console.log("response:",response);
 							return response
-						  }
-					    )
+						})
+						.catch(error => { 
+							console.log("error:",error);
+							return error
+						})
 				});
 
 		console.log("myData:",myData);
