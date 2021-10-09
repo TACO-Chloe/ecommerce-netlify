@@ -85,28 +85,14 @@ exports.handler = async (event, context) => {
 		formData.addField('returnUrl', 'https://opendocs.alipay.com');//加在这里才有效果,不是加在bizContent 里面
 		// 如果需要支付后跳转到商户界面，可以增加属性"returnUrl"
 		console.log("formData END");
-		result =  alipaySdk.exec(  // result 为可以跳转到支付链接的 url
+		result =  await alipaySdk.exec(  // result 为可以跳转到支付链接的 url
 							//'alipay.trade.wap.pay',
 							'alipay.trade.page.pay', // 统一收单下单并支付页面接口
 							{}, // api 请求的参数（包含“公共请求参数”和“业务参数”）
 							{ formData: formData },
 						);
 						
-		//console.log("result:",result);
-		
-		result.then(async (res) => {
-						//console.log("result:",result);
-						//console.log("res:",res);
-						console.log("Line 99");	
-						url =  res ;
-						console.log("I-url:",url);
-						myData = await axios.get(url);
-						console.log("I-myData:",myData);
-						myData = await axios.get('https://swapi.dev/api/people/1/');
-						console.log("O-myData:",myData);						
-				});
-
-		console.log("url:",url);
+		console.log("result:",result);
 		
 		myData = await axios.get('https://swapi.dev/api/people/1/');
 		console.log("myData:",myData);	
@@ -116,8 +102,8 @@ exports.handler = async (event, context) => {
 
 	return {
 	  statusCode: 200,
-	  //body: JSON.stringify(myData, undefined, 2),
-	  body: myData,
+	  body: JSON.stringify(myData, undefined, 2),
+	  //body: myData,
 	  headers:{
 		"Access-Control-Allow-Origin": "*",
 		"Access-Control-Allow-Headers": "Content-Type",
