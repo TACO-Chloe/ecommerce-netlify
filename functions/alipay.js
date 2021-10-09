@@ -115,18 +115,7 @@ exports.handler = async (event, context) => {
 
 		console.log("myData:",myData);
 		
-		axios.get('https://swapi.dev/api/people/1/')
-			.then(resp => { 
-				console.log("Line2 102");
-				console.log("response2:",resp);
-				myData = resp
-				//return response
-			})
-			.catch(error => {
-				console.log("Line2 107");							
-				console.log("error2:",error);
-				//return error
-			})
+		myData = await axios.get('https://swapi.dev/api/people/1/')
 		console.log("myData2:",myData);	
 	};
 
