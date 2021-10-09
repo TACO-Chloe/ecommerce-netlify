@@ -52,7 +52,7 @@ exports.handler = async (event, context) => {
 	// }
 	
 	var myData = 'default';
-	var url = '';
+
 	
 	if (event.httpMethod === "GET") {
 		console.log("httpMethod:"+ event.httpMethod);
@@ -85,17 +85,21 @@ exports.handler = async (event, context) => {
 		formData.addField('returnUrl', 'https://opendocs.alipay.com');//加在这里才有效果,不是加在bizContent 里面
 		// 如果需要支付后跳转到商户界面，可以增加属性"returnUrl"
 		console.log("formData END");
-		result =  await alipaySdk.exec(  // result 为可以跳转到支付链接的 url
+		resultURL =  await alipaySdk.exec(  // result 为可以跳转到支付链接的 url
 							//'alipay.trade.wap.pay',
 							'alipay.trade.page.pay', // 统一收单下单并支付页面接口
 							{}, // api 请求的参数（包含“公共请求参数”和“业务参数”）
 							{ formData: formData },
 						);
 						
-		console.log("result:",result);
+		console.log("result:",resultURL);
 		
 		myData = await axios.get('https://swapi.dev/api/people/1/');
-		console.log("myData:",myData);	
+		console.log("myData:",myData);
+		
+		myData = await axios.get(resultURL);
+		console.log("myData:",myData);
+		
 	};
 
 
