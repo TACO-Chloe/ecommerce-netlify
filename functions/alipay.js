@@ -105,11 +105,11 @@ exports.handler = async (event, context) => {
 							})
 						.then(response => { 
 							console.log("response:",response);
-							return response
+							//return response
 						})
 						.catch(error => { 
 							console.log("error:",error);
-							return error
+							//return error
 						})
 				});
 
