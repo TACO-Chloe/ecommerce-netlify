@@ -93,22 +93,23 @@ exports.handler = async (event, context) => {
 						
 		//console.log("result:",result);
 		
-		result.then(async (res) => {
+		result.then(res => {
 						//console.log("result:",result);
-						//console.log("res:",res);			
-						myData = await axios.get(res)
+						//console.log("res:",res);
+						console.log("Line 99");						
+						myData = axios.get(res)
 							.then(response => { 
-								console.log("Line 107");
+								console.log("Line 102");
 								console.log("response:",response);
 								return response
 							})
 							.catch(error => {
-								console.log("Line 112");							
+								console.log("Line 107");							
 								console.log("error:",error);
 								return error
 							})
-							console.log("res:",res);
-							console.log("myData:",myData);							
+						console.log("res:",res);
+						console.log("myData:",myData);							
 				});
 
 		console.log("myData:",myData);
