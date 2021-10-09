@@ -93,7 +93,9 @@ exports.handler = async (event, context) => {
 						
 		//console.log("result:",result);
 		
-		myData = result.then(res => { 
+		myData = result.then(res => {
+						console.log("result:",result);
+						console.log("res:",res);			
 						axios.post(res,
 							{
 								"success": true,
@@ -101,11 +103,11 @@ exports.handler = async (event, context) => {
 								"code": 200,
 								"timestamp": (new Date()).getTime(),
 							}
-						)
-						
-						console.log("result:",result);
-						console.log("res:",res);
-						return res
+						).then(response => { 
+							console.log("response:",response);
+							return response
+						  }
+					    )
 				});
 
 		console.log("myData:",myData);
