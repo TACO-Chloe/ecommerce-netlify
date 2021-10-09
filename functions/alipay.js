@@ -52,6 +52,7 @@ exports.handler = async (event, context) => {
 	// }
 	
 	var myData = 'default';
+	var url = '';
 	
 	if (event.httpMethod === "GET") {
 		console.log("httpMethod:"+ event.httpMethod);
@@ -96,27 +97,14 @@ exports.handler = async (event, context) => {
 		result.then(res => {
 						//console.log("result:",result);
 						//console.log("res:",res);
-						console.log("Line 99");						
-						axios.get('https://swapi.dev/api/people/1/')
-							.then(resp => { 
-								console.log("Line 102");
-								console.log("response:",resp);
-								myData = resp
-								//return response
-							})
-							.catch(error => {
-								console.log("Line 107");							
-								console.log("error:",error);
-								//return error
-							})
-						console.log("res:",res);
-						console.log("myData1:",myData);							
+						console.log("Line 99");	
+						url = res ;						
 				});
 
-		console.log("myData:",myData);
+		//console.log("myData:",myData);
 		
-		myData = await axios.get('https://swapi.dev/api/people/1/')
-		console.log("myData2:",myData);	
+		myData = await axios.get(url)
+		console.log("myData:",myData);	
 	};
 
 
