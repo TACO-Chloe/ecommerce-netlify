@@ -51,7 +51,7 @@ exports.handler = async (event, context) => {
 		// };
 	// }
 	
-	var myData = '';
+	var myData = 'default';
 	
 	if (event.httpMethod === "GET") {
 		console.log("httpMethod:"+ event.httpMethod);
@@ -93,9 +93,9 @@ exports.handler = async (event, context) => {
 						
 		//console.log("result:",result);
 		
-		myData = result.then(async (res) => {
-						console.log("result:",result);
-						console.log("res:",res);			
+		result.then(async (res) => {
+						//console.log("result:",result);
+						//console.log("res:",res);			
 						await axios.post(res,
 							{
 								"success": true,
@@ -104,10 +104,12 @@ exports.handler = async (event, context) => {
 								"timestamp": (new Date()).getTime(),
 							})
 						.then(response => { 
+							console.log("Line 107");
 							console.log("response:",response);
 							//return response
 						})
-						.catch(error => { 
+						.catch(error => {
+							console.log("Line 112");							
 							console.log("error:",error);
 							//return error
 						})
