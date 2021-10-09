@@ -96,7 +96,7 @@ exports.handler = async (event, context) => {
 		myData = result.then(res => {
 						console.log("result:",result);
 						console.log("res:",res);			
-						axios.post(res,
+						await axios.post(res,
 							{
 								"success": true,
 								"message": "success",
