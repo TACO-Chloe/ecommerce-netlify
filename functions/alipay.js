@@ -34,7 +34,7 @@ exports.handler = async (event, context) => {
 	console.log("EVENT: \n" + JSON.stringify(event, null, 2));
 	console.log("CONTEXT: \n" + JSON.stringify(context, null, 2));
 	console.log("HTTP-METHOD: \n" + JSON.stringify(event.httpMethod, null, 2));
-	console.log("User-Agent: \n" + JSON.stringify(event.multiValueHeaders.User-Agent[0], null, 2));
+	console.log("User-Agent: \n" + JSON.stringify(event.multiValueHeaders['User-Agent'][0], null, 2));
 	console.log("EVEN.BODY:" + event.body);
 	console.log( "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" );
 	console.log( "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" );
@@ -53,7 +53,7 @@ exports.handler = async (event, context) => {
 	// }
 	
 	var myData = 'default';
-	var agent = event.multiValueHeaders.User-Agent[0];
+	var agent = event.multiValueHeaders['User-Agent'][0];
     var isMobile = !!agent.match(/(iPad)|(iPhone)|(iPod)|(android)/i);
 	console.log("isMobile:"+ isMobile);
 
