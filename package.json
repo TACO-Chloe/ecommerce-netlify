@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.4.11",
+    "@dcloudio/unipay": "^1.0.20",
     "@nuxtjs/pwa": "^3.3.4",
     "@vant/area-data": "^1.1.1",
     "@vant/touch-emulator": "^1.2.0",

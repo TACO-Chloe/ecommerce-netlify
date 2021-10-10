@@ -34,6 +34,7 @@ exports.handler = async (event, context) => {
 	console.log("EVENT: \n" + JSON.stringify(event, null, 2));
 	console.log("CONTEXT: \n" + JSON.stringify(context, null, 2));
 	console.log("HTTP-METHOD: \n" + JSON.stringify(event.httpMethod, null, 2));
+	console.log("User-Agent: \n" + JSON.stringify(event.multiValueHeaders.User-Agent, null, 2));
 	console.log("EVEN.BODY:" + event.body);
 	console.log( "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" );
 	console.log( "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" );
@@ -52,6 +53,9 @@ exports.handler = async (event, context) => {
 	// }
 	
 	var myData = 'default';
+	var agent = event.multiValueHeaders.User-Agent;
+    var isMobile = !!agent.match(/(iPad)|(iPhone)|(iPod)|(android)/i);
+	console.log("isMobile:"+ isMobile);
 
 	
 	if (event.httpMethod === "GET") {
@@ -73,10 +77,13 @@ exports.handler = async (event, context) => {
 		formData.setMethod('get');
 		// 通过 addField 增加参数
 		// 在用户支付完成之后，支付宝服务器会根据传入的 notify_url，以 POST 请求的形式将支付结果作为参数通知到商户系统。
-		formData.addField('notifyUrl', 'https://www.xuexiluxian.cn'); // 支付成功回调地址，必须为可以直接访问的地址，不能带参数
+		formData.addField('notifyUrl', 'https://www.xuexiluxian.cn/paycallback'); // 支付成功回调地址，必须为可以直接访问的地址，不能带参数
+		formData.addField('returnUrl', 'https://www.xuexiluxian.cn/success');
 		formData.addField('bizContent', {
-			outTradeNo: orderId, // 商户订单号,64个字符以内、可包含字母、数字、下划线,且不能重复
-			productCode: 'FAST_INSTANT_TRADE_PAY', // 销售产品码，与支付宝签约的产品码名称,仅支持FAST_INSTANT_TRADE_PAY
+			// outTradeNo: orderId, // 商户订单号,64个字符以内、可包含字母、数字、下划线,且不能重复
+			outTradeNo: new Data().valueOf(),
+			// productCode: 'FAST_INSTANT_TRADE_PAY', // 销售产品码，与支付宝签约的产品码名称,仅支持FAST_INSTANT_TRADE_PAY
+			productCode: 'QUICK_WAP_WAY',
 			totalAmount: '0.01', // 订单总金额，单位为元，精确到小数点后两位
 			subject: '商品', // 订单标题
 			body: '商品详情', // 订单描述
@@ -86,10 +93,13 @@ exports.handler = async (event, context) => {
 		// 如果需要支付后跳转到商户界面，可以增加属性"returnUrl"
 		console.log("formData END");
 		resultURL =  await alipaySdk.exec(  // result 为可以跳转到支付链接的 url
-							//'alipay.trade.wap.pay',
-							'alipay.trade.page.pay', // 统一收单下单并支付页面接口
+							'alipay.trade.wap.pay',
+							//'alipay.trade.page.pay', // 统一收单下单并支付页面接口
 							{}, // api 请求的参数（包含“公共请求参数”和“业务参数”）
-							{ formData: formData },
+							{ 
+								formData: formData,
+								validatesign: true
+							},
 						);
 						
 		console.log("result:",resultURL);
@@ -97,8 +107,9 @@ exports.handler = async (event, context) => {
 		// myData = await axios.get('https://swapi.dev/api/people/1/');
 		// console.log("myData:",myData);
 		
-		result = await axios.get(resultURL);
-		myData = result.data;
+		// result = await axios.get(resultURL);
+		// myData = result.data;
+		myData = resultURL;
 		console.log("myData:",myData);
 		
 	};
