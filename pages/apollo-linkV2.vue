@@ -30,7 +30,7 @@ export default {
 		var key = ["FLOTID","FName","FNumber","FMATERIALID","FUseOrgId","Inventory","MATERIAL"]
 	
 		const restLink = new RestLink({
-		  uri: 'http://127.0.0.1:5000/k3/',
+		  uri: 'http://172.18.2.10:5000/k3/',
 		  customFetch: fetch,
 		  headers: {
 			'Content-Type': 'application/json',
