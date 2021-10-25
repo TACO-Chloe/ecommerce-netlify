@@ -3,7 +3,7 @@
   <div class="swiper">
     <van-swipe :autoplay="5000">
 		<!-- slides -->
-		<van-swipe-item v-for="(item, idx) in 4" :key="idx">
+		<van-swipe-item v-for="(item, idx) in 2" :key="idx">
 		  <van-image :src="require(`@/assets/bg${item}.png`)"
 			  fit="cover"
 			  width="100%"
