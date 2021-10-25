@@ -60,7 +60,13 @@ exports.handler = async (event, context) => {
 	
 	if (event.httpMethod === "GET") {
 		console.log("httpMethod:"+ event.httpMethod);
-		myData = event.httpMethod;
+		//myData = event.httpMethod;
+		code = event.queryStringParameters.auth_code
+		myData = await alipaySdk.exec('alipay.system.oauth.token', {
+			grantType: 'authorization_code',
+			code: code
+		});
+
 	}
 	
 	if (event.httpMethod === "POST") {
