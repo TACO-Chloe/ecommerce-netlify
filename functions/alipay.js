@@ -70,7 +70,7 @@ exports.handler = async (event, context) => {
 				code: code
 			});
 			
-			myData = JSON.stringifymyData);
+			myData = JSON.stringify(myData);
 
 		}
 		
