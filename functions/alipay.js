@@ -57,69 +57,72 @@ exports.handler = async (event, context) => {
     var isMobile = !!agent.match(/(iPad)|(iPhone)|(iPod)|(android)/i);
 	console.log("isMobile:"+ isMobile);
 
-	
-	if (event.httpMethod === "GET") {
-		console.log("httpMethod:"+ event.httpMethod);
-		//myData = event.httpMethod;
-		code = event.queryStringParameters.auth_code
-		myData = await alipaySdk.exec('alipay.system.oauth.token', {
-			grantType: 'authorization_code',
-			code: code
-		});
+	try {
+		if (event.httpMethod === "GET") {
+			console.log("httpMethod:"+ event.httpMethod);
+			//myData = event.httpMethod;
+			code = event.queryStringParameters.auth_code
+			myData = await alipaySdk.exec('alipay.system.oauth.token', {
+				grantType: 'authorization_code',
+				code: code
+			});
 
-	}
-	
-	if (event.httpMethod === "POST") {
-		console.log("httpMethod:"+ event.httpMethod);
+		}
+		
+		if (event.httpMethod === "POST") {
+			console.log("httpMethod:"+ event.httpMethod);
+				
+			const postData = JSON.parse(event.body);
+
+			let orderId=postData.orderId
+			console.log("Data:"+postData.orderId);
+			// * 添加购物车支付支付宝 */
+			// 调用 setMethod 并传入 get，会返回可以跳转到支付页面的 url
+			const formData = new AlipayFormData();
+			console.log("new AlipayFormData");
+			formData.setMethod('get');
+			// 通过 addField 增加参数
+			// 在用户支付完成之后，支付宝服务器会根据传入的 notify_url，以 POST 请求的形式将支付结果作为参数通知到商户系统。
+			formData.addField('notifyUrl', 'https://www.xuexiluxian.cn/paycallback'); // 支付成功回调地址，必须为可以直接访问的地址，不能带参数
+			formData.addField('returnUrl', 'https://www.xuexiluxian.cn/success');
+			formData.addField('bizContent', {
+				// outTradeNo: orderId, // 商户订单号,64个字符以内、可包含字母、数字、下划线,且不能重复
+				outTradeNo: new Date().valueOf(),
+				// productCode: 'FAST_INSTANT_TRADE_PAY', // 销售产品码，与支付宝签约的产品码名称,仅支持FAST_INSTANT_TRADE_PAY
+				productCode: 'QUICK_WAP_WAY',
+				totalAmount: '0.01', // 订单总金额，单位为元，精确到小数点后两位
+				subject: '商品', // 订单标题
+				body: '商品详情', // 订单描述
+
+			});
+			formData.addField('returnUrl', 'https://opendocs.alipay.com');//加在这里才有效果,不是加在bizContent 里面
+			// 如果需要支付后跳转到商户界面，可以增加属性"returnUrl"
+			console.log("formData END");
+			resultURL =  await alipaySdk.exec(  // result 为可以跳转到支付链接的 url
+								'alipay.trade.wap.pay',
+								//'alipay.trade.page.pay', // 统一收单下单并支付页面接口
+								{}, // api 请求的参数（包含“公共请求参数”和“业务参数”）
+								{ 
+									formData: formData,
+									validatesign: true
+								},
+							);
+							
+			console.log("result:",resultURL);
 			
-		const postData = JSON.parse(event.body);
-
-		let orderId=postData.orderId
-		console.log("Data:"+postData.orderId);
-		// * 添加购物车支付支付宝 */
-		// 调用 setMethod 并传入 get，会返回可以跳转到支付页面的 url
-		const formData = new AlipayFormData();
-		console.log("new AlipayFormData");
-		formData.setMethod('get');
-		// 通过 addField 增加参数
-		// 在用户支付完成之后，支付宝服务器会根据传入的 notify_url，以 POST 请求的形式将支付结果作为参数通知到商户系统。
-		formData.addField('notifyUrl', 'https://www.xuexiluxian.cn/paycallback'); // 支付成功回调地址，必须为可以直接访问的地址，不能带参数
-		formData.addField('returnUrl', 'https://www.xuexiluxian.cn/success');
-		formData.addField('bizContent', {
-			// outTradeNo: orderId, // 商户订单号,64个字符以内、可包含字母、数字、下划线,且不能重复
-			outTradeNo: new Date().valueOf(),
-			// productCode: 'FAST_INSTANT_TRADE_PAY', // 销售产品码，与支付宝签约的产品码名称,仅支持FAST_INSTANT_TRADE_PAY
-			productCode: 'QUICK_WAP_WAY',
-			totalAmount: '0.01', // 订单总金额，单位为元，精确到小数点后两位
-			subject: '商品', // 订单标题
-			body: '商品详情', // 订单描述
-
-		});
-		formData.addField('returnUrl', 'https://opendocs.alipay.com');//加在这里才有效果,不是加在bizContent 里面
-		// 如果需要支付后跳转到商户界面，可以增加属性"returnUrl"
-		console.log("formData END");
-		resultURL =  await alipaySdk.exec(  // result 为可以跳转到支付链接的 url
-							'alipay.trade.wap.pay',
-							//'alipay.trade.page.pay', // 统一收单下单并支付页面接口
-							{}, // api 请求的参数（包含“公共请求参数”和“业务参数”）
-							{ 
-								formData: formData,
-								validatesign: true
-							},
-						);
-						
-		console.log("result:",resultURL);
-		
-		// myData = await axios.get('https://swapi.dev/api/people/1/');
-		// console.log("myData:",myData);
-		
-		// result = await axios.get(resultURL);
-		// myData = result.data;
-		myData = resultURL;
-		console.log("myData:",myData);
-		
-	};
-
+			// myData = await axios.get('https://swapi.dev/api/people/1/');
+			// console.log("myData:",myData);
+			
+			// result = await axios.get(resultURL);
+			// myData = result.data;
+			myData = resultURL;
+			console.log("myData:",myData);
+			
+		};
+	}catch (e) {
+	  monthName = "unknown";
+	  Console.error(e); // 將例外傳至例外處理機制
+	}
 
 
 	return {
