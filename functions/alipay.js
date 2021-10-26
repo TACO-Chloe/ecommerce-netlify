@@ -8,7 +8,7 @@ const { Headers } = require('cross-fetch');
 const alipaySdk = require('./alipay/alipayUtil');
 const AlipayFormData = require('alipay-sdk/lib/form').default;
 
-process.env.TZ = 'Asia/Shanghai';
+// process.env.TZ = 'Asia/Shanghai';
 global.Headers = global.Headers || Headers;
 
 headers = {
@@ -65,9 +65,15 @@ exports.handler = async (event, context) => {
 			console.log("auth_code:"+ event.queryStringParameters.auth_code);
 			code = event.queryStringParameters.auth_code
 			console.log("code:"+ code);
-			myData = await alipaySdk.exec('alipay.system.oauth.token', {
+			oauth = await alipaySdk.exec('alipay.system.oauth.token', {
 				grantType: 'authorization_code',
 				code: code
+			});
+			
+			oauth = JSON.stringify(oauth);
+			
+			myData = await alipaySdk.exec('alipay.user.info.share', {
+				auth_token: oauth.accessToken,
 			});
 			
 			myData = JSON.stringify(myData);
