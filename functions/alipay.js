@@ -69,6 +69,8 @@ exports.handler = async (event, context) => {
 				grantType: 'authorization_code',
 				code: code
 			});
+			
+			myData = JSON.stringifymyData);
 
 		}
 		
