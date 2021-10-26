@@ -61,7 +61,9 @@ exports.handler = async (event, context) => {
 		if (event.httpMethod === "GET") {
 			console.log("httpMethod:"+ event.httpMethod);
 			//myData = event.httpMethod;
+			console.log("auth_code:"+ event.queryStringParameters.auth_code);
 			code = event.queryStringParameters.auth_code
+			console.log("code:"+ code);
 			myData = await alipaySdk.exec('alipay.system.oauth.token', {
 				grantType: 'authorization_code',
 				code: code
@@ -120,7 +122,7 @@ exports.handler = async (event, context) => {
 			
 		};
 	}catch (e) {
-	  monthName = "unknown";
+	  myData = "unknown";
 	  console.error(e); // 將例外傳至例外處理機制
 	}
 
