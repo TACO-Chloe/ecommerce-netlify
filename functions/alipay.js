@@ -8,6 +8,7 @@ const { Headers } = require('cross-fetch');
 const alipaySdk = require('./alipay/alipayUtil');
 const AlipayFormData = require('alipay-sdk/lib/form').default;
 
+process.env.TZ = 'Asia/Shanghai';
 global.Headers = global.Headers || Headers;
 
 headers = {
