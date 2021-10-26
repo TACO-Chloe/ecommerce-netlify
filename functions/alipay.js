@@ -70,7 +70,8 @@ exports.handler = async (event, context) => {
 				code: code
 			});
 			
-			oauth = JSON.stringify(oauth);
+			// oauth = JSON.stringify(oauth);
+			console.log("auth_token",oauth.accessToken)
 			
 			myData = await alipaySdk.exec('alipay.user.info.share', {
 				auth_token: oauth.accessToken,
