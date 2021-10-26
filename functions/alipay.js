@@ -121,7 +121,7 @@ exports.handler = async (event, context) => {
 		};
 	}catch (e) {
 	  monthName = "unknown";
-	  Console.error(e); // 將例外傳至例外處理機制
+	  console.error(e); // 將例外傳至例外處理機制
 	}
 
 
