@@ -19,7 +19,7 @@ export default {
    ** Headers of the page
    */
   head: {
-    title: 'Subangbang Store' || 'Subangbang' || '素邦邦',
+    title: '素邦邦' || 'Subangbang Store' || 'Subangbang',
     script: [{ src: 'https://js.stripe.com/v3/' }],
     meta: [
       { charset: 'utf-8' },

@@ -95,8 +95,8 @@ exports.handler = async (event, context) => {
 			formData.setMethod('get');
 			// 通过 addField 增加参数
 			// 在用户支付完成之后，支付宝服务器会根据传入的 notify_url，以 POST 请求的形式将支付结果作为参数通知到商户系统。
-			formData.addField('notifyUrl', 'https://www.xuexiluxian.cn/paycallback'); // 支付成功回调地址，必须为可以直接访问的地址，不能带参数
-			formData.addField('returnUrl', 'https://www.xuexiluxian.cn/success');
+			formData.addField('notifyUrl', 'https://subangbang.netlify.app/.netlify/paycallback'); // 支付成功回调地址，必须为可以直接访问的地址，不能带参数
+			formData.addField('returnUrl', 'https://subangbang.netlify.app/.netlify/success');
 			formData.addField('bizContent', {
 				// outTradeNo: orderId, // 商户订单号,64个字符以内、可包含字母、数字、下划线,且不能重复
 				outTradeNo: new Date().valueOf(),
@@ -107,12 +107,12 @@ exports.handler = async (event, context) => {
 				body: '商品详情', // 订单描述
 
 			});
-			formData.addField('returnUrl', 'https://opendocs.alipay.com');//加在这里才有效果,不是加在bizContent 里面
+			// formData.addField('returnUrl', 'https://subangbang.netlify.app/.netlify/');//加在这里才有效果,不是加在bizContent 里面
 			// 如果需要支付后跳转到商户界面，可以增加属性"returnUrl"
+			method = (isMobile === true) ? 'alipay.trade.wap.pay' : 'alipay.trade.page.pay';
 			console.log("formData END");
 			resultURL =  await alipaySdk.exec(  // result 为可以跳转到支付链接的 url
-								'alipay.trade.wap.pay',
-								//'alipay.trade.page.pay', // 统一收单下单并支付页面接口
+								method, // 统一收单下单并支付页面接口
 								{}, // api 请求的参数（包含“公共请求参数”和“业务参数”）
 								{ 
 									formData: formData,
@@ -122,11 +122,6 @@ exports.handler = async (event, context) => {
 							
 			console.log("result:",resultURL);
 			
-			// myData = await axios.get('https://swapi.dev/api/people/1/');
-			// console.log("myData:",myData);
-			
-			// result = await axios.get(resultURL);
-			// myData = result.data;
 			myData = resultURL;
 			console.log("myData:",myData);
 			
