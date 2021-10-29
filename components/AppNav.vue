@@ -16,7 +16,7 @@
 		<van-grid column-num="5" :border=false>
 				<nuxt-link exact to="/"><van-grid-item icon="wap-home" text="HOME"  dot/></nuxt-link>
 				<nuxt-link to="/all"><van-grid-item icon="hot" text="HOT" /></nuxt-link>
-				<nuxt-link to="/goods"><van-grid-item icon="new" text="NEW" /></nuxt-link>
+				<nuxt-link to="/goods/goodslist"><van-grid-item icon="new" text="NEW" /></nuxt-link>
 				<nuxt-link to="/mycart"><van-grid-item icon="shop" text="SHOP" /></nuxt-link>
 				<!--<div class="carttotal" v-if="cartCount > 0">{{ cartCount }}</div>-->
 				<nuxt-link to="/cart"><van-grid-item icon="cart" text="CART" :badge="cartCount" /></nuxt-link>
