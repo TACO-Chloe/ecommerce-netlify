@@ -93,15 +93,16 @@ exports.handler = async (event, context) => {
 			const formData = new AlipayFormData();
 			console.log("new AlipayFormData");
 			formData.setMethod('get');
+			
+			productCode = (isMobile === true) ? 'QUICK_WAP_WAY' : 'FAST_INSTANT_TRADE_PAY';
+			
 			// 通过 addField 增加参数
 			// 在用户支付完成之后，支付宝服务器会根据传入的 notify_url，以 POST 请求的形式将支付结果作为参数通知到商户系统。
 			formData.addField('notifyUrl', 'https://subangbang.netlify.app/.netlify/paycallback'); // 支付成功回调地址，必须为可以直接访问的地址，不能带参数
 			formData.addField('returnUrl', 'https://subangbang.netlify.app/.netlify/success');
 			formData.addField('bizContent', {
-				// outTradeNo: orderId, // 商户订单号,64个字符以内、可包含字母、数字、下划线,且不能重复
-				outTradeNo: new Date().valueOf().toString(),
-				// productCode: 'FAST_INSTANT_TRADE_PAY', // 销售产品码，与支付宝签约的产品码名称,仅支持FAST_INSTANT_TRADE_PAY
-				productCode: 'QUICK_WAP_WAY',
+				outTradeNo: new Date().valueOf(), // 商户订单号,64个字符以内、可包含字母、数字、下划线,且不能重复
+				productCode: productCode, // 销售产品码，与支付宝签约的产品码名称
 				totalAmount: '0.01', // 订单总金额，单位为元，精确到小数点后两位
 				subject: '商品', // 订单标题
 				body: '商品详情', // 订单描述
