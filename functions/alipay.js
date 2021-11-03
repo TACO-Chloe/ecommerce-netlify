@@ -99,7 +99,7 @@ exports.handler = async (event, context) => {
 			formData.addField('returnUrl', 'https://subangbang.netlify.app/.netlify/success');
 			formData.addField('bizContent', {
 				// outTradeNo: orderId, // 商户订单号,64个字符以内、可包含字母、数字、下划线,且不能重复
-				outTradeNo: new Date().valueOf(),
+				outTradeNo: new Date().valueOf().toString(),
 				// productCode: 'FAST_INSTANT_TRADE_PAY', // 销售产品码，与支付宝签约的产品码名称,仅支持FAST_INSTANT_TRADE_PAY
 				productCode: 'QUICK_WAP_WAY',
 				totalAmount: '0.01', // 订单总金额，单位为元，精确到小数点后两位
