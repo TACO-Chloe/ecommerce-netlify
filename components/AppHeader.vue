@@ -47,6 +47,7 @@ export default {
 	.van-search {
 		background-color: transparent; 
 		margin-right: 10px;
+		padding-top: 20px;
 	}
 }
 
